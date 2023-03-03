@@ -1,0 +1,26 @@
+{
+  "name": "p2",
+  "version": "1.0.0",
+  "description": "Yloponom",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslist src/js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lowkee1g/P2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lowkee1g/P2/issues"
+  },
+  "homepage": "https://github.com/Lowkee1g/P2#readme",
+  "devDependencies": {
+    "eslist": "^1.0.0-beta.1"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
