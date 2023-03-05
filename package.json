@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslist src/js"
+    "lint": "eslint public/src/*js",
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/Lowkee1g/P2#readme",
   "devDependencies": {
+    "eslint": "^8.35.0",
     "eslist": "^1.0.0-beta.1"
   },
   "dependencies": {
