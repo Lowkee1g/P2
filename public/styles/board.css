@@ -451,3 +451,38 @@ h1, h2, h3, h4, h5, h6 {
     right: 0;
   }
   
+
+  .player1-placejail {
+    position: absolute;
+    height: 50px;
+    width: 40px;
+    top: 50px;
+    left: -35px;
+  }
+  .player2-placejail {
+    position: absolute;
+    height: 50px;
+    width: 40px;
+    top: 90px;
+    left: 3px;
+
+  }
+  .player3-placejail {
+    position: absolute;
+    height: 50px;
+    width: 40px;
+    top: 90px;
+    left: 43px;
+  }
+  .player4-placejail {
+    position: absolute;
+    height: 50px;
+    width: 40px;
+    top: 50px;
+    left: 83px;
+  }
+  
+
+  .board img {
+    pointer-events: none;
+  }
