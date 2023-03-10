@@ -183,6 +183,9 @@ h1, h2, h3, h4, h5, h6 {
 .space .name {
     font-family: "Futura Normal";
 }
+.community-chest .name {
+    font-size: 13px;
+}
 .space .instructions {
     padding-left: 0px;
     padding-right: 0px;
