@@ -1,5 +1,26 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+// Login screen
+head
+  title Monopoly
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='Login.css')
+  script(src='Login.js')
+h1 YLOPONOM
+form(action='login.php' method='post')
+  .input
+    label(for='username') Username:
+    input#username(type='text' name='username' style='width: 210px; height:30px; padding-top: 11px; font-size:25px;')
+    button#submit(type='button' style='width: 80px; height:30px;  font-size:20px; text-align: center;' onclick='printName();') Submit
+  .players
+    p1
+      | Players:
+      a#playerCount  0/4
+  // Print current players
+  .table
+    table#playerTable
+      tr
+        th Joined Players:
+// LOGIN SCREEN END
