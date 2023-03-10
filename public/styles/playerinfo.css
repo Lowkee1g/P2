@@ -1,5 +1,5 @@
 .player-info {
-    height: 20px;
+    height: auto;
     width: 200px;
     background-color: transparent;
     position: absolute;
@@ -7,6 +7,10 @@
     top: 51px;
     border-radius: 5px;
 }
+
+.player-info:first-child{
+    margin-top: 0;
+  }
 
 .player-info .space {
     background-color: transparent;
@@ -20,6 +24,13 @@
 
 .player-info .color-bar {
     border: 1px solid black;
+    position: relative;
+}
+
+.player-info p {
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .player-info .name {
@@ -31,4 +42,20 @@
     justify-content: center;
     gap: 10px;
     margin-bottom: 10px;
+}
+
+.property-icon {
+    height: 16px;
+    width: auto;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+}
+
+.property-center-info {
+    grid-column: 5/8;
+    grid-row: 1/4;
+    
+    margin-bottom: 60px;
+    margin-right: 60px;
 }
