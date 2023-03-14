@@ -2,6 +2,9 @@
 <html>
     <head>
         <link rel="stylesheet" href="../public/styles/chat.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
 
     </head>
     <body>
@@ -12,10 +15,12 @@
             </div>
             <div class="inputbox">
                 <input type="text" id="inputtxtID" class="inputtxt" placeholder="type here">
-                <button onclick="sendMessage()" class="inputbutton" id="inputbutton">Send</button>
+                <button onclick="sendMessage()" class="inputbutton" id="inputbutton">Send msg</button>
             </div>
         </div>
-        <button onclick="receiveMessage()" class="inputbutton">fake</button>
+        <button onclick='receiveMessage("Pengu","Hello Dude")'>Pengu</button>
+        <button onclick='receiveMessage("hat","Hello Dude")'>hat</button>
+        <button onclick='receiveMessage("Trille","Hello Dude")'>Trille</button>
 
         
         

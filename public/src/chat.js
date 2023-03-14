@@ -1,16 +1,17 @@
 
 
 function sendMessage() {
+    //Get input from inputarea
     var input = document.getElementById("inputtxtID").value;
 
+    
     document.getElementById("conversation").innerHTML += "<p class='p_send'>" + input + "</p>";
     document.getElementById("inputtxtID").value = "";
 }
 
-function receiveMessage() {
-    var input = "Hello World!";
-    
-    document.getElementById("conversation").innerHTML += "<p class='p_receive'>" + input + "</p>";
+function receiveMessage(from, input) {
+     
+    document.getElementById("conversation").innerHTML += "<div class='receive_message'> <p class='p_receive'>" + input + "</p> <img class='chat_img' src='../public/images/"+ from +".png'> </div>";
 }
 
 
