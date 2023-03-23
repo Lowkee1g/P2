@@ -1,8 +1,10 @@
 //- PLAYER INFO
 block content
+  if user
   .player-info
-    p.player-name #[strong Player 1]
-    p.player-money #[strong Money]: 8000kr
+    p.player-id #[strong Player ID: ] #{user.id}
+    p.player-name #[strong Player 1] #{user.name}
+    p.player-money #[strong Money]: #{user.money}
   template
     .space.property
       .container

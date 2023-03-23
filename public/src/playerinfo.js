@@ -1,56 +1,25 @@
-let player = {
-    name: "Kappa",
-    properties: [
-        {
-            id: 0,
-            name: "Rådhuspladsen",
-            rent: 2000,
-            sellValue: 2000,
-            houseCost: 1000,
-            houses: 3,
-            owned: true,
-        }, {
-            id: 1,
-            name: "Amagerbro",
-            rent: 300,
-            SellValue: 1000,
-            houseCost: 300,
-            houses: 1,
-            owned: true,
-        }, {
-            id: 2,
-            name: "Fields",
-            rent: 100,
-            SellValue: 5000,
-            houseCost: 200,
-            houses: 5,
-            owned: true,
+function getUserInformationUponJoining(playerID) {
+    $.ajax({
+        type: 'get',
+        url: '/user/' + playerID,
+        dataType: 'text',
+        success: function (information, status) {
+            console.log(JSON.parse(information));
+            console.log(status);
+            showPlayersInformation(JSON.parse(information));
+        },
+        error: function(xhr, textStatus, error) {
+            console.log(xhr.responseText);
+            console.log(xhr.statusText);
+            console.log(textStatus);
+            console.log(error);
         }
-    ]
+    })
 }
 
-$(document).ready(function(){
-    console.log("test");
-        $.ajax({
-            type: 'get',
-            url: '/user/1',
-            dataType: 'text',
-            success: function (textStatus, status) {
-                console.log(textStatus);
-                console.log(status);
-            },
-            error: function(xhr, textStatus, error) {
-                console.log(xhr.responseText);
-                console.log(xhr.statusText);
-                console.log(textStatus);
-                console.log(error);
-            }
-        })
-    });
+getUserInformationUponJoining(1);
 
-
-
-function useIt() {
+function showPlayersInformation(player) {
     var content = document.querySelector('template').content;
 
     var targetContainer = document.querySelector('.player-info');
@@ -90,10 +59,10 @@ function showProperty(property) {
 }
 
 function sellProperty(property) {
-    let propertyID = parseInt(property.id.split("-")[2]);
-    console.log(player.properties.find(x => x.id === propertyID));
+    // let propertyID = parseInt(property.id.split("-")[2]);
+    // console.log(player.properties.find(x => x.id === propertyID));
 }
 
 function upgradeProperty(property) {
-    console.log(property);
+    // console.log(property);
 }
