@@ -1,0 +1,29 @@
+.card-container {
+    border: 1px solid black;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    width: 250px;
+}
+
+.card-container p {
+    margin: 5px 5px 5px 5px;
+    text-transform: lowercase;
+    text-align: left;
+}
+
+.card-container .card-name {
+    margin-top: 10px;
+}
+
+.card-container .card-buttons {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hide-card-container {
+    visibility: hidden;
+}
+

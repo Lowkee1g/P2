@@ -1,13 +1,7 @@
 extends layout
 
 block content
-  .player-info
-  template
-    .space.property
-      .container
-        .color-bar.light-blue
-          p.propetry-name
-          img(src='../images/new-window.png').property-icon
+  include includes/playerinfo.pug
   .table
     .board
       img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1')
@@ -18,10 +12,8 @@ block content
         h1.title(style='background-color: #f50c2b;color: #fafaf8;padding-left: 13px;padding-right: 5px;text-shadow: -7px 7px #000000;') YLOPONOM
         .chance-deck
           h2.label Chance
-          .deck
-        .property-center-info
-          h2.label Property info
             .deck
+        include includes/cardInfo.pug
       .space.corner.go
         .container
           .player1-place

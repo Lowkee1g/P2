@@ -1,0 +1,23 @@
+//- CARD INFO
+block content
+  .property-center-info
+    h2.label Property info
+    .card-container.hide-card-container
+      .container.property
+        .color-bar.light-blue
+        .card-name
+          p Name: #[span.name]
+        .card-price 
+          p Price: #[span.price]
+        .card-rent 
+          p Rent: #[span.rent]
+        .card-houses
+          p Houses: #[span.houses]
+        .card-house-cost
+          p House cost: #[span.house-cost]
+        .card-sell-price
+          p Sell price: #[span.sell-price]
+        .card-buttons
+          button(type="button").buy Buy 
+          button(type="button" onclick='sellProperty(this)').sell Sell 
+          button(type="button").upgrade Upgrade 
