@@ -14,10 +14,14 @@ model User {
   properties Property[]
 }
 
-
 model Property {
   id          Int    @id @default(autoincrement())
   name String @unique
   user      User?   @relation(fields: [userId], references: [id])
   userId    Int?
+  houses    Int @default(0)
+  price     Int @default(0)
+  rent      Int?
+  collection  Int?
+  owned     Boolean @default(false)
 }
