@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    script(src='https://cdn.socket.io/4.5.4/socket.io.min.js')
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+    link(rel='stylesheet' href='../styles/chat.css')
+    link(rel='preconnect' href='https://fonts.googleapis.com')
+    link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Dosis&display=swap' rel='stylesheet')
+
+    body 
+        h1 chat
+        .chatbox
+
+            //Not Used
+            #conversation.conversation
+
+            .inputbox
+                input#inputtxtID.inputtxt(type='text' placeholder='type here')
+                button#inputbutton.inputbutton(onclick='sendMessage()') Send msg
+        button(onclick='receiveMessage("Pengu","Hello Dude")') Pengu
+        button(onclick='receiveMessage("hat","Hello Dude")') hat
+        button(onclick='receiveMessage("Trille","Hello Dude")') Trille
+        script(src='../src/chat.js')
