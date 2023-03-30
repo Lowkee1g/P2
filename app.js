@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+var mysql = require("mysql");
 // …
 
 const createError = require("http-errors");
@@ -14,6 +15,20 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
+
+//sql connection
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "admin",
+  password: "admin"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
