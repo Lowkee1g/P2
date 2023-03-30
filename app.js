@@ -16,18 +16,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
 
-//sql connection
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "admin",
-  password: "admin"
-});
+//Socket.io
+const server = require("http").Server(app);
+const io = require("socket.io")(server , {cors: {origin: "*"}});
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+server.listen(3001, () => {
+  console.log("Server is listning on port 3001");
 });
-
 
 
 // catch 404 and forward to error handler
