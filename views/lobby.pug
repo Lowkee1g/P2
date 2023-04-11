@@ -1,0 +1,16 @@
+extends layout 
+
+block content
+    p= user
+    h1 YLOPONOM
+    form(action='login.php' method='post')
+    .input
+        label(for='username') Username:
+        input#username(type='text' name='username' style='width: 210px; height:30px; padding-top: 11px; font-size:25px;')
+        button#submit(type='button' style='width: 80px; height:30px;  font-size:20px; text-align: center;') Submit
+    .players
+        p1
+        | Players:
+        a#playerCount  0/4
+    // Print current players
+    .table
