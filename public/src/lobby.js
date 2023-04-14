@@ -6,12 +6,13 @@ socket.on("connection");
 
 // on submit run addUserToSession function
 document.querySelector('#submit').addEventListener('click', addUserToSession)
-
+document.querySelector('#start').addEventListener('click', startGame)
+let currentPlayer;
 // On submitting add user to session
 function addUserToSession() {
     // Get username from input field
     let username = document.querySelector('#username').value;
-    console.log(username);
+
     $.ajax({
         type: 'post',
         url: '/joinPlayer',
@@ -19,26 +20,26 @@ function addUserToSession() {
         processData: false,
         data: JSON.stringify({data: username}),
         dataType: 'json',
-        success: function (sessionData,textStatus, status) {
-            console.log('Sucess');
-            console.log(textStatus);
-            console.log(status);
-            // Emit data to playerJoin lobby on socket.io
+        success: function (sessionData) {
+
+            // Emit data to server via playerjoin - Send data
             socket.emit("playerJoin", sessionData)
+            currentPlayer = sessionData;
+            // Call function to change submit button to a start button 
+            changeSubmitButtonToStart();
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
-            console.log(xhr.responseText);
-            console.log(xhr.statusText);
-            console.log(textStatus);
-            console.log(error);
         }
     })
 }
 
-// If something is emitted to playerJoin on socket.io call function writeAddedUserToPlayerList with player data
-socket.on("playerJoin", (player) => {
-    writeAddedUserToPlayerList(player)
+// If something is emitted to playerJoin on socket.io call this function - Recieve data
+socket.on("playerJoin", (player, numberOfPlayers) => {
+    // Call function to add the new user to the player list
+    writeAddedUserToPlayerList(player);
+    // Call enableStartButton function with numberOfPlayers to enable button - numberOfPlayers viable coming from app.js
+    enableStartButton(numberOfPlayers);
 });
 
 // create a p element and set textcontent to player
@@ -46,5 +47,41 @@ function writeAddedUserToPlayerList(player) {
     let p = document.createElement('p');
     p.textContent = player;
     // Append the p element to player list
-    document.querySelector('.table').appendChild(p);
+    document.querySelector('.playerList').appendChild(p);
 }
+
+// Function that hide submit button and show start button
+function changeSubmitButtonToStart() {
+    document.querySelector('#submit').style.display = "none";
+    document.querySelector('#start').style.display = "block";
+}
+
+// If number of players are greater than 2 enable start button
+function enableStartButton(numberOfPlayers) {
+    if(numberOfPlayers >= 2) {
+        document.querySelector('#start').disabled = false;
+    }
+}
+
+// Function startGame - On start game button click call ajax route that gives a success respond
+function startGame() {
+    console.log("CurrentPLayer is : " + currentPlayer)
+    $.ajax({
+        type: 'get',
+        url: '/startGame',
+        success: function () {
+            console.log('startGame');
+
+            // Emit data to server via startGame - Send data
+            socket.emit("startGame")
+        },
+        error: function(xhr, textStatus, error) {
+            console.log('Error');
+        }
+    })
+}
+
+// If stratGame recieve click redirect all users to board
+socket.on("startGame", () => {
+    window.location = "http://localhost:3000/";
+});

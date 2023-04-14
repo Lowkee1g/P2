@@ -13,15 +13,25 @@ const indexRouter = require("./routes/index");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 
+// Count number of players - Used in lobby.js to enable start button
+let numberOfPlayers = 0;
 
 io.on("connection", (socket) => {
   console.log('a user connected: ' + socket.id);
 
   // On player join send data to other users and the broadcaster
   socket.on("playerJoin", (player) => {
-    socket.broadcast.emit("playerJoin", player);
-    socket.emit("playerJoin", player);
-});
+
+    numberOfPlayers+=1;
+    socket.broadcast.emit("playerJoin", player, numberOfPlayers);
+    socket.emit("playerJoin", player, numberOfPlayers);
+
+  });
+
+  socket.on("startGame", () => {
+    socket.broadcast.emit("startGame");
+    socket.emit("startGame");
+  })
 });
 
 server.listen(8080, () => {
