@@ -5,11 +5,11 @@ async function main() {
 
     const alice = await prisma.property.createMany({
         data: [
-            {name: "Frederiksberg", houses: 0, price: 3000, rent: 900, collection: "København"},
-            {name: "Østrebro", houses: 0, price: 2500, rent: 750, collection: "København"},
-            {name: "Hellerup", houses: 0, price: 1500, rent: 450, collection: "Wiskeybæltet"},
-            {name: "Chalottenlund", houses: 0, price: 1500, rent: 450, collection: "Wiskeybæltet"},
-            {name: "Gentofte", houses: 0, price: 1500, rent: 450, collection: "Wikseybæltet"},
+            {name: "Frederiksberg", houses: 0, price: 3000, rent: 900, collection: "København K"},
+            {name: "Østrebro", houses: 0, price: 2500, rent: 750, collection: "København K"},
+            {name: "Hellerup", houses: 0, price: 1500, rent: 450, collection: "Whiskeybæltet"},
+            {name: "Chalottenlund", houses: 0, price: 1500, rent: 450, collection: "Whiskeybæltet"},
+            {name: "Gentofte", houses: 0, price: 1500, rent: 450, collection: "Whiskeybæltet"},
             {name: "Strandvejen", houses: 0, price: 5500, rent: 1400, collection: "Expensive"},
             {name: "Amalienborg", houses: 0, price: 5000, rent: 1350, collection: "Expensive"},
             {name: "5C", houses: 0, price: 2500, rent: 750, collection: "Transport"},
@@ -27,6 +27,9 @@ async function main() {
             {name: "Herlev", houses: 0, price: 500, rent: 150, collection: "Sjælland"},
             {name: "Hvidovre", houses: 0, price: 500, rent: 150, collection: "Sjælland"},
             {name: "Ørslev", houses: 0, price: 500, rent: 150, collection: "Sjælland"},
+            {name: "Valby", houses: 0, price: 600, rent: 200, collection: "København S"},
+            {name: "Sydhavn", houses: 0, price: 650, rent: 250, collection: "København S"},
+            {name: "Nørrebro", houses: 0, price: 600, rent: 200, collection: "København S"},
         ]
       });
 }
