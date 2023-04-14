@@ -1,5 +1,555 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  if user
+    p
+  .table
+    .board
+      img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1')
+      .center
+        .community-chest-deck
+          h2.label Community Chest
+          .deck
+        h1.title(style='background-color: #f50c2b;color: #fafaf8;padding-left: 13px;padding-right: 5px;text-shadow: -7px 7px #000000;') YLOPONOM
+        .chance-deck
+          h2.label Chance
+            .deck
+        include includes/cardInfo.pug
+      .space.corner.go
+        .container
+          .player1-place
+            p 1
+          .player2-place
+            p 2
+          .player3-place
+            p 3
+          .player4-place
+            p 4
+          .instructions Collect $200.00 salary as you pass
+          .go-word go
+        .arrow.fa.fa-long-arrow-left
+      .row.horizontal-row.bottom-row
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.light-blue
+            .name Connecticut Avenue
+            .price Kroner 120
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.light-blue
+            .name Vermont Avenue
+            .price Kroner 100
+        .space.chance
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Chance
+            i.drawing.fa.fa-question
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.light-blue
+            .name Oriental Avenue
+            .price Kroner 100
+        .space.railroad
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Reading Railroad
+            i.drawing.fa.fa-subway
+            .price Kroner 200
+        .space.fee.income-tax
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Income Tax
+            .diamond
+            .instructions
+              | Pay 10%
+              br
+              | or
+              br
+              | $200
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.dark-purple
+            .name Baltic Avenue
+            .price Kroner 50
+        .space.community-chest
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Community Chest
+            i.drawing.fa.fa-cube
+            .instructions Follow instructions on top card
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.dark-purple
+            .name.three-line-name
+              | Mediter-
+              br
+              | ranean
+              br
+              | Avenue
+            .price Kroner 50
+      .space.corner.jail
+        .just Just
+        .drawing
+          .container
+            .player1-placejail
+              p 1
+            .player2-placejail
+              p 2
+            .player3-placejail
+              p 3
+            .player4-placejail
+              p 4
+            .name In
+            .window
+              .bar
+              .bar
+              .bar
+              i.person.fa.fa-frown-o
+            .name Jail
+        .visiting Visiting
+      .row.vertical-row.left-row
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.orange
+            .name New York Avenue
+            .price Kroner 200
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.orange
+            .name Tennessee Avenue
+            .price Kroner 180
+        .space.community-chest
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Community Chest
+            i.drawing.fa.fa-cube
+            .instructions Follow instructions on top card
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.orange
+            .name St. James Avenue
+            .price Kroner 180
+        .space.railroad
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name.long-name Pennsylvania Railroad
+            i.drawing.fa.fa-subway
+            .price Kroner 200
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.purple
+            .name Virginia Avenue
+            .price Kroner 160
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.purple
+            .name States Avenue
+            .price Kroner 140
+        .space.utility.electric-company
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Electric Company
+            i.drawing.fa.fa-lightbulb-o
+            .price Kroner 150
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.purple
+            .name St. Charles Place
+            .price Kroner 140
+      .space.corner.free-parking
+        .container
+          .player1-place
+            p 1
+          .player2-place
+            p 2
+          .player3-place
+            p 3
+          .player4-place
+            p 4
+          .name Free
+          i.drawing.fa.fa-car
+          .name Parking
+      .row.horizontal-row.top-row
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.red
+            .name Kentucky Avenue
+            .price Kroner 220
+        .space.chance
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Chance
+            i.drawing.fa.fa-question.blue
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.red
+            .name Indiana Avenue
+            .price Kroner 220
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.red
+            .name Illinois Avenue
+            .price Kroner 200
+        .space.railroad
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name B &amp; O Railroad
+            i.drawing.fa.fa-subway
+            .price Kroner 200
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.yellow
+            .name Atlantic Avenue
+            .price Kroner 260
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.yellow
+            .name Ventnor Avenue
+            .price Kroner 260
+        .space.utility.waterworks
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Waterworks
+            i.drawing.fa.fa-tint
+            .price Kroner 120
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.yellow
+            .name Marvin Gardens
+            .price Kroner 280
+      .space.corner.go-to-jail
+        .container
+          .player1-place
+            p 1
+          .player2-place
+            p 2
+          .player3-place
+            p 3
+          .player4-place
+            p 4
+          .name Go To
+          i.drawing.fa.fa-gavel
+          .name Jail
+      .row.vertical-row.right-row
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.green
+            .name Pacific Avenue
+            .price Kroner 300
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.green
+            .name.three-line-name North Carolina Avenue
+            .price Kroner 300
+        .space.community-chest
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Community Chest
+            i.drawing.fa.fa-cube
+            .instructions Follow instructions on top card
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.green
+            .name.long-name Pennsylvania Avenue
+            .price Kroner 320
+        .space.railroad
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Short Line
+            i.drawing.fa.fa-subway
+            .price Kroner 200
+        .space.chance
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Chance
+            i.drawing.fa.fa-question
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.dark-blue
+            .name Park Place
+            .price Kroner 350
+        .space.fee.luxury-tax
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .name Luxury Tax
+            .drawing.fa.fa-diamond
+            .instructions Pay $75.00
+        .space.property
+          .container
+            .player1-place
+              p 1
+            .player2-place
+              p 2
+            .player3-place
+              p 3
+            .player4-place
+              p 4
+            .color-bar.dark-blue
+            .name Boardwalk
+            .price Kroner 400
