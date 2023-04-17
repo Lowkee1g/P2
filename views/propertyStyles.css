@@ -1,0 +1,46 @@
+.property-card {
+    border: 1px solid black;
+    padding: 10px;
+    width: calc(25% - 20px);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    float: left;
+}
+
+.title {
+    background-color: LightGray;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.title h2 {
+    margin: 0;
+}
+
+.icon img {
+    max-width: calc(100% - 2px);
+    border: 1px solid black;
+}
+
+.rent, .extra-prices, .mortgage {
+    margin-bottom: 10px;
+}
+
+.rent h3, .extra-prices h3, .mortgage h3 {
+    margin-top: 0;
+}
+
+.extra-prices ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.extra-prices li {
+    margin-bottom: 5px;
+}
+
+.mortgage p {
+    color: red;
+}
