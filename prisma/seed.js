@@ -30,6 +30,9 @@ async function main() {
             {name: "Valby", houses: 0, price: 600, rent: 200, collection: "København S"},
             {name: "Sydhavn", houses: 0, price: 650, rent: 250, collection: "København S"},
             {name: "Nørrebro", houses: 0, price: 600, rent: 200, collection: "København S"},
+            {name: "Amager Strandpark", houses: 0, price: 600, rent: 200, collection: "Amager"},
+            {name: "Flyvergrillen", houses: 0, price: 600, rent: 200, collection: "Amager"},
+            {name: "Islands Brygge", houses: 0, price: 600, rent: 200, collection: "Amager"},
         ]
       });
 }
