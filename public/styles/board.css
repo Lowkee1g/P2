@@ -82,9 +82,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .title {
     grid-column: 1/9;
-    grid-row: 4;
-    font-size: 90px;
+    grid-row: 2;
+    font-size: 60px;
     font-family: "Kabel Heavy";
+    cursor: default;
     letter-spacing: 12px;
     z-index: 2;
 }
