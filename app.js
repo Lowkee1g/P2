@@ -41,18 +41,12 @@ server.listen(8080, () => {
 // socket.io END
 
 // Session START
-
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'secret-key',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true },
-  genid: function(req) {
-    return uuidv4();
-  }, 
+  saveUninitialized: false,
 }))
-
 // Session END
 
 // view engine setup
