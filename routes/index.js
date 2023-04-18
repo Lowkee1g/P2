@@ -5,4 +5,8 @@ var router = express.Router();
 router.get("/", (req, res, next) => {
     res.render("index", { title: "Express" });
   });
+router.get("/Property_card", (req, res, next) => {
+    res.render("Property_cards", { title: "Express" });
+});
+
 module.exports = router;
