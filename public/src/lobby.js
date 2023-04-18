@@ -4,12 +4,12 @@ const socket = io("http://localhost:8080");
 // Connect user socket server called "connection" - CUSTOM NAME
 socket.on("connection");
 
-// on submit run addUserToSession function
-document.querySelector('#submit').addEventListener('click', addUserToSession)
+// on submit run addPlayerToGame function
+document.querySelector('#submit').addEventListener('click', addPlayerToGame)
 document.querySelector('#start').addEventListener('click', startGame)
 let currentPlayer;
 // On submitting add user to session
-function addUserToSession() {
+function addPlayerToGame() {
     // Get username from input field
     let username = document.querySelector('#username').value;
 
@@ -20,11 +20,11 @@ function addUserToSession() {
         processData: false,
         data: JSON.stringify({data: username}),
         dataType: 'json',
-        success: function (sessionData) {
-
+        success: function (playerData) {
+            console.log(playerData)
             // Emit data to server via playerjoin - Send data
-            socket.emit("playerJoin", sessionData)
-            currentPlayer = sessionData;
+            socket.emit("playerJoin", playerData.name)
+            currentPlayer = playerData;
             // Call function to change submit button to a start button 
             changeSubmitButtonToStart();
         },
@@ -65,12 +65,12 @@ function enableStartButton(numberOfPlayers) {
 
 // Function startGame - On start game button click call ajax route that gives a success respond
 function startGame() {
-    console.log("CurrentPLayer is : " + currentPlayer)
+    console.log("CurrentPLayer is : " + currentPlayer['id'])
     $.ajax({
         type: 'get',
         url: '/startGame',
-        success: function () {
-            console.log('startGame');
+        data: JSON.stringify({data: currentPlayer }),
+        success: function (data) {
 
             // Emit data to server via startGame - Send data
             socket.emit("startGame")
