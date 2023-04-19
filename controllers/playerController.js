@@ -22,4 +22,20 @@ module.exports = class player {
             res.status(500).json({error: error.message})
          }
      }
+     static async buyProperty(req, res, next){
+         try {
+            const user = await Player.buyProperty();
+            res.json(user);
+         } catch (error) {
+            res.status(500).json({error: error.message})
+         }
+      }
+      static async sellProperty(req, res, next){
+         try {
+            const user = await Player.sellProperty();
+            res.json(user);
+         } catch (error) {
+            res.status(500).json({error: error.message})
+         }
+      }
 }

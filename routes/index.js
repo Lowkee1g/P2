@@ -34,5 +34,7 @@ router.post("/joinPlayer", async (req, res, next) => {
 
 router.get("/user/:id", player_controller.getUserInformation)
 
+router.get("/userBuyProperty/:id", player_controller.buyProperty)
+router.get("/userSellProperty/:id", player_controller.sellProperty)
 
 module.exports = router;

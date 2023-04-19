@@ -23,12 +23,38 @@ class Player {
 
     }
 
-    buyProperty(){
+    buyProperty = async (propertyId) => {
+        const prop = await prisma.property.findUnique({
+            where: {id: propertyId},
+            data: {
+                userID: this.id,
+                owned: true, 
+            },
+        });
 
+        this.properties.push(prop)
+
+        const thisPlayer = await prisma.user.findUnique({
+            where: {id: this.id},
+            data: {properties: this.properties}
+        });
     }
 
-    sellProperty(){
+    sellProperty = async (propertyId) => {
+        const prop = await prisma.property.findUnique({
+            where: {id: propertyId},
+            data: {
+                userID: this.id,
+                owned: true, 
+            },
+        });
 
+        this.properties.pop(prop)
+
+        const thisPlayer = await prisma.user.findUnique({
+            where: {id: this.id},
+            data: {properties: this.properties}
+        });
     }
 }
 
