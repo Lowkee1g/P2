@@ -34,8 +34,8 @@ io.on("connection", (socket) => {
   })
 });
 
-server.listen(8080, () => {
-    console.log("Server is listning on port: 8080");
+server.listen(8480, () => {
+    console.log("Server is listning on port: 8480");
 });
 
 // socket.io END
