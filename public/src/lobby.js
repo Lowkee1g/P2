@@ -1,3 +1,8 @@
+//Functions
+let currentPlayer;
+
+
+
 // Open socket connection
 const socket = io("http://localhost:8080");
 
@@ -7,7 +12,9 @@ socket.on("connection");
 // on submit run addUserToSession function
 document.querySelector('#submit').addEventListener('click', addUserToSession)
 document.querySelector('#start').addEventListener('click', startGame)
-let currentPlayer;
+
+
+
 // On submitting add user to session
 function addUserToSession() {
     // Get username from input field
@@ -40,7 +47,23 @@ socket.on("playerJoin", (player, numberOfPlayers) => {
     writeAddedUserToPlayerList(player);
     // Call enableStartButton function with numberOfPlayers to enable button - numberOfPlayers viable coming from app.js
     enableStartButton(numberOfPlayers);
+
+
+    // Call function to update number of players in lobby
+    updateNumberOfPlayers(numberOfPlayers);
 });
+
+socket.on('disconnect', function() {
+    numberOfPlayers--;
+    console.log('Disconnected from server');
+});
+
+// Function that updates the number of players in the lobby
+function updateNumberOfPlayers(numberOfPlayers) {
+    // get <a> element and set textcontent to number of players
+    document.querySelector('.playerCount').textContent = numberOfPlayers + " / 4";
+
+}
 
 // create a p element and set textcontent to player
 function writeAddedUserToPlayerList(player) {
@@ -81,7 +104,7 @@ function startGame() {
     })
 }
 
-// If stratGame recieve click redirect all users to board
+// If startGame recieve click redirect all users to board
 socket.on("startGame", () => {
     window.location = "http://localhost:3000/";
 });
