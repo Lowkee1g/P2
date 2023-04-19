@@ -30,7 +30,7 @@ function addPlayerToGame() {
         success: function (playerData) {
             console.log(playerData)
             // Emit data to server via playerjoin - Send data
-            socket.emit("playerJoin", playerData.name)
+            socket.emit("playerJoin", playerData)
             currentPlayer = playerData;
             // Call function to change submit button to a start button 
             changeSubmitButtonToStart();
