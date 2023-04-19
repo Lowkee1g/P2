@@ -23,11 +23,12 @@ class Player {
 
     }
 
-    buyProperty = async (propertyId) => {
+    static buyProperty = async (propertyId) => {
         const prop = await prisma.property.findUnique({
             where: {id: propertyId},
             data: {
-                userID: this.id,
+                userID: 1,
+                // userID: this.id,
                 owned: true, 
             },
         });
@@ -40,7 +41,7 @@ class Player {
         });
     }
 
-    sellProperty = async (propertyId) => {
+    static sellProperty = async (propertyId) => {
         const prop = await prisma.property.findUnique({
             where: {id: propertyId},
             data: {
