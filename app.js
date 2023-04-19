@@ -9,7 +9,7 @@ const path = require("path");
 
 const indexRouter = require("./routes/index");
 
-// Socket.io START - connect on port 8080
+// Socket.io START - connect on port 8480
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 
