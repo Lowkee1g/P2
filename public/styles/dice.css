@@ -1,0 +1,44 @@
+/* Center the dice and the button */
+img {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+  }
+  /* button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 1.5em;
+  } */
+
+  .dice-container {
+    display: flex;
+    cursor: pointer;
+    grid-column: 1/9;
+    grid-row: 5;
+    gap: 5px;
+  }
+  
+  /* Style the page title */
+  h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 40px;
+  }
+  
+  /* Style the roll button */
+  #roll-button {
+    display: flex;
+    gap: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+ 
+  /* Style the dice images */
+  #dice1, #dice2 {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+  }
+  

@@ -2,19 +2,13 @@ extends layout
 
 block content
   if user
-    p
+    p= user
   .table
     .board
       img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1')
       .center
-        .community-chest-deck
-          h2.label Community Chest
-          .deck
         h1.title(style='background-color: #f50c2b;color: #fafaf8;padding-left: 13px;padding-right: 5px;text-shadow: -7px 7px #000000;') YLOPONOM
-        .chance-deck
-          h2.label Chance
-            .deck
-        include includes/cardInfo.pug
+        include includes/dice.pug
       .space.corner.go
         .container
           .player1-place
@@ -553,3 +547,4 @@ block content
             .color-bar.dark-blue
             .name Boardwalk
             .price Kroner 400
+  script(src="/../src/board.js")
