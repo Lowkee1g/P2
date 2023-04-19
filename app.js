@@ -32,6 +32,11 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("startGame");
     socket.emit("startGame");
   })
+
+  socket.on("message", (data) => {
+    socket.broadcast.emit("message_recieve", data);
+    socket.emit("message_send", data);
+  });
 });
 
 server.listen(8080, () => {
