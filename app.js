@@ -9,7 +9,7 @@ const path = require("path");
 
 const indexRouter = require("./routes/index");
 
-// Socket.io START - connect on port 8480
+// Socket.io START - connect on port 8080
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 
@@ -34,8 +34,8 @@ io.on("connection", (socket) => {
   })
 });
 
-server.listen(8480, () => {
-    console.log("Server is listning on port: 8480");
+server.listen(8080, () => {
+    console.log("Server is listning on port: 8080");
 });
 
 // socket.io END

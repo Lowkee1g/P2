@@ -1,11 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 class Player {
-    constructor(name, id, money, properties, hasTurn){
+    constructor(name, id, money, hasTurn){
         this.name = name;
         this.id = id;
         this.money = money;
-        this.properties = properties;
+        this.properties = [0,1,2,3,4];
+        this.numOfProperties = 0;
         this.hasTurn = hasTurn;
     }
 
@@ -28,14 +29,14 @@ class Player {
             where: {id: 1}, //Den skal tage propertyId her men det virker ikke helt
             data: {
                 userId: 1,
-                // userID: this.id,
+                // userId: this.id,
                 owned: true, 
             },
         });
 
-        console.log(this.properties)
-        this.properties.append(prop)
-        console.log(this.properties)
+        console.log(prop, propertyId)
+        this.properties[this.numOfProperties] = propertyId;
+        this.numOfProperties++;
 
         const thisPlayer = await prisma.property.update({
             where: {id: this.id},
