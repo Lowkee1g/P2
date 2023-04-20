@@ -33,9 +33,9 @@ class Player {
             },
         });
 
-        console.log(properties)
-        this.properties.push(prop)
-        console.log(properties)
+        console.log(this.properties)
+        this.properties.append(prop)
+        console.log(this.properties)
 
         const thisPlayer = await prisma.property.update({
             where: {id: this.id},
