@@ -32,7 +32,9 @@ router.post("/joinPlayer", async (req, res, next) => {
   player_controller.createPlayer(req, res);
 });
 
-router.get("/user/:id", player_controller.getUserInformation)
+router.get("/user/:id",  (req, res) => {
+  player_controller.buyProperty(req.params.id)
+})
 
 router.get("/userBuyProperty/:id", player_controller.buyProperty)
 router.get("/userSellProperty/:id", player_controller.sellProperty)

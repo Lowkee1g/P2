@@ -24,7 +24,7 @@ module.exports = class player {
      }
      static async buyProperty(req, res, next){
          try {
-            const user = await Player.buyProperty();
+            const user = await Player.buyProperty( );
             res.json(user);
          } catch (error) {
             res.status(500).json({error: error.message})

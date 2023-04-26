@@ -31,6 +31,9 @@ io.on("connection", (socket) => {
   socket.on("startGame", () => {
     socket.broadcast.emit("startGame");
     socket.emit("startGame");
+  })
+});
+
 server.listen(7070, () => {
     console.log("Server is listning on port: 7070");
 });
