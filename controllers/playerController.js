@@ -12,24 +12,28 @@ module.exports = class player {
            res.status(500).json({error: error.message})
         }
      }
+
      static async createPlayer(req,res,next) {
          try {
             const user = await prisma.user.create({
                data: {name: req.body.data, money: 16000}
             });
+            activePlayers[user.id] = new Player(user.name, user.id, user.money);
             res.json(user);
          } catch (error) {
             res.status(500).json({error: error.message})
          }
      }
-     static async buyProperty(req, res, next){
+
+     static async buyProperty(req, res, propertyId, playerId){
          try {
-            const user = await Player.buyProperty( );
+            const user = await activePlayers[playerId].buyProperty(propertyId, playerId);
             res.json(user);
          } catch (error) {
             res.status(500).json({error: error.message})
          }
       }
+
       static async sellProperty(req, res, next){
          try {
             const user = await Player.sellProperty();

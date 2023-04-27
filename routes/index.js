@@ -33,10 +33,13 @@ router.post("/joinPlayer", async (req, res, next) => {
 });
 
 router.get("/user/:id",  (req, res) => {
-  player_controller.buyProperty(req.params.id)
+  player_controller.find(req, res)
 })
 
-router.get("/userBuyProperty/:id", player_controller.buyProperty)
+router.get("/userBuyProperty/:propertyId/:playerId",  (req, res) => {
+  player_controller.buyProperty(req, res, req.params.propertyId, req.params.playerId)
+})
+
 router.get("/userSellProperty/:id", player_controller.sellProperty)
 
 module.exports = router;

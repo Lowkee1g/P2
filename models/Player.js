@@ -1,16 +1,23 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 class Player {
-    constructor(name, id, money, hasTurn){
+    constructor(name, id, money, hasTurn, properties){
         this.name = name;
         this.id = id;
         this.money = money;
-        this.properties = [0,1,2,3,4];
-        this.numOfProperties = 0;
+        this.properties = properties;
         this.hasTurn = hasTurn;
     }
 
+    getProperties(){
+        return this.properties
+    }
+    getId(){
+        return this.id
+    }
+
     static find = async () => {
+        console.log(this.id);
         const user = await prisma.user.findUnique({
             where: {id: 1},
             include: {
@@ -24,24 +31,20 @@ class Player {
 
     }
 
-    static buyProperty = async (propertyId) => {
+    
+
+    static buyProperty = async (propertyId, playerId) => {
+        console.log(getId());
         const prop = await prisma.property.update({
-            where: {id: 1}, //Den skal tage propertyId her men det virker ikke helt
+            where: {id: parseInt(propertyId)}, 
             data: {
-                userId: 1,
-                // userId: this.id,
+                // userId: playerId,
+                userId: this.id,
                 owned: true, 
             },
         });
 
-        console.log(prop, propertyId)
-        this.properties[this.numOfProperties] = propertyId;
-        this.numOfProperties++;
-
-        const thisPlayer = await prisma.property.update({
-            where: {id: this.id},
-            data: {properties: this.properties}
-        });
+        console.log('in player class', prop, propertyId);
     }
 
     static sellProperty = async (propertyId) => {

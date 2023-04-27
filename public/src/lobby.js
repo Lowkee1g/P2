@@ -1,6 +1,6 @@
 //Functions
 let currentPlayer;
-
+let activePlayers = [0, 1, 2, 3];
 
 
 // Open socket connection
