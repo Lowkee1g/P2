@@ -102,5 +102,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-
-//Write the pseudo code for a function that reverses a double linked listen
