@@ -33,12 +33,11 @@ class Player {
 
     
 
-    static buyProperty = async (propertyId, playerId) => {
+    static buyProperty = async (propertyId) => {
         console.log(getId());
         const prop = await prisma.property.update({
             where: {id: parseInt(propertyId)}, 
             data: {
-                // userId: playerId,
                 userId: this.id,
                 owned: true, 
             },

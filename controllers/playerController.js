@@ -18,7 +18,7 @@ module.exports = class player {
             const user = await prisma.user.create({
                data: {name: req.body.data, money: 16000}
             });
-            activePlayers[user.id] = new Player(user.name, user.id, user.money);
+            let playerUser = new Player(user.name, user.id, user.money);
             res.json(user);
          } catch (error) {
             res.status(500).json({error: error.message})
@@ -27,7 +27,7 @@ module.exports = class player {
 
      static async buyProperty(req, res, propertyId, playerId){
          try {
-            const user = await activePlayers[playerId].buyProperty(propertyId, playerId);
+            const user = await playerUser.buyProperty(propertyId);
             res.json(user);
          } catch (error) {
             res.status(500).json({error: error.message})
@@ -36,7 +36,7 @@ module.exports = class player {
 
       static async sellProperty(req, res, next){
          try {
-            const user = await Player.sellProperty();
+            const user = await playerUser.sellProperty();
             res.json(user);
          } catch (error) {
             res.status(500).json({error: error.message})

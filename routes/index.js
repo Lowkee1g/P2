@@ -36,8 +36,8 @@ router.get("/user/:id",  (req, res) => {
   player_controller.find(req, res)
 })
 
-router.get("/userBuyProperty/:propertyId/:playerId",  (req, res) => {
-  player_controller.buyProperty(req, res, req.params.propertyId, req.params.playerId)
+router.get("/userBuyProperty/:propertyId",  (req, res) => {
+  player_controller.buyProperty(req, res, req.params.propertyId)
 })
 
 router.get("/userSellProperty/:id", player_controller.sellProperty)
