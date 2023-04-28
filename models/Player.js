@@ -1,17 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 class Player {
-    constructor(name, id, money, hasTurn, properties){
+    constructor(name, id, money){
         this.name = name;
         this.id = id;
         this.money = money;
-        this.properties = properties;
-        this.hasTurn = hasTurn;
     }
 
-    getProperties(){
-        return this.properties
-    }
     getId(){
         return this.id
     }
@@ -30,10 +25,8 @@ class Player {
     throwDice(){
 
     }
-
     
-
-    static buyProperty = async (propertyId) => {
+    static async buyProperty(propertyId){
         console.log(getId());
         const prop = await prisma.property.update({
             where: {id: parseInt(propertyId)}, 
