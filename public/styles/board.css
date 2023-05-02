@@ -148,8 +148,10 @@ h1, h2, h3, h4, h5, h6 {
 .vertical-row .container {
     top: 50%;
     left: 50%;
-    height: 11.5vh !important;
-    width: 4.4vw !important;
+    height: 148% !important;
+    width: 68% !important;
+    /* height: 7.8vh !important;
+    width: 6.5vw !important; */
 }
 
 .bottom-row {
@@ -163,7 +165,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 1px;
 }
 .left-row .container {
-    transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg) ;
 }
 
 .top-row {
