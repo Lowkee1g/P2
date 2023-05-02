@@ -6,20 +6,19 @@ let jailp1 = 0;
 let playerId = 1; //skal ændres til player id fra databasen
 
 //mangler at få lavet end turn funktionen
-//skal evt give spilleren muligheden for at have 3 forsøg for at komme ud af fængsel
 
 
 const startGameBtn = document.getElementById('startGame');
 const player1Place = document.getElementsByClassName('player1-place');
+//skal udskiftest med tryk på terninger i stedet for knap 
 
 function prisonEscape() {
 
     for (let i = 0; i < 3; i++) {
-        random1 = random(6);
-        random2 = random(6);
-        console.log(playerId + "  " + random1 + " " + random2);
+        rollDice();
+        console.log(playerId + "  " + roll1 + " " + roll2);
 
-        if (random1 === random2) {
+        if (roll1 === roll2) {
             jailp1 = 0;
             a = 10;
             return;
@@ -31,26 +30,26 @@ function prisonEscape() {
 
 
 function throwDice() {
-    random1 = random(6);
-    random2 = random(6);
-    a += random1 + random2;
-    console.log(playerId + " slog " + random1 + " " + random2);
-    if (random1 === random2 && p1check < 3) {
+    rollDice();
+    a += roll1 + roll2;
+    console.log(playerId + " slog " + roll1 + " " + roll2);
+    if (roll1 === roll2 && p1check < 3) {
         p1check += 1;
         return;
-    } else if (random1 === random2 && p1check === 2) {
+    } else if (roll1 === roll2 && p1check === 2) {
         moveToJail();
         a = 10;
         jailp1 = 1;
         p1check = 0;
         return;
-    } else if (random1 != random2) {
+    } else if (roll1 != roll2) {
         p1check = 0;
         return;
     }
 }
 
-startGameBtn.addEventListener('click', () => {
+//startGameBtn skal ændres til når der trykkes på terningerne
+rollButton.addEventListener('click', () => {
     console.log(jailp1);
     if (jailp1 === 1) {
         prisonEscape();
@@ -64,6 +63,10 @@ startGameBtn.addEventListener('click', () => {
             return;
         } else {
             movePlayer(a);
+            if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
+                document.querySelector('.chance-card').style.display = 'block';
+                getQuote();
+            }
             return;
         }
     }
@@ -91,3 +94,7 @@ function movePlayer(playerdicesum) {
         field.appendChild(player);
     }
 }
+
+script(src="/../src/dice.js")
+script(src="/../src/chancecard.js")
+
