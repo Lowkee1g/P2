@@ -148,8 +148,8 @@ h1, h2, h3, h4, h5, h6 {
 .vertical-row .container {
     top: 50%;
     left: 50%;
-    height: 150% !important;
-    width: 67% !important;
+    height: 11.5vh !important;
+    width: 4.4vw !important;
 }
 
 .bottom-row {
