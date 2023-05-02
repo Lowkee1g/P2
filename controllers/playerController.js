@@ -13,6 +13,8 @@ module.exports = class player {
             res.status(500).json({ error: error.message });
         }
     }
+
+	
     static async createPlayer(req, res, next) {
         try {
             const user = await prisma.user.create({
@@ -23,6 +25,8 @@ module.exports = class player {
             res.status(500).json({ error: error.message });
         }
     }
+
+
     static async chargeRent(req, res, next) {
         try {
 			console.log("Charging rent from player: " + req.body.player);
