@@ -90,6 +90,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
 
+//Socket.io
+const server = require("http").Server(app);
+const io = require("socket.io")(server , {cors: {origin: "*"}});
+
+server.listen(3001, () => {
+  console.log("Server is listning on port 3001");
+});
+
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
