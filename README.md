@@ -25,3 +25,10 @@ To run eslint write
 npm run lint
 ```
 
+## Database
+
+To reset and seed database write
+
+```bash
+npx prisma db push --force-reset && npx prisma db seed
+```
