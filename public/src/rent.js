@@ -1,9 +1,5 @@
 // Function for charging rent
 async function chargeRent(player, tile) {
-    //importing prisma
-    const { PrismaClient } = require('@prisma/client');
-    const prisma = new PrismaClient();
-
 
     // Get the property
     const propertyToCharge = await prisma.property.findUnique({

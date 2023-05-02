@@ -3,8 +3,6 @@ const app = express();
 var session = require('express-session')
 const { v4: uuidv4 } = require('uuid')
 // …
-const chargeRent = require("./public/src/rent.js");
-
 
 
 const createError = require("http-errors");
