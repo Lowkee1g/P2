@@ -126,6 +126,21 @@ function startGame() {
     })
 }
 
+//import rent.js
+document.querySelector('#Test').addEventListener('click', async () => {
+    const player = 'player1';
+    const tile = 'Frederiksberg';
+    console.log('test');
+    await fetch('/api/charge-rent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ player, tile })
+    });
+});
+
+
 // If startGame recieve click redirect all users to board
 socket.on("startGame", () => {
     window.location = "http://localhost:3000/";

@@ -3,6 +3,7 @@ extends layout
 block content
     h1 YLOPONOM
     form(action='login.php' method='post')
+    button#Test(type='button') Test
     .lobby_input
         .lobby_username
             label(for='lobby_username') Username:
@@ -15,4 +16,4 @@ block content
         a.playerCount  0/4
     .playerList
     
-    script(src="/../src/lobby.js")
+    script(src="/../src/lobby.js", type="module")

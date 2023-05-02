@@ -3,6 +3,9 @@ const app = express();
 var session = require('express-session')
 const { v4: uuidv4 } = require('uuid')
 // …
+const chargeRent = require("./public/src/rent.js");
+
+
 
 const createError = require("http-errors");
 const path = require("path");
@@ -99,6 +102,16 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
+});
+
+app.post('/api/charge-rent', (req, res) => {
+  const player = req.body.player;
+  const tile = req.body.tile;
+  console.log("Charge rent Resived");
+
+  chargeRent(player, tile);
+
+  res.sendStatus(200);
 });
 
 module.exports = app;
