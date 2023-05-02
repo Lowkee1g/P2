@@ -9,23 +9,50 @@ const path = require("path");
 
 const indexRouter = require("./routes/index");
 
-// Socket.io START - connect on port 8080
+// Socket.io START - connect on port 7070
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
+
+// array to store players and socket id
+let players = [];
+
+
 
 // Count number of players - Used in lobby.js to enable start button
 let numberOfPlayers = 0;
 
 io.on("connection", (socket) => {
   console.log('a user connected: ' + socket.id);
-
   // On player join send data to other users and the broadcaster
   socket.on("playerJoin", (player) => {
-
+    // Add player to array with socket id
+    players.push({player: player, socketId: socket.id});
     numberOfPlayers+=1;
+
     socket.broadcast.emit("playerJoin", player, numberOfPlayers);
     socket.emit("playerJoin", player, numberOfPlayers);
+    console.log(numberOfPlayers);
 
+  });
+
+  // When a player leaves the page, disconnect the socket
+  socket.on("disconnect", () => {
+    numberOfPlayers--;
+    console.log("user disconnected: " + socket.id);
+
+    // Find the player in the array and remove it
+    for (let i = 0; i < players.length; i++) {
+      if(players[i].socketId == socket.id) {
+        console.log(players[i].player);
+        
+        // Emit to other users that a player has left
+        socket.broadcast.emit("playerDisconnect", players[i].player, numberOfPlayers);
+        socket.emit("playerDisconnect", players[i].player, numberOfPlayers);
+
+        // Remove player from array
+        players.splice(i, 1);
+      }
+    }
   });
 
   socket.on("startGame", () => {
@@ -39,25 +66,19 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8080, () => {
-    console.log("Server is listning on port: 8080");
+server.listen(7070, () => {
+    console.log("Server is listning on port: 7070");
 });
 
 // socket.io END
 
 // Session START
-
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'secret-key',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true },
-  genid: function(req) {
-    return uuidv4();
-  }, 
+  saveUninitialized: false,
 }))
-
 // Session END
 
 // view engine setup

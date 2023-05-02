@@ -1,69 +1,161 @@
-.player-info {
-    height: auto;
-    width: 200px;
-    background-color: white;
-    position: absolute;
-    left: 12px;
-    top: 51px;
-    border-radius: 5px;
+.playerinfo-content {
+    width: 17vw;
+	position: absolute;
+	height: 100px;
 }
 
-.property .container {
-    cursor: pointer;
+#endturn {
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+	position: absolute;
+	width: 150px;
+	height: 75px;
+	background-color: white;
+	color: red;
+	font-size: 30px;
+	text-transform: uppercase;
 }
 
-.player-info .space {
-    background-color: transparent;
+a {
+	color: black;
+	text-decoration: none;
+	font-size: 14px;
+	margin-left: 5px;
+    font-style: bold;
 }
 
-.player-info .container {
-    margin-top: 10px;
-    height: 20px;
-    width: 100%;
+a:hover {
+	color: rgb(49, 49, 49);
 }
 
-.player-info .color-bar {
-    border: 1px solid black;
-    position: relative;
+.tabbed {
+	overflow-x: hidden; /* so we could easily hide the radio inputs */
+	margin: 32px 0;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #ccc;
+	height: 300px;
 }
 
-.player-info p {
-    margin: 0;
-    margin-top: 5px;
-    margin-bottom: 5px;
+.tabbed [type="radio"] {
+	/* hiding the inputs */
+	display: none;
 }
 
-.player-name {
-    padding-left: 5px;
+.tabs {
+	display: flex;
+	align-items: stretch;
+	list-style: none;
+	padding: 0;
+	border-bottom: 1px solid #ccc;
+}
+.tab > label {
+	display: block;
+	margin-bottom: -1px;
+	padding: 12px 15px;
+	border: 1px solid #ccc;
+	background: #eee;
+	color: #666;
+	font-size: 12px; 
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	cursor: pointer;	
+	transition: all 0.3s;
+	margin-top: 20px;
+}
+.tab:hover label {
+	border-top-color: #333;
+	color: #333;
 }
 
-.player-money {
-    padding-left: 5px;
+.tab-content {
+	display: none;
+    font-size: 25px;
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 0.5px;
+	color: white;
 }
 
-.player-info .name {
-    padding-bottom: 5px !important;
+/* As we cannot replace the numbers with variables or calls to element properties, the number of this selector parts is our tab count limit */
+.tabbed [type="radio"]:nth-of-type(1):checked ~ .tabs .tab:nth-of-type(1) label,
+.tabbed [type="radio"]:nth-of-type(2):checked ~ .tabs .tab:nth-of-type(2) label,
+.tabbed [type="radio"]:nth-of-type(3):checked ~ .tabs .tab:nth-of-type(3) label,
+.tabbed [type="radio"]:nth-of-type(4):checked ~ .tabs .tab:nth-of-type(4) label,
+.tabbed [type="radio"]:nth-of-type(5):checked ~ .tabs .tab:nth-of-type(5) label {
+	border-bottom-color: #fff;
+	border-top-color: red;
+	background: #fff;
+	color: #222;
 }
 
-.player-info .property-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 10px;
+.tabbed [type="radio"]:nth-of-type(1):checked ~ .tab-content:nth-of-type(1),
+.tabbed [type="radio"]:nth-of-type(2):checked ~ .tab-content:nth-of-type(2),
+.tabbed [type="radio"]:nth-of-type(3):checked ~ .tab-content:nth-of-type(3),
+.tabbed [type="radio"]:nth-of-type(4):checked ~ .tab-content:nth-of-type(4) {
+	display: block;
 }
 
-.property-icon {
-    height: 16px;
-    width: auto;
-    position: absolute;
-    right: 3px;
-    top: 3px;
+
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+html{
+  --bg-one: #973999;
+  --bg-two: #f8598b;
+  --bg-three: #f7bf00;
+  --bg-panel: #ffffff;
+  --color-headings: #333;
+  --color-text: #9f0000;
+  --color-fun: #c44394;
+  --distance: 4rem;
 }
 
-.property-center-info {
-    grid-column: 5/8;
-    grid-row: 1/4;
-    
-    margin-bottom: 60px;
-    margin-right: 60px;
+
+.cards {
+  display: flex;
+  outline: black;
+}
+
+.card {
+  z-index: 1;
+  margin-bottom: 20px;
+  background: var(--bg-panel);
+  padding: 1rem;
+  box-shadow: 2px 2px 6px 1px rgba(black, 0.60);
+  transition: 0.2s;
+  color: black;
+  height: 180px;
+  width: 120px;
+}
+
+.card:not(:first-child) {
+  margin-left: calc(var(--distance)*-1);
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translatey(-1rem);
+}
+
+.card:hover ~ .card,
+.card:focus-within ~ .card {
+  transform: translatex(var(--distance));
+}
+
+.fa-stack {
+  margin-left: -1rem;
+}
+
+
+#propName {
+    font-size: 14px;
+	margin-left: 5px;
+    font-style: bold;
+}
+
+
+#propDesc {
+    font-size: 18px;
+	font-weight: lighter;
+    margin-left: -5px;
+    font-style: italic  ;
+	text-transform: capitalize;
 }

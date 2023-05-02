@@ -3,15 +3,16 @@ extends layout
 block content
     h1 YLOPONOM
     form(action='login.php' method='post')
-    .input
-        label(for='username') Username:
-        input#username(type='text' name='username' style='width: 210px; height:30px; padding-top: 11px; font-size:25px;')
-        button#submit(type='button' style='width: 80px; height:30px;  font-size:20px; text-align: center;') Submit
-        button#start(type='button' style='width: 80px; height:30px;  font-size:20px; text-align: center; display: none;' disabled) Start
+    .lobby_input
+        .lobby_username
+            label(for='lobby_username') Username:
+            input#username(type='text' name='username')
+            button.button-54#submit(type='button') Select name
+        .lobby_startgame
+            button.button-54#start(type='button' disabled) Start game
     .players
-        p1
-        | Players:
-        a#playerCount  0/4
+        p1 Players:
+        a.playerCount  0/4
     .playerList
     
     script(src="/../src/lobby.js")

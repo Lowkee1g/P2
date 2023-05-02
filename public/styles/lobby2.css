@@ -1,0 +1,14 @@
+body {
+    background-color:  rgb(255, 255, 255);
+  }
+
+h1 {
+    background-color: #f50c2b;color: #fafaf8;
+    padding-left: 13px;
+    padding-right: 5px;
+    text-shadow: -3px 3px #000000;
+    text-align: center;
+    font-size: 80px;
+    top: 200px;
+    position: relative;
+}
