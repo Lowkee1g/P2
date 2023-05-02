@@ -63,9 +63,9 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-rows: 125px repeat(9, 80px) 125px;
     grid-gap: 2px;
     margin: 5px auto;
-    width: 53vw;
-    zoom: 0.9;
+    width: 994px;
     height: 994px;
+    zoom: 0.9;
     position: absolute;
     margin-right: auto;
     margin-left: auto;
