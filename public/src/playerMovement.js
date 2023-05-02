@@ -35,6 +35,7 @@ function throwDice() {
     const roll2 = diceRoll();
     a += roll1 + roll2;
     console.log(playerId + " slog " + roll1 + " " + roll2);
+    console.log(a);
     if (roll1 === roll2 && p1check < 3) {
         p1check += 1;
         return;
