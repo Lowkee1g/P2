@@ -429,6 +429,54 @@ h1, h2, h3, h4, h5, h6 {
     top: 5px;
 }
 
+
+.player1-test {
+    position: absolute;
+    height: 25px;
+    width: 20px;
+    top: 22%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #1f3cae;
+  }
+  .player2-test {
+    position: absolute;
+    height: 25px;
+    width: 20px;
+    top: 22%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ae4f1f;
+  }
+
+  .player3-test {
+    position: absolute;
+    height: 25px;
+    width: 20px;
+    top: 22%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #1fae21;
+  }
+
+  .player4-test {
+    position: absolute;
+    height: 25px;
+    width: 20px;
+    top: 22%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #a1bb22;
+  }
+
   .player1-place {
     position: absolute;
     height: 50px;
