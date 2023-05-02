@@ -40,10 +40,9 @@ closeButton.addEventListener('click', function() {
     console.log("test");
 });
 
-function getChanceCard() {
-    let a;
-    if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
+let a;
+if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
     document.querySelector('.chance-card').style.display = 'block';
     getQuote();
-}}
+}
 
