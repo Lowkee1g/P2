@@ -20,9 +20,14 @@ const diceImages = [
     const roll2 = Math.floor(Math.random() * 6 + 1);
   }
 
+  function diceRoll() {
+   return Math.floor(Math.random() * 6 + 1);
+  }
+
   function updateDiceimages() {
     // Update the dice images
-    rollDice();
+    const roll1 = diceRoll();
+    const roll2 = diceRoll();
     dice1Img.src = diceImages[roll1 - 1];
     dice2Img.src = diceImages[roll2 - 1];
     console.log(roll1, roll2);
