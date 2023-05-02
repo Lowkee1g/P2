@@ -1,1 +1,17 @@
 /* Pee pee poo poo check */
+@font-face {
+    font-family: "Futura Light" ;
+    src: url(../font/FuturaLT-Light.woff);
+  }
+  @font-face {
+    font-family: "Futura Bold" ;
+    src: url(../font/FuturaLT-Bold.woff);
+  }
+  @font-face {
+    font-family: "Kabel Heavy";
+    src: url(../font/Kabel-Heavy.woff);
+  }
+  @font-face {
+    font-family: "Futura Normal";
+    src: url(../font/FuturaLT.woff);
+  }
