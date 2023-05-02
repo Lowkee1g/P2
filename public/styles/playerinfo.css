@@ -1,5 +1,5 @@
 .playerinfo-content {
-    width: 530px;
+    width: 17vw;
 	position: absolute;
 	height: 100px;
 }
@@ -7,8 +7,6 @@
 #endturn {
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 	position: absolute;
-	margin-left: 200px;
-	margin-top: 50px;
 	width: 150px;
 	height: 75px;
 	background-color: white;

@@ -62,9 +62,15 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 125px repeat(9, 80px) 125px;
     grid-template-rows: 125px repeat(9, 80px) 125px;
     grid-gap: 2px;
-    margin: 50px auto;
-    width: 994px;
+    margin: 5px auto;
+    width: 53vw;
+    zoom: 0.9;
     height: 994px;
+    position: absolute;
+    margin-right: auto;
+    margin-left: auto;
+    right: 0%;
+    left: 0%;
     background: #080808;
     border: 2px solid #080808;
 }
