@@ -4,7 +4,7 @@
     border-radius: 5px;
     height: 200px;
     width: 300px;
-    display: flex;
+    display: none;
     flex-direction: column;
     position: relative;
 }
