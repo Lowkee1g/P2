@@ -15,7 +15,8 @@ const player1Place = document.getElementsByClassName('player1-place');
 function prisonEscape() {
 
     for (let i = 0; i < 3; i++) {
-        rollDice();
+        const roll1 = diceRoll();
+        const roll2 = diceRoll();
         console.log(playerId + "  " + roll1 + " " + roll2);
 
         if (roll1 === roll2) {
@@ -30,7 +31,8 @@ function prisonEscape() {
 
 
 function throwDice() {
-    rollDice();
+    const roll1 = diceRoll();
+    const roll2 = diceRoll();
     a += roll1 + roll2;
     console.log(playerId + " slog " + roll1 + " " + roll2);
     if (roll1 === roll2 && p1check < 3) {
