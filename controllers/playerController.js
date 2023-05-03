@@ -9,7 +9,7 @@ let playerUser;
 module.exports = class player {
    static async getUserInformation(req, res, next) {
       try {
-         const user = await Player.find();
+         const user = await Player.find(1);
          res.json(user);
       } catch (error) {
          res.status(500).json({ error: error.message });
