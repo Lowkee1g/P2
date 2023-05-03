@@ -27,25 +27,25 @@ module.exports = class player {
          }
      }
 
-      static async buyProperty(req, res, propertyId){
+      static async userBuyProperty(req, res, propertyId){
          try {
-            console.log(playerUser);
-            console.log(playerUser.getId());
             if (playerUser) {
                await playerUser.buyProperty(propertyId);
              } else {
                res.status(500).json({error: 'playerUser is undefined or null'});
              }
-                         // await playerUser.buyProperty(propertyId);
          } catch (error) {
             res.status(500).json({error: error.message})
          }
       }
 
-      static async sellProperty(req, res, next){
+      static async userSellProperty(req, res, propertyId){
          try {
-            const user = await playerUser.sellProperty();
-            res.json(user);
+            if (playerUser) {
+               await playerUser.sellProperty(propertyId);
+             } else {
+               res.status(500).json({error: 'playerUser is undefined or null'});
+             }
          } catch (error) {
             res.status(500).json({error: error.message})
          }

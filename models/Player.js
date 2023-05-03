@@ -26,8 +26,7 @@ class Player {
 
     }
     
-    static async buyProperty(propertyId){
-        console.log(getId());
+    async buyProperty(propertyId){
         const prop = await prisma.property.update({
             where: {id: parseInt(propertyId)}, 
             data: {
@@ -36,24 +35,22 @@ class Player {
             },
         });
 
-        console.log('in player class', prop, propertyId);
+        console.log(this);
+        console.log('Purchased the following property');
+        console.log(prop);
     }
 
-    static sellProperty = async (propertyId) => {
+    async sellProperty(propertyId) {
         const prop = await prisma.property.update({
-            where: {id: propertyId},
+            where: {id: parseInt(propertyId)}, 
             data: {
-                userId: this.id,
-                owned: true, 
+                userId: null,
+                owned: false, 
             },
         });
-
-        this.properties.pop(prop)
-
-        const thisPlayer = await prisma.user.update({
-            where: {id: this.id},
-            data: {properties: this.properties}
-        });
+        console.log(this);
+        console.log('Sold the following property');
+        console.log(prop);
     }
 }
 

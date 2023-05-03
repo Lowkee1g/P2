@@ -37,9 +37,11 @@ router.get("/user/:id",  (req, res) => {
 })
 
 router.get("/userBuyProperty/:propertyId",  (req, res) => {
-  player_controller.buyProperty(req, res, req.params.propertyId)
+  player_controller.userBuyProperty(req, res, req.params.propertyId)
 })
 
-router.get("/userSellProperty/:id", player_controller.sellProperty)
+router.get("/userSellProperty/:propertyId",  (req, res) => {
+  player_controller.userSellProperty(req, res, req.params.propertyId)
+})
 
 module.exports = router;
