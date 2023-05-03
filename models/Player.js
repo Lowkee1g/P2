@@ -50,6 +50,36 @@ class Player {
         console.log(prop);
     }
 
+    async UpDownGradeProperty(propertyId, changeNo) {
+        //Det her skal fjernes efter test
+        this.buyProperty(propertyId)
+        // Hertil 
+
+        const propertyInfo = await prisma.property.findUnique({
+            where: {id: parseInt(propertyId)},
+            // include: {
+            //     houses: true,
+            //     userId: true,
+            // }
+        });
+        
+        console.log('propertyInfo.userId = ', propertyInfo.userId);
+        if(propertyInfo.userId === this.id){
+            const prop = await prisma.property.update({
+                where: {id: parseInt(propertyId)}, 
+                data: {
+                    houses: parseInt(propertyInfo.houses) + parseInt(changeNo) 
+                },
+            });
+
+            console.log(this);
+            console.log('Up- or down-graded the following property');
+            console.log(prop);
+        } else {
+            console.log('This property does not belong to', this);
+        }
+    }
+
     static payRent = async (fromPlayer, toPlayer, amount) => {
         console.log("Charging: " + amount + " from player: " + fromPlayer.name + " to player: " + toPlayer.name);
         // Charge the player
