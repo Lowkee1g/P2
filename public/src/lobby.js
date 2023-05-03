@@ -1,8 +1,6 @@
 //Functions
 let currentPlayer;
 
-
-
 // Open socket connection
 const socket = io("http://localhost:7070");
 
@@ -40,16 +38,6 @@ function addPlayerToGame() {
         }
     })
 }
-// If something is emitted to playerDisconnect on socket.io call this function - Recieve data
-socket.on("playerDisconnect", (player, numberOfPlayers) => {
-    // Call function to update number of players in lobby
-    updateNumberOfPlayers(numberOfPlayers);
-
-    // Call function to remove the user from the player list
-    removeUserFromPlayerList(player);
-});
-
-
 
 // If something is emitted to playerJoin on socket.io call this function - Recieve data
 socket.on("playerJoin", (player, numberOfPlayers) => {
@@ -63,34 +51,22 @@ socket.on("playerJoin", (player, numberOfPlayers) => {
     updateNumberOfPlayers(numberOfPlayers);
 });
 
-
-
-
+socket.on('disconnect', function() {
+    numberOfPlayers--;
+    console.log('Disconnected from server');
+});
 
 // Function that updates the number of players in the lobby
 function updateNumberOfPlayers(numberOfPlayers) {
     // get <a> element and set textcontent to number of players
     document.querySelector('.playerCount').textContent = numberOfPlayers + " / 4";
-    
-}
 
-function removeUserFromPlayerList(player) {
-    // Get all p elements
-    let p = document.querySelectorAll('p');
-    // Loop through all p elements
-    for (let i = 0; i < p.length; i++) {
-        // If p element textcontent is equal to player name
-        if(p[i].textContent == player.name) {
-            // Remove the p element
-            p[i].remove();
-        }
-    }
 }
 
 // create a p element and set textcontent to player
 function writeAddedUserToPlayerList(player) {
     let p = document.createElement('p');
-    p.textContent = player.name;
+    p.textContent = player;
     // Append the p element to player list
     document.querySelector('.playerList').appendChild(p);
 }
@@ -125,6 +101,43 @@ function startGame() {
         }
     })
 }
+
+//import rent.js
+document.querySelector('#Test').addEventListener('click', async () => {
+    var playerId = 1;
+    var tile = 2;
+    console.log('test');
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/charge-rent',
+        data: JSON.stringify({
+            player: playerId,
+            tile: tile
+        }),
+        contentType: 'application/json',
+        success: function (data) {
+            console.log("lobby: " + data);
+        },
+        error: function(xhr, textStatus, error) {
+            console.log(error);
+            console.log(xhr);
+            console.log(textStatus);
+        }
+    })
+
+
+    /*
+    await fetch('/api/charge-rent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ player, tile })
+    });
+    */
+});
+
 
 // If startGame recieve click redirect all users to board
 socket.on("startGame", () => {
