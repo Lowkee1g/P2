@@ -22,6 +22,8 @@ let players = [];
 // Count number of players - Used in lobby.js to enable start button
 let numberOfPlayers = 0;
 
+//TODO: fix number of players ONLY if they have joined the game
+
 io.on("connection", (socket) => {
   console.log('a user connected: ' + socket.id);
   // On player join send data to other users and the broadcaster
@@ -108,6 +110,7 @@ app.use((err, req, res, next) => {
   res.render("error");
 });
 
+/*
 app.post('/api/charge-rent', (req, res) => {
   const player = req.body.player;
   const tile = req.body.tile;
@@ -117,5 +120,5 @@ app.post('/api/charge-rent', (req, res) => {
 
   res.sendStatus(200);
 });
-
+*/
 module.exports = app;
