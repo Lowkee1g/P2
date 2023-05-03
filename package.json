@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint public/src/*js",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "nodemon": "nodemon ./bin/www"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
@@ -31,12 +32,11 @@
     "async": "^3.2.4",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
-
     "express-session": "^1.17.3",
     "node-fetch": "^3.3.1",
+    "nodemon": "^2.0.22",
     "pug": "^3.0.2",
     "socket.io": "^4.6.1",
     "uuid": "^9.0.0"
-
   }
 }
