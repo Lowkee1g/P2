@@ -1,30 +1,35 @@
 extends layout
 
 block content
-  if user
-    p= user
+  .table
+  include includes/chat.pug
   .table
     include playerinfo.pug
+    include chancecard.pug
     .board
       img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1')
       .center
         h1.title(style='background-color: #f50c2b;color: #fafaf8;padding-left: 13px;padding-right: 5px;text-shadow: -7px 7px #000000;') YLOPONOM
         include includes/dice.pug
-      .space.corner.go
+      #field-0.space.corner.go
         .container
           .player1-place
             p 1
+            .player1-test 
           .player2-place
             p 2
+            .player2-test
           .player3-place
             p 3
+            .player3-test
           .player4-place
             p 4
-          .instructions Collect $200.00 salary as you pass
+            .player4-test
+          .instructions Collect $200.00 salary as you pass here
           .go-word go
         .arrow.fa.fa-long-arrow-left
       .row.horizontal-row.bottom-row
-        .space.property
+        #field-9.space.property
           .container
             .player1-place
               p 1
@@ -35,9 +40,9 @@ block content
             .player4-place
               p 4
             .color-bar.light-blue
-            .name Connecticut Avenue
-            .price Kroner 120
-        .space.property
+            .name.long-name Amager Strandpark
+            .price Kroner 600
+        #field-8.space.property
           .container
             .player1-place
               p 1
@@ -48,9 +53,9 @@ block content
             .player4-place
               p 4
             .color-bar.light-blue
-            .name Vermont Avenue
-            .price Kroner 100
-        .space.chance
+            .name.long-name Flyvergrillen
+            .price Kroner 600
+        #field-7.space.chance
           .container
             .player1-place
               p 1
@@ -62,7 +67,7 @@ block content
               p 4
             .name Chance
             i.drawing.fa.fa-question
-        .space.property
+        #field-6.space.property
           .container
             .player1-place
               p 1
@@ -73,9 +78,9 @@ block content
             .player4-place
               p 4
             .color-bar.light-blue
-            .name Oriental Avenue
-            .price Kroner 100
-        .space.railroad
+            .name Islands Brygge
+            .price Kroner 600
+        #field-5.space.railroad
           .container
             .player1-place
               p 1
@@ -85,10 +90,10 @@ block content
               p 3
             .player4-place
               p 4
-            .name Reading Railroad
+            .name 5C
             i.drawing.fa.fa-subway
-            .price Kroner 200
-        .space.fee.income-tax
+            .price Kroner 2500
+        #field-4.space.fee.income-tax
           .container
             .player1-place
               p 1
@@ -106,7 +111,7 @@ block content
               | or
               br
               | $200
-        .space.property
+        #field-3.space.property
           .container
             .player1-place
               p 1
@@ -117,9 +122,9 @@ block content
             .player4-place
               p 4
             .color-bar.dark-purple
-            .name Baltic Avenue
-            .price Kroner 50
-        .space.community-chest
+            .name Frederiksberg
+            .price Kroner 3000
+        #field-2.space.community-chest
           .container
             .player1-place
               p 1
@@ -132,7 +137,7 @@ block content
             .name Community Chest
             i.drawing.fa.fa-cube
             .instructions Follow instructions on top card
-        .space.property
+        #field-1.space.property
           .container
             .player1-place
               p 1
@@ -143,14 +148,9 @@ block content
             .player4-place
               p 4
             .color-bar.dark-purple
-            .name.three-line-name
-              | Mediter-
-              br
-              | ranean
-              br
-              | Avenue
-            .price Kroner 50
-      .space.corner.jail
+            .name Østerbro
+            .price Kroner 2500
+      #field-10.space.corner.jail
         .just Just
         .drawing
           .container
@@ -171,7 +171,7 @@ block content
             .name Jail
         .visiting Visiting
       .row.vertical-row.left-row
-        .space.property
+        #field-19.space.property
           .container
             .player1-place
               p 1
@@ -182,9 +182,9 @@ block content
             .player4-place
               p 4
             .color-bar.orange
-            .name New York Avenue
-            .price Kroner 200
-        .space.property
+            .name Aarhus
+            .price Kroner 500
+        #field-18.space.property
           .container
             .player1-place
               p 1
@@ -195,9 +195,9 @@ block content
             .player4-place
               p 4
             .color-bar.orange
-            .name Tennessee Avenue
-            .price Kroner 180
-        .space.community-chest
+            .name Aalborg
+            .price Kroner 500
+        #field-17.space.community-chest
           .container
             .player1-place
               p 1
@@ -210,7 +210,7 @@ block content
             .name Community Chest
             i.drawing.fa.fa-cube
             .instructions Follow instructions on top card
-        .space.property
+        #field-16.space.property
           .container
             .player1-place
               p 1
@@ -221,9 +221,9 @@ block content
             .player4-place
               p 4
             .color-bar.orange
-            .name St. James Avenue
-            .price Kroner 180
-        .space.railroad
+            .name Ringkøbing
+            .price Kroner 500
+        #field-15.space.railroad
           .container
             .player1-place
               p 1
@@ -233,10 +233,10 @@ block content
               p 3
             .player4-place
               p 4
-            .name.long-name Pennsylvania Railroad
+            .name 18'eren
             i.drawing.fa.fa-subway
-            .price Kroner 200
-        .space.property
+            .price Kroner 2500
+        #field-14.space.property
           .container
             .player1-place
               p 1
@@ -247,9 +247,9 @@ block content
             .player4-place
               p 4
             .color-bar.purple
-            .name Virginia Avenue
-            .price Kroner 160
-        .space.property
+            .name Jespers Torvekøkken
+            .price Kroner 750
+        #field-13.space.property
           .container
             .player1-place
               p 1
@@ -260,9 +260,9 @@ block content
             .player4-place
               p 4
             .color-bar.purple
-            .name States Avenue
-            .price Kroner 140
-        .space.utility.electric-company
+            .name Slusen
+            .price Kroner 750
+        #field-12.space.utility.electric-company
           .container
             .player1-place
               p 1
@@ -272,10 +272,10 @@ block content
               p 3
             .player4-place
               p 4
-            .name Electric Company
+            .name Sydhavn Station
             i.drawing.fa.fa-lightbulb-o
-            .price Kroner 150
-        .space.property
+            .price Kroner 2500
+        #field-11.space.property
           .container
             .player1-place
               p 1
@@ -286,9 +286,9 @@ block content
             .player4-place
               p 4
             .color-bar.purple
-            .name St. Charles Place
-            .price Kroner 140
-      .space.corner.free-parking
+            .name.long-name Grupperumm
+            .price Kroner 750
+      #field-20.space.corner.free-parking
         .container
           .player1-place
             p 1
@@ -301,7 +301,7 @@ block content
           .name Free
           i.drawing.fa.fa-car
           .name Parking
-      .row.horizontal-row.top-row
+      #field-21.row.horizontal-row.top-row
         .space.property
           .container
             .player1-place
@@ -313,9 +313,9 @@ block content
             .player4-place
               p 4
             .color-bar.red
-            .name Kentucky Avenue
-            .price Kroner 220
-        .space.chance
+            .name Herlev
+            .price Kroner 500
+        #field-22.space.chance
           .container
             .player1-place
               p 1
@@ -327,7 +327,7 @@ block content
               p 4
             .name Chance
             i.drawing.fa.fa-question.blue
-        .space.property
+        #field-23.space.property
           .container
             .player1-place
               p 1
@@ -338,9 +338,9 @@ block content
             .player4-place
               p 4
             .color-bar.red
-            .name Indiana Avenue
-            .price Kroner 220
-        .space.property
+            .name Hvidovre
+            .price Kroner 500
+        #field-24.space.property
           .container
             .player1-place
               p 1
@@ -351,9 +351,9 @@ block content
             .player4-place
               p 4
             .color-bar.red
-            .name Illinois Avenue
-            .price Kroner 200
-        .space.railroad
+            .name Ørslev
+            .price Kroner 500
+        #field-25.space.railroad
           .container
             .player1-place
               p 1
@@ -363,10 +363,10 @@ block content
               p 3
             .player4-place
               p 4
-            .name B &amp; O Railroad
+            .name Nørreport Station
             i.drawing.fa.fa-subway
-            .price Kroner 200
-        .space.property
+            .price Kroner 2500
+        #field-26.space.property
           .container
             .player1-place
               p 1
@@ -377,9 +377,9 @@ block content
             .player4-place
               p 4
             .color-bar.yellow
-            .name Atlantic Avenue
-            .price Kroner 260
-        .space.property
+            .name Valby
+            .price Kroner 600
+        #field-27.space.property
           .container
             .player1-place
               p 1
@@ -390,9 +390,9 @@ block content
             .player4-place
               p 4
             .color-bar.yellow
-            .name Ventnor Avenue
-            .price Kroner 260
-        .space.utility.waterworks
+            .name Sydhavn
+            .price Kroner 650
+        #field-28.space.utility.waterworks
           .container
             .player1-place
               p 1
@@ -402,10 +402,10 @@ block content
               p 3
             .player4-place
               p 4
-            .name Waterworks
+            .name 7A
             i.drawing.fa.fa-tint
-            .price Kroner 120
-        .space.property
+            .price Kroner 2500
+        #field-29.space.property
           .container
             .player1-place
               p 1
@@ -416,9 +416,9 @@ block content
             .player4-place
               p 4
             .color-bar.yellow
-            .name Marvin Gardens
-            .price Kroner 280
-      .space.corner.go-to-jail
+            .name Nørrebro
+            .price Kroner 600
+      #field-30.space.corner.go-to-jail
         .container
           .player1-place
             p 1
@@ -431,7 +431,7 @@ block content
           .name Go To
           i.drawing.fa.fa-gavel
           .name Jail
-      .row.vertical-row.right-row
+      #field-31.row.vertical-row.right-row
         .space.property
           .container
             .player1-place
@@ -443,9 +443,9 @@ block content
             .player4-place
               p 4
             .color-bar.green
-            .name Pacific Avenue
-            .price Kroner 300
-        .space.property
+            .name Hellerup
+            .price Kroner 1500
+        #field-32.space.property
           .container
             .player1-place
               p 1
@@ -456,9 +456,9 @@ block content
             .player4-place
               p 4
             .color-bar.green
-            .name.three-line-name North Carolina Avenue
-            .price Kroner 300
-        .space.community-chest
+            .name.long-name Charlotten- lund
+            .price Kroner 1500
+        #field-33.space.community-chest
           .container
             .player1-place
               p 1
@@ -471,7 +471,7 @@ block content
             .name Community Chest
             i.drawing.fa.fa-cube
             .instructions Follow instructions on top card
-        .space.property
+        #field-34.space.property
           .container
             .player1-place
               p 1
@@ -482,9 +482,9 @@ block content
             .player4-place
               p 4
             .color-bar.green
-            .name.long-name Pennsylvania Avenue
-            .price Kroner 320
-        .space.railroad
+            .name.long-name Gentofte
+            .price Kroner 1500
+        #field-35.space.railroad
           .container
             .player1-place
               p 1
@@ -494,10 +494,10 @@ block content
               p 3
             .player4-place
               p 4
-            .name Short Line
+            .name.long-name Hovedbane gaarden
             i.drawing.fa.fa-subway
-            .price Kroner 200
-        .space.chance
+            .price Kroner 2500
+        #field-36.space.chance
           .container
             .player1-place
               p 1
@@ -509,7 +509,7 @@ block content
               p 4
             .name Chance
             i.drawing.fa.fa-question
-        .space.property
+        #field-37.space.property
           .container
             .player1-place
               p 1
@@ -520,9 +520,9 @@ block content
             .player4-place
               p 4
             .color-bar.dark-blue
-            .name Park Place
-            .price Kroner 350
-        .space.fee.luxury-tax
+            .name Strandvejen
+            .price Kroner 5500
+        #field-38.space.fee.luxury-tax
           .container
             .player1-place
               p 1
@@ -535,7 +535,7 @@ block content
             .name Luxury Tax
             .drawing.fa.fa-diamond
             .instructions Pay $75.00
-        .space.property
+        #field-39.space.property
           .container
             .player1-place
               p 1
@@ -549,3 +549,4 @@ block content
             .name Boardwalk
             .price Kroner 400
   script(src="/../src/board.js")
+  script(src='src/playerMovement.js')

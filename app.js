@@ -4,6 +4,7 @@ var session = require('express-session')
 const { v4: uuidv4 } = require('uuid')
 // …
 
+
 const createError = require("http-errors");
 const path = require("path");
 
@@ -59,6 +60,11 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("startGame");
     socket.emit("startGame");
   })
+
+  socket.on("message", (data) => {
+    socket.broadcast.emit("message_recieve", data);
+    socket.emit("message_send", data);
+  });
 });
 
 server.listen(7070, () => {
@@ -84,6 +90,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
 
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
@@ -99,6 +106,16 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
+});
+
+app.post('/api/charge-rent', (req, res) => {
+  const player = req.body.player;
+  const tile = req.body.tile;
+  console.log("Charge rent Resived");
+
+  chargeRent(player, tile);
+
+  res.sendStatus(200);
 });
 
 module.exports = app;

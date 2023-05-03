@@ -1,0 +1,19 @@
+doctype html
+head
+    meta(charset='UTF-8')
+    title Chance Card
+    link(rel='stylesheet' href='../styles/chancecard.css')
+.chance-card
+    .header
+        h1 Chance Card
+    #close-button.close-button
+        button.close &#x2715;
+    .content
+        .image
+            img(src='../images/monopolyman.svg' alt='monopoly man')
+        .text
+            p#quote Pay 200kr
+script(src='../src/chancecard.js')
+script(src='../src/playerMovement.js')
+script.
+    getQuote();

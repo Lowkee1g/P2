@@ -32,9 +32,11 @@ router.post("/joinPlayer", async (req, res, next) => {
   player_controller.createPlayer(req, res);
 });
 
-router.get("/user/:id",  (req, res) => {
-  player_controller.find(req, res)
-})
+router.post('/api/charge-rent', (req, res) => {
+  player_controller.chargeRent(req, res);
+});
+
+router.get("/user/:id", player_controller.getUserInformation)
 
 router.get("/userBuyProperty/:propertyId",  (req, res) => {
   player_controller.userBuyProperty(req, res, req.params.propertyId)

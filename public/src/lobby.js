@@ -102,6 +102,43 @@ function startGame() {
     })
 }
 
+//import rent.js
+document.querySelector('#Test').addEventListener('click', async () => {
+    var playerId = 1;
+    var tile = 2;
+    console.log('test');
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/charge-rent',
+        data: JSON.stringify({
+            player: playerId,
+            tile: tile
+        }),
+        contentType: 'application/json',
+        success: function (data) {
+            console.log("lobby: " + data);
+        },
+        error: function(xhr, textStatus, error) {
+            console.log(error);
+            console.log(xhr);
+            console.log(textStatus);
+        }
+    })
+
+
+    /*
+    await fetch('/api/charge-rent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ player, tile })
+    });
+    */
+});
+
+
 // If startGame recieve click redirect all users to board
 socket.on("startGame", () => {
     window.location = "http://localhost:3000/";
