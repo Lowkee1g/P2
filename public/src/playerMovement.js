@@ -67,7 +67,7 @@ rollButton.addEventListener('click', () => {
         } else {
             movePlayer(a);
             if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
-                document.querySelector('.chance-card').style.display = 'block';
+                document.querySelector('.chance').style.display = 'block';
                 getQuote();
             }
             return;
@@ -98,6 +98,4 @@ function movePlayer(playerdicesum) {
     }
 }
 
-script(src="/../src/dice.js")
-script(src="/../src/chancecard.js")
 

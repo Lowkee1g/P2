@@ -12,7 +12,6 @@ const diceImages = [
   const dice1Img = document.querySelector("#dice1");
   const dice2Img = document.querySelector("#dice2");
   const rollButton = document.querySelector("#roll-button");
-  
   // Function to roll the dice and update the images
   function rollDice() {
     // Generate two random numbers between 1 and 6
