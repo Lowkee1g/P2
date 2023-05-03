@@ -66,11 +66,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px auto;
     width: 60vw;
     height: 99vh;
-    position: absolute;
-    margin-right: auto;
-    margin-left: auto;
-    right: 0%;
-    left: 0%;
+
     background: #080808;
     border: 2px solid #080808;
 }
@@ -549,3 +545,30 @@ h1, h2, h3, h4, h5, h6 {
   .board img {
     pointer-events: none;
   }
+
+@media only screen and (min-width: 1600px) {
+    .vertical-row .container {
+        height: 158% !important;
+        width: 63% !important;
+    }
+}
+@media only screen and (min-width: 1750px) {
+    .vertical-row .container {
+        height: 173% !important;
+        width: 58% !important;
+    }
+}
+
+@media only screen and (min-width: 1850px) {
+    .vertical-row .container {
+        height: 182% !important;
+        width: 55% !important;
+    }
+}
+
+@media only screen and (min-width: 1900px) {
+    .vertical-row .container {
+        height: 171% !important;
+        width: 59% !important;
+    }
+}
