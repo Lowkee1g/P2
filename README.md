@@ -16,6 +16,10 @@ To start the server
 ```bash
 npm run start
 ```
+or to run server with nodemon
+```bash
+npm run nodemon
+```
 
 You can find the website at localhost:3000
 
