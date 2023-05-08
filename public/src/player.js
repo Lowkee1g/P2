@@ -1,15 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const endturnButton = document.getElementById('endturn');
-  
-    endturnButton.addEventListener('click', () => {
-        console.log("Playername: Ended turn");
-    });
-  });
-
-
-
-
-
 // Wait for the DOM to load before executing the script
 document.addEventListener('DOMContentLoaded', () => {
     // Select all the card elements

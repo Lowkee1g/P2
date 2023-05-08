@@ -9,7 +9,6 @@ module.exports = class player {
         try {
 
             const user = await Player.findByName(req.query.name);
-            console.log(user);
             res.send(user);
          } catch (error) {
             res.status(500).json({ error: error.message });

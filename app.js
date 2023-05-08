@@ -35,7 +35,6 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("playerJoin", player, numberOfPlayers);
     socket.emit("playerJoin", player, numberOfPlayers);
     console.log(numberOfPlayers);
-
   });
 
   // When a player leaves the page, disconnect the socket
@@ -66,6 +65,11 @@ io.on("connection", (socket) => {
   socket.on("message", (data) => {
     socket.broadcast.emit("message_recieve", data);
     socket.emit("message_send", data);
+  });
+
+  socket.on("movePlayer", (playerId, dicesum) => {
+    socket.broadcast.emit("movePlayer", playerId,dicesum);
+    socket.emit("movePlayer", playerId,dicesum);
   });
 });
 

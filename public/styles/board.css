@@ -434,7 +434,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-.player1-test {
+.player1-piece {
     position: absolute;
     height: 25px;
     width: 20px;
@@ -445,7 +445,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: auto;
     background-color: #1f3cae;
   }
-  .player2-test {
+  .player2-piece {
     position: absolute;
     height: 25px;
     width: 20px;
@@ -457,7 +457,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #ae4f1f;
   }
 
-  .player3-test {
+  .player3-piece {
     position: absolute;
     height: 25px;
     width: 20px;
@@ -469,7 +469,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #1fae21;
   }
 
-  .player4-test {
+  .player4-piece {
     position: absolute;
     height: 25px;
     width: 20px;
