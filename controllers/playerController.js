@@ -22,6 +22,8 @@ module.exports = class player {
                data: { name: req.body.data, money: 16000 },
          });
          playerUser = new Player(user.name, user.id, user.money);
+         req.session.userID = playerUser.getId();
+         console.log(req.session.userID);
          res.json(user);
       } catch (error) {
          res.status(500).json({error: error.message})

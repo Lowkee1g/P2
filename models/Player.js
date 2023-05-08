@@ -21,6 +21,16 @@ class Player {
         return user;
     };
 
+    static findByName = async (name) => {
+        const user = await prisma.user.findUnique({
+            where: { name: name },
+            include: {
+                properties: true,
+            },
+        });
+        return user;
+    };
+
     throwDice(){}
     
     async buyProperty(propertyId){

@@ -548,5 +548,10 @@ block content
             .color-bar.dark-blue
             .name Boardwalk
             .price Kroner 400
+    if user
+      input(type="hidden", id="userID", value=user)
+  script(src="/../src/playerinfo.js")
   script(src="/../src/board.js")
   script(src='src/playerMovement.js')
+  script(src='src/startGame.js')
+  script(src='../src/player.js')
