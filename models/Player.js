@@ -1,10 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 class Player {
-    constructor(name, id, money){
-        this.name = name;
+    constructor(id){
         this.id = id;
-        this.money = money;
     }
 
     getId(){
@@ -32,61 +30,106 @@ class Player {
     };
 
     throwDice(){}
+
     
     async buyProperty(propertyId){
-        const prop = await prisma.property.update({
-            where: {id: parseInt(propertyId)}, 
-            data: {
-                userId: this.id,
-                owned: true, 
-            },
-        });
-
-        console.log(this);
-        console.log('Purchased the following property');
-        console.log(prop);
-    }
-
-    async sellProperty(propertyId) {
-        const prop = await prisma.property.update({
-            where: {id: parseInt(propertyId)}, 
-            data: {
-                userId: null,
-                owned: false, 
-            },
-        });
-        console.log(this);
-        console.log('Sold the following property');
-        console.log(prop);
-    }
-
-    async UpDownGradeProperty(propertyId, changeNo) {
-        //Det her skal fjernes efter test
-        this.buyProperty(propertyId)
-        // Hertil 
-
         const propertyInfo = await prisma.property.findUnique({
-            where: {id: parseInt(propertyId)},
-            // include: {
-            //     houses: true,
-            //     userId: true,
-            // }
+            where: {id: parseInt(propertyId)}
         });
-        
-        console.log('propertyInfo.userId = ', propertyInfo.userId);
-        if(propertyInfo.userId === this.id){
-            const prop = await prisma.property.update({
+
+        if(!propertyInfo.owned){
+            const propUpdate = await prisma.property.update({
                 where: {id: parseInt(propertyId)}, 
                 data: {
-                    houses: parseInt(propertyInfo.houses) + parseInt(changeNo) 
+                    userId: this.id,
+                    owned: true, 
                 },
             });
 
-            console.log(this);
-            console.log('Up- or down-graded the following property');
-            console.log(prop);
+            const userInfo = await prisma.user.findUnique({
+                where: {id: this.id},
+            });
+
+            const newBalance = userInfo.money - propertyInfo.price;
+
+            const userUpdate = await prisma.user.update({
+                where: {id: parseInt(this.id)},
+                data: {money: newBalance},
+            });
+    
+            console.log('Player ', userUpdate);
+            console.log('Purchased the following property');
+            console.log(propUpdate);
         } else {
-            console.log('This property does not belong to', this);
+            console.log('Property is already owned');
+        }
+    }
+
+    async sellProperty(propertyId) {
+        const propertyInfo = await prisma.property.findUnique({
+            where: {id: parseInt(propertyId)}
+        });
+        
+        if(propertyInfo.userId != this.id){
+            const propUpdate = await prisma.property.update({
+                where: {id: parseInt(propertyId)}, 
+                data: {
+                    userId: null,
+                    owned: false, 
+                },
+            });
+
+            const userInfo = await prisma.user.findUnique({
+                where: {id: this.id}
+            });
+    
+            newBalance = userInfo.money + propertyInfo.price;
+    
+            const userUpdate = await prisma.property.update({
+                where: {id: this.id},
+                data: {money: newBalance},
+            });
+    
+            console.log('Player ', userUpdate);
+            console.log('Sold the following property');
+            console.log(propUpdate);
+        } else {
+            console.log('This property does not belong to ', userUpdate);
+        }
+    }
+
+    async UpDownGradeProperty(propertyId, changeNo) {
+
+        const propertyInfo = await prisma.property.findUnique({
+            where: {id: parseInt(propertyId)}
+        });
+        
+        console.log('propertyInfo.userId = ', propertyInfo.userId);
+        if(propertyInfo.userId === this.id && propertyInfo.houses + changeNo < 6){ //The right user buys and property does not reach max houses
+            const propertyUpdate = await prisma.property.update({
+                where: {id: parseInt(propertyId)}, 
+                data: {
+                    houses: parseInt(propertyInfo.houses) + parseInt(changeNo),
+                    rent: rent * 1.3,
+                },
+            });
+
+            const userInfo = await prisma.user.findUnique({
+                where: {id: this.id},
+            });
+
+            const newBalance = userInfo.money + (prop.price * 0.2 * parseInt(changeNo));
+
+            const userUpdate = await prisma.player.update({
+                where: {id: this.id},
+                data: {money: pareseInt(newBalance)},
+            });
+
+            console.log('Player ', userUpdate);
+            console.log('Up- or down-graded the following property');
+            console.log(propertyUpdate);
+        } else {
+            console.log('This property does not belong to', userUpdate);
         }
     }
 
