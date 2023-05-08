@@ -10,6 +10,7 @@ router.use(bodyParser.json())
 
 // IMPORT CONTROLLERS
 var player_controller = require("../controllers/playerController");
+var start_controller = require("../controllers/startController");
 
 /* GET home page. */
 router.get("/lobby", async (req, res, next) => {
@@ -41,6 +42,10 @@ router.post('/api/chanceData', (req, res) => {
 })
 
 router.get("/user/:id", player_controller.getUserInformation);
+
+router.get("/userByName",  (req, res) => {
+  start_controller.getPlayer(req,res)
+});
 
 router.get("/userBuyProperty/:propertyId",  (req, res) => {
   player_controller.userBuyProperty(req, res, req.params.propertyId)
