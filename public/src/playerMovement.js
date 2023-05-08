@@ -5,6 +5,11 @@ let random2 = 0;
 let jailp1 = 0;
 let playerId = 1; //skal ændres til player id fra databasen
 
+//Get chance cards from chancecard.js with import
+//import { chanceCards } from './chancecard.js';
+//chanceCards = require('./chancecard.js');
+
+
 //mangler at få lavet end turn funktionen
 
 
@@ -67,7 +72,8 @@ rollButton.addEventListener('click', () => {
         } else {
             movePlayer(a);
             if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
-                document.querySelector('.chance').style.display = 'block';
+                console.log("card");
+                document.querySelector('.chance-card').style.display = 'block';
                 getQuote();
             }
             return;

@@ -36,6 +36,10 @@ router.post('/api/charge-rent', (req, res) => {
   player_controller.chargeRent(req, res);
 });
 
+router.post('/api/chanceData', (req, res) => {
+  player_controller.chanceData(req, res);
+})
+
 router.get("/user/:id", player_controller.getUserInformation);
 
 router.get("/userBuyProperty/:propertyId",  (req, res) => {

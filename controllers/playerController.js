@@ -1,5 +1,6 @@
 var Player = require("../models/Player");
 var Property = require("../models/PropertyTile");
+var Chance = require("../models/ChanceTileModel");
 const { PrismaClient } = require("@prisma/client");
 var session = require("express-session");
 const prisma = new PrismaClient();
@@ -86,4 +87,16 @@ module.exports = class player {
             res.status(500).json({ error: error.message });
         }
     }
+	
+	static async chanceData(req, res) {
+		console.log(req);
+		try {
+			Chance.changeMoney(req.body.playerUser, req.body.quote);
+		}
+		catch (error) {
+			res.status(500).json({ error: error.message });
+		}
+	}
+
+   
 };
