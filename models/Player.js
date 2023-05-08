@@ -1,10 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 class Player {
-    constructor(name, id, money){
-        this.name = name;
+    constructor(id){
         this.id = id;
-        this.money = money;
     }
 
     getId(){
@@ -21,11 +19,11 @@ class Player {
         return user;
     };
 
-    throwDice(){}
+    throwDice(){};
     
     async buyProperty(propertyId){
         const propertyInfo = await prisma.property.findUnique({
-            where: {id: propertyId}
+            where: {id: parseInt(propertyId)}
         });
 
         if(!propertyInfo.owned){
@@ -36,15 +34,19 @@ class Player {
                     owned: true, 
                 },
             });
-    
-            this.money -= propertyInfo.price;
-    
-            const userUpdate = await prisma.property.update({
+
+            const userInfo = await prisma.user.findUnique({
                 where: {id: this.id},
-                data: {money: this.money},
+            });
+
+            const newBalance = userInfo.money - propertyInfo.price;
+
+            const userUpdate = await prisma.user.update({
+                where: {id: parseInt(this.id)},
+                data: {money: newBalance},
             });
     
-            console.log(this);
+            console.log('Player ', userUpdate);
             console.log('Purchased the following property');
             console.log(propUpdate);
         } else {
@@ -54,7 +56,7 @@ class Player {
 
     async sellProperty(propertyId) {
         const propertyInfo = await prisma.property.findUnique({
-            where: {id: propertyId}
+            where: {id: parseInt(propertyId)}
         });
         
         if(propertyInfo.userId != this.id){
@@ -65,19 +67,23 @@ class Player {
                     owned: false, 
                 },
             });
+
+            const userInfo = await prisma.user.findUnique({
+                where: {id: this.id}
+            });
     
-            this.money += propertyInfo.price;
+            newBalance = userInfo.money + propertyInfo.price;
     
             const userUpdate = await prisma.property.update({
                 where: {id: this.id},
-                data: {money: this.money},
+                data: {money: newBalance},
             });
     
-            console.log(this);
+            console.log('Player ', userUpdate);
             console.log('Sold the following property');
             console.log(propUpdate);
         } else {
-            console.log('This property does not belong to ', this);
+            console.log('This property does not belong to ', userUpdate);
         }
     }
 
@@ -89,7 +95,7 @@ class Player {
         
         console.log('propertyInfo.userId = ', propertyInfo.userId);
         if(propertyInfo.userId === this.id && propertyInfo.houses + changeNo < 6){ //The right user buys and property does not reach max houses
-            const prop = await prisma.property.update({
+            const propertyUpdate = await prisma.property.update({
                 where: {id: parseInt(propertyId)}, 
                 data: {
                     houses: parseInt(propertyInfo.houses) + parseInt(changeNo),
@@ -97,19 +103,22 @@ class Player {
                 },
             });
 
-            this.money -= (prop.price * 0.2 * parseInt(changeNo));
-
-            const user = await prisma.player.update({
+            const userInfo = await prisma.user.findUnique({
                 where: {id: this.id},
-                data: {money: this.money}
             });
 
-            console.log(user); // Remove this line after testing
-            console.log(this);
+            const newBalance = userInfo.money + (prop.price * 0.2 * parseInt(changeNo));
+
+            const userUpdate = await prisma.player.update({
+                where: {id: this.id},
+                data: {money: pareseInt(newBalance)},
+            });
+
+            console.log('Player ', userUpdate);
             console.log('Up- or down-graded the following property');
-            console.log(prop);
+            console.log(propertyUpdate);
         } else {
-            console.log('This property does not belong to', this);
+            console.log('This property does not belong to', userUpdate);
         }
     }
 

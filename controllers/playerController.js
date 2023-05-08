@@ -21,7 +21,7 @@ module.exports = class player {
          const user = await prisma.user.create({
                data: { name: req.body.data, money: 16000 },
          });
-         playerUser = new Player(user.name, user.id, user.money);
+         playerUser = new Player(user.id);
          res.json(user);
       } catch (error) {
          res.status(500).json({error: error.message})
