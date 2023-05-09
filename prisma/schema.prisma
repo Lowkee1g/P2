@@ -11,6 +11,7 @@ model User {
   id    Int    @id @default(autoincrement())
   name  String  @unique
   money Int
+  hasTurn Boolean @default(false)
   properties Property[]
   logs Logs[]
 }

@@ -1,6 +1,3 @@
-//open socket connection
-const socket = io("http://localhost:7070");
-socket.on("connection");
 
 const chat = (msg) => {
     socket.emit("message", msg);

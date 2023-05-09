@@ -160,3 +160,7 @@ html{
     font-style: italic  ;
 	text-transform: capitalize;
 }
+
+.notPlayersTurn {
+	display: none;
+}
