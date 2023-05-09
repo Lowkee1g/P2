@@ -25,11 +25,14 @@ let numberOfPlayers = 0;
 //TODO: fix number of players ONLY if they have joined the game
 
 io.on("connection", (socket) => {
+
+
   console.log('a user connected: ' + socket.id);
   // On player join send data to other users and the broadcaster
   socket.on("playerJoin", (player) => {
     // Add player to array with socket id
     players.push({player: player, socketId: socket.id});
+
     numberOfPlayers+=1;
 
     socket.broadcast.emit("playerJoin", player, numberOfPlayers);
@@ -66,10 +69,15 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("message_recieve", data);
     socket.emit("message_send", data);
   });
-
+  
   socket.on("movePlayer", (playerId, dicesum) => {
     socket.broadcast.emit("movePlayer", playerId,dicesum);
     socket.emit("movePlayer", playerId,dicesum);
+  });
+  
+  socket.on("sendTurn", (playerId) => {
+    socket.broadcast.emit("recieveTurn", playerId);
+    socket.emit("recieveTurn", playerId);
   });
 });
 

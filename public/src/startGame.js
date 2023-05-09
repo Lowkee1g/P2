@@ -1,5 +1,5 @@
 let player;
-
+let playerId;
 // We use this because we need callback to use the data outside the ajax success function
 function getPlayerOnStart() {
     // let username = "Player1";
@@ -51,12 +51,8 @@ document.querySelector("#endturn").addEventListener("click", () => {
         dataType: 'json',
         success: function (nextPlayer) {
             //Disbable button for all but nextPlayer
-            console.log(nextPlayer);
-            if(nextPlayer.id == player.id) {
-                currentPlayersTurn();
-            } else {
-                notPlayersTurn();
-            }
+            console.log(nextPlayer.name);
+            sendNextTurn(nextPlayer.id);
         },
         error: function(xhr, textStatus, error) {
                 console.log(xhr.responseText);
@@ -68,6 +64,18 @@ document.querySelector("#endturn").addEventListener("click", () => {
 });
 
 // Emit ud så player 2 nu kan trykke på knappen;
+const sendNextTurn = (name) => {
+    socket.emit("sendTurn", name);
+};
+
+socket.on("recieveTurn", (playerId) => {
+    console.log("Its my turn bitch: " + playerId);
+    if(player.id === playerId) {
+        currentPlayersTurn();
+    } else {
+        notPlayersTurn();
+    }
+});
 
 function currentPlayersTurn() {
     document.querySelector("#roll-button").disabled = false;

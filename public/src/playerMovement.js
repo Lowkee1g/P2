@@ -3,7 +3,6 @@ let p1check = 0;
 let random1 = 0;
 let random2 = 0;
 let jailp1 = 0;
-let playerId; 
 
 //mangler at få lavet end turn funktionen
 
