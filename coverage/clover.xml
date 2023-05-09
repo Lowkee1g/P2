@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683618062926" clover="3.2.0">
-  <project timestamp="1683618062926" name="All files">
-    <metrics statements="163" coveredstatements="31" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="3" elements="176" coveredelements="37" complexity="0" loc="163" ncloc="163" packages="1" files="1" classes="1"/>
+<coverage generated="1683621178696" clover="3.2.0">
+  <project timestamp="1683621178696" name="All files">
+    <metrics statements="163" coveredstatements="37" conditionals="5" coveredconditionals="4" methods="10" coveredmethods="4" elements="178" coveredelements="45" complexity="0" loc="163" ncloc="163" packages="1" files="1" classes="1"/>
     <file name="Player.js" path="/Volumes/AAUCode/P2/P2/models/Player.js">
-      <metrics statements="163" coveredstatements="31" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="3"/>
+      <metrics statements="163" coveredstatements="37" conditionals="5" coveredconditionals="4" methods="10" coveredmethods="4"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
@@ -15,13 +15,13 @@
       <line num="9" count="1" type="stmt"/>
       <line num="10" count="1" type="stmt"/>
       <line num="11" count="1" type="stmt"/>
-      <line num="12" count="1" type="stmt"/>
-      <line num="13" count="0" type="stmt"/>
-      <line num="14" count="0" type="stmt"/>
-      <line num="15" count="0" type="stmt"/>
-      <line num="16" count="0" type="stmt"/>
-      <line num="17" count="0" type="stmt"/>
-      <line num="18" count="0" type="stmt"/>
+      <line num="12" count="1" type="cond" truecount="1" falsecount="0"/>
+      <line num="13" count="1" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="18" count="1" type="cond" truecount="0" falsecount="1"/>
       <line num="19" count="0" type="stmt"/>
       <line num="20" count="1" type="stmt"/>
       <line num="21" count="1" type="stmt"/>

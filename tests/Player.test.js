@@ -5,3 +5,7 @@ test('Test player id', () => {
     expect(player.getId()).toBe(89);
 });
 
+test('find function returns the right player', () => {
+    expect(Player.find(1).name).toMatch
+});
+
