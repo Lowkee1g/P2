@@ -71,7 +71,7 @@ rollButton.addEventListener('click', () => {
             return;
         } else {
             movePlayer(a);
-            if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
+            if (a % 40 == 2 || a % 40 == 4 || a % 40 == 7 || a % 40 == 17 || a % 40 == 22 || a % 40 == 33 || a % 40 == 36 || a % 40 == 38) {
                 console.log("card");
                 document.querySelector('.chance-card').style.display = 'block';
                 getQuote();
