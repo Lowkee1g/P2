@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683619842030" clover="3.2.0">
-  <project timestamp="1683619842030" name="All files">
+<coverage generated="1683618062926" clover="3.2.0">
+  <project timestamp="1683618062926" name="All files">
     <metrics statements="163" coveredstatements="31" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="3" elements="176" coveredelements="37" complexity="0" loc="163" ncloc="163" packages="1" files="1" classes="1"/>
-    <file name="Player.js" path="/Users/frederiklauridsen/AAU KBH/SW2/P2/P2/models/Player.js">
+    <file name="Player.js" path="/Volumes/AAUCode/P2/P2/models/Player.js">
       <metrics statements="163" coveredstatements="31" conditionals="3" coveredconditionals="3" methods="10" coveredmethods="3"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
