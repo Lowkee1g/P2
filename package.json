@@ -4,7 +4,7 @@
   "description": "Yloponom",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "eslint public/src/*js",
     "start": "node ./bin/www",
     "nodemon": "nodemon ./bin/www"
