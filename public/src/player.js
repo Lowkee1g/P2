@@ -1,34 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const endturnButton = document.getElementById('endturn');
-  
-    endturnButton.addEventListener('click', () => {
-        console.log("Playername: Ended turn");
-    });
-  });
+function getPlayerProperties(player) {
+    let card = document.querySelector('.cardTemplate').content
+    let cardContainer = document.querySelector('.cards')
+    
+    player.properties.forEach(property => {
+        let cardClone = card.cloneNode(true)
+        cardClone.querySelector('.cardTitle').textContent = property.name 
+        cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr"
+        cardClone.querySelector('.cardPrice').textContent = "Rent " + property.price + "kr"
+        cardContainer.appendChild(cardClone)
+    })
+}
 
+function getPlayerInfo(player) {
+    console.log(player);
+    let playerInfo = document.querySelector('.playerdata')
+    playerInfo.querySelector('.money').textContent = "Money: " + player.money + "kr"
+    playerInfo.querySelector('.propertiesOwned').textContent = "Properties owned: " + player.properties.length
+    playerInfo.querySelector('.userName').textContent = player.name
+}
 
+function updatePlayerInfo(player) {
+    let playerInfo = document.querySelector('.playerdata')
+    playerInfo.querySelector('.money').textContent = "Money: " + player.money + "kr"
+}
 
-
-
-// Wait for the DOM to load before executing the script
-document.addEventListener('DOMContentLoaded', () => {
-    // Select all the card elements
-    const cards = document.querySelectorAll('.card');
-
-    // Add a click event listener to each card
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            // Get the property name and description within the clicked card
-            const propNameElement = card.querySelector('.propname');
-            const propDescElement = card.querySelector('.propDesc');
-
-            // Get the text content of the elements
-            const propName = propNameElement ? propNameElement.innerText.trim() : '';
-            const propDesc = propDescElement ? propDescElement.innerText.trim() : '';
-
-            // Log the property name and description to the console
-            console.log('Property Name:', propName);
-            console.log('Property Description:', propDesc);
-        });
-    });
-});

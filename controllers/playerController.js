@@ -91,9 +91,10 @@ module.exports = class player {
     }
 	
 	static async chanceData(req, res) {
-		console.log(req);
 		try {
-			Chance.changeMoney(req.body.playerUser, req.body.quote);
+			let User = await Chance.changeMoney(req.body.playerUser, req.body.quote);
+         console.log(User);
+         res.json(User);
 		}
 		catch (error) {
 			res.status(500).json({ error: error.message });
