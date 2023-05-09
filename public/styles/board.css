@@ -59,14 +59,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .board {
     display: grid;
-    grid-template-columns: 6.5vw repeat(9, 5.07vw) 6.5vw;
-    grid-template-rows: 13vh repeat(9, 7.8vh) 13vh;
+    grid-template-columns: 125px repeat(9, 80px) 125px;
+    grid-template-rows: 125px repeat(9, 80px) 125px;
     grid-gap: 2px;
-    overflow: hidden;
     margin: 5px auto;
-    width: 60vw;
-    height: 99vh;
-
+    width: 994px;
+    height: 994px;
+    zoom: 0.9;
+    position: absolute;
+    margin-right: auto;
+    margin-left: auto;
+    right: 0%;
+    left: 0%;
     background: #080808;
     border: 2px solid #080808;
 }
@@ -128,26 +132,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .horizontal-row {
-    grid-template-columns: repeat(9, 5.07vw);
-    grid-template-rows: 13vh;
-}
-
-.horizontal-row .container {
-    height: 100% !important;
-    width: 100% !important;
+    grid-template-columns: repeat(9, 80px);
+    grid-template-rows: 125px;
 }
 
 .vertical-row {
-    grid-template-rows: repeat(9, 7.8vh);
-    grid-template-columns: 6.5vw;
+    grid-template-columns: 125px;
+    grid-template-rows: repeat(9, 80px);
 }
 .vertical-row .container {
     top: 50%;
     left: 50%;
-    height: 148% !important;
-    width: 68% !important;
-    /* height: 7.8vh !important;
-    width: 6.5vw !important; */
 }
 
 .bottom-row {
@@ -161,7 +156,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 1px;
 }
 .left-row .container {
-    transform: translate(-50%, -50%) rotate(90deg) ;
+    transform: translate(-50%, -50%) rotate(90deg);
 }
 
 .top-row {
@@ -220,6 +215,7 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 2px solid #080808;
 }
 .property .name {
+    padding-bottom: 40px;
     font-family: "Futura Normal";
 }
 
@@ -283,7 +279,7 @@ h1, h2, h3, h4, h5, h6 {
 .jail .drawing {
     grid-column: 4/11;
     grid-row: 1/8;
-    width: 79.5px;
+    width: 87.5px;
     height: 87.5px;
     background: #fa811d;
     border-bottom: 2px solid #080808;
@@ -545,30 +541,3 @@ h1, h2, h3, h4, h5, h6 {
   .board img {
     pointer-events: none;
   }
-
-@media only screen and (min-width: 1600px) {
-    .vertical-row .container {
-        height: 158% !important;
-        width: 63% !important;
-    }
-}
-@media only screen and (min-width: 1750px) {
-    .vertical-row .container {
-        height: 173% !important;
-        width: 58% !important;
-    }
-}
-
-@media only screen and (min-width: 1850px) {
-    .vertical-row .container {
-        height: 182% !important;
-        width: 55% !important;
-    }
-}
-
-@media only screen and (min-width: 1900px) {
-    .vertical-row .container {
-        height: 171% !important;
-        width: 59% !important;
-    }
-}
