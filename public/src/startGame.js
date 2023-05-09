@@ -1,5 +1,10 @@
+//open socket connection
+const socket = io("http://localhost:7070");
+socket.on("connection");
+
 let player;
 let playerId;
+let players;
 // We use this because we need callback to use the data outside the ajax success function
 function getPlayerOnStart() {
     // let username = "Player1";
@@ -14,34 +19,49 @@ function setPlayerData(data) {
     player = data;
     playerId = data.id;
     if(data.id == 1) {
-        console.log(data.id);
-        enableIfPlayerOne();
+        currentPlayersTurn()
+        // enableIfPlayerOne();
     }
 }
 
 getPlayerOnStart().done(setPlayerData)
+
+function apiAllPlayers() {
+    return $.ajax({
+        type: 'get',
+        url: '/getAllPlayers',
+    });
+}
+
+function getAllPlayers(data) {
+    players = data;
+    // Get all players to end turn to next player
+    console.log(data);
+}
+
+apiAllPlayers().done(getAllPlayers);
 
 function enableIfPlayerOne() {
     console.log("Should enable")
     document.querySelector("#roll-button").disabled = false;
 }
 
-// player 1 har turen
-    // player 1 slutter sin tur på end turn knappen og ændre has turn i database på både playeren og næste player
-    // den returnere den spiller som nu har turen og giver det til socket så vi kan sætte enable på den browser som har turen
-// Player 2 kan nu trykke på kanppen
-
 document.querySelector("#endturn").addEventListener("click", () => {
+// 0: {id: 1, name: 'Player1', money: 16000, hasTurn: true}
+// 1: {id: 2, name: 'Player2', money: 16000, hasTurn: false}
+// 2: {id: 3, name: 'Player3', money: 16000, hasTurn: false}
     let nextPlayer;
-    if(player.id == 1) {
-        nextPlayer = 2;
-    } else if (player.id == 2) {
-        nextPlayer = 3;
-    } else if (player.id == 3) {
-        nextPlayer = 4;
-    } else {
+    let index = players.findIndex(x => x.id === player.id + 1);
+    if(index == -1) {
+        console.log('test');
         nextPlayer = 1;
+    } else {
+
+        nextPlayer = players[index].id;
     }
+    console.log("Length of array: " + players.length);
+    console.log("Next player is: " + nextPlayer);
+
     $.ajax({
         type: 'post',
         url: '/endTurn',
@@ -69,18 +89,30 @@ const sendNextTurn = (name) => {
 };
 
 socket.on("recieveTurn", (playerId) => {
-    console.log("Its my turn bitch: " + playerId);
     if(player.id === playerId) {
+        console.log("Its my turn bitch: " + playerId);
         currentPlayersTurn();
     } else {
-        notPlayersTurn();
+        disableDice();
+        hideEndButton();
     }
 });
 
 function currentPlayersTurn() {
+    console.log("I play this game");
     document.querySelector("#roll-button").disabled = false;
+    document.querySelector('#dice1').classList.remove('notTurnDice');
+    document.querySelector('#dice2').classList.remove('notTurnDice');
+    console.log(document.querySelector('#endturn'));
+    document.querySelector('#endturn').classList.remove('notPlayersTurn');
 }
 
-function notPlayersTurn() {
+function hideEndButton() {
+    document.querySelector('#endTurn').classList.add('notPlayersTurn');
+}
+
+function disableDice() {
     document.querySelector("#roll-button").disabled = true;
+    document.querySelector('#dice1').classList.add('notTurnDice');
+    document.querySelector('#dice2').classList.add('notTurnDice');
 }

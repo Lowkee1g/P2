@@ -41,6 +41,7 @@ function throwDice() {
       return;
   } else if (roll1 != roll2) {
       p1check = 0;
+      disableDice();
       return;
   }
 }

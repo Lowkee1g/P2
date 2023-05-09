@@ -180,6 +180,11 @@ class Player {
 
         return thisPlayerHasTurn;
     }
+
+    static getAllPlayers = async () => {
+        const users =  await prisma.user.findMany();
+        return users;
+    };
 }
 
 module.exports = Player;

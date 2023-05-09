@@ -52,6 +52,11 @@ router.get("/userByName",  (req, res) => {
   start_controller.getPlayer(req,res)
 });
 
+
+router.get("/getAllPlayers",  (req, res) => {
+  start_controller.getAllPlayers(req,res)
+});
+
 router.get("/userBuyProperty/:propertyId",  (req, res) => {
   player_controller.userBuyProperty(req, res, req.params.propertyId)
 });
