@@ -57,7 +57,6 @@ function getQuote() {
 
 
 
-
     //update Database with ajax
 
 
@@ -74,3 +73,5 @@ closeButtonId.addEventListener('click', function() {
     document.querySelector('.chance-card').style.display = 'none';
     console.log("test");
 });
+
+module.exports = chancecard;
