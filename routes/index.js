@@ -30,6 +30,7 @@ router.get("/startGame", async (req, res, next) => {
 // Route for setting username in session
 router.post("/joinPlayer", async (req, res, next) => {
   req.session.user = req.body.data;
+  req.session.save();
   player_controller.createPlayer(req, res);
 });
 
@@ -41,10 +42,19 @@ router.post('/api/chanceData', (req, res) => {
   player_controller.chanceData(req, res);
 })
 
+router.post('/endTurn', (req, res) => {
+  player_controller.endTurn(req, res);
+})
+
 router.get("/user/:id", player_controller.getUserInformation);
 
 router.get("/userByName",  (req, res) => {
   start_controller.getPlayer(req,res)
+});
+
+
+router.get("/getAllPlayers",  (req, res) => {
+  start_controller.getAllPlayers(req,res)
 });
 
 router.get("/userBuyProperty/:propertyId",  (req, res) => {
