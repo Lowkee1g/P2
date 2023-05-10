@@ -21,7 +21,7 @@ class ChanceTile extends Tile {
             return;
         }
 
-        await prisma.user.update({
+        let user = await prisma.user.update({
             where: {
                 id: id
             },
@@ -29,6 +29,7 @@ class ChanceTile extends Tile {
                 money: player.money + money
             }
         })
+        return user;
     }
 
 }

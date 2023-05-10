@@ -2,29 +2,27 @@ extends layout
 
 block content
   .table
-  include includes/chat.pug
-  .table
     include playerinfo.pug
     include includes/chancecard.pug
     .board
-      img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1')
+      img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1;')
       .center
-        h1.title(style='background-color: #f50c2b;color: #fafaf8;padding-left: 13px;padding-right: 5px;text-shadow: -7px 7px #000000;') YLOPONOM
+        //- h1.title(style='background-color: #f50c2b;color: #fafaf8;padding-left: 13px;padding-right: 5px;text-shadow: -7px 7px #000000;') YLOPONOM
         include includes/dice.pug
       #field-0.space.corner.go
         .container
           .player1-place
             p 1
-            .player1-test 
+            .player1-piece
           .player2-place
             p 2
-            .player2-test
+            .player2-piece
           .player3-place
             p 3
-            .player3-test
+            .player3-piece
           .player4-place
             p 4
-            .player4-test
+            .player4-piece
           .instructions Collect $200.00 salary as you pass here
           .go-word go
         .arrow.fa.fa-long-arrow-left
@@ -540,9 +538,8 @@ block content
             .price Kroner 400
     if user
       input(type="hidden", id="userID", value=user)
-  script(src="/../src/playerinfo.js")
+  script(src="/../src/startGame.js")
   script(src="src/chancecard.js") 
   script(src="/../src/board.js")
   script(src='src/playerMovement.js')
-  script(src='src/startGame.js')
   script(src='../src/player.js')

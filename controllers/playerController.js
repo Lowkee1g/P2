@@ -22,9 +22,15 @@ module.exports = class player {
          const user = await prisma.user.create({
                data: { name: req.body.data, money: 16000 },
          });
+         if(user.id == 1) {
+            await prisma.user.update({
+               where: {id: user.id}, 
+               data: {
+                   hasTurn: true,
+               },
+         });
+      }
          playerUser = new Player(user.id);
-         req.session.userID = playerUser.getId();
-         console.log(req.session.userID);
          res.json(user);
       } catch (error) {
          res.status(500).json({error: error.message})
@@ -91,14 +97,27 @@ module.exports = class player {
     }
 	
 	static async chanceData(req, res) {
-		console.log(req);
 		try {
-			Chance.changeMoney(req.body.playerUser, req.body.quote);
+			let User = await Chance.changeMoney(req.body.playerUser, req.body.quote);
+         console.log(User);
+         res.json(User);
 		}
 		catch (error) {
 			res.status(500).json({ error: error.message });
 		}
 	}
 
-   
+   // Change currentPlayers hasturn to 0 and set next players hasturn to 1 and return next player
+   static async endTurn(req, res) {
+		try {
+			let currentPlayer = req.body.data;
+         let newPlayerTurn = await Player.endTurn(currentPlayer,req.body.nextPlayer);
+         console.log(req.body.nextPlayer)
+         console.log(newPlayerTurn)
+         res.json(newPlayerTurn);
+		}
+		catch (error) {
+			res.status(500).json({ error: error.message });
+		}
+	}
 };

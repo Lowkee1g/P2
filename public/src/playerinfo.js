@@ -7,7 +7,8 @@ $(document).ready(function(){
             type: 'get',
             url: '/userByName/?name='+username,
             success: function (player) {
-            
+                getPlayerProperties(player);
+                getPlayerInfo(player);            
             },
             error: function(xhr, textStatus, error) {
                     console.log(xhr.responseText);

@@ -158,6 +158,33 @@ class Player {
             },
         });
     };
+
+    static endTurn = async (currentPlayer,nextPlayerId) => {
+        await prisma.user.update({
+            where: {
+                id: currentPlayer.id,
+            },
+            data: {
+                hasTurn: false,
+            }
+        })
+
+        let thisPlayerHasTurn = await prisma.user.update({
+            where: {
+                id: nextPlayerId,
+            },
+            data: {
+                hasTurn: true,
+            }
+        })
+
+        return thisPlayerHasTurn;
+    }
+
+    static getAllPlayers = async () => {
+        const users =  await prisma.user.findMany();
+        return users;
+    };
 }
 
 module.exports = Player;
