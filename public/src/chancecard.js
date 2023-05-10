@@ -37,23 +37,23 @@ function getQuote() {
     // Get a random index into the arrays
     let i = Math.floor(Math.random() * quotes.length);
 
-    // $.ajax({
-    //     type: 'POST',
-    //     url: '/api/chanceData',
-    //     data: JSON.stringify ({
-    //         playerUser: 1,
-    //         quote: quoteValue[i],
-    //     }),
-    //     contentType: 'application/json',
-    //     success: function (data) {
-    //         console.log("Chance: " + data);
-    //     },
-    //     error: function(xhr, textStatus, error) {
-    //         console.log(error);
-    //         console.log(xhr);
-    //         console.log(textStatus);
-    //     }
-    // })
+    $.ajax({
+        type: 'POST',
+        url: '/api/chanceData',
+        data: JSON.stringify ({
+            playerUser: 1,
+            quote: quoteValue[i],
+        }),
+        contentType: 'application/json',
+        success: function (data) {
+            console.log("Chance: " + data);
+        },
+        error: function(xhr, textStatus, error) {
+            console.log(error);
+            console.log(xhr);
+            console.log(textStatus);
+        }
+    })
 
 
 
@@ -66,14 +66,14 @@ function getQuote() {
     return;
 }
 
-// // Get a reference to the button element
-// const closeButtonId = document.getElementById('close-button-id');
-// console.log(closeButtonId);
-// // Add a click event listener to the button
-// closeButtonId.addEventListener('click', function() {
-//     // Close the window when the button is clicked
-//     document.querySelector('.chance-card').style.display = 'none';
-//     console.log("test");
-// });
+// Get a reference to the button element
+const closeButtonId = document.getElementById('close-button-id');
+console.log(closeButtonId);
+// Add a click event listener to the button
+closeButtonId.addEventListener('click', function() {
+    // Close the window when the button is clicked
+    document.querySelector('.chance-card').style.display = 'none';
+    console.log("test");
+});
 
 module.exports = getQuote();
