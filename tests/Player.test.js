@@ -1,7 +1,13 @@
 const Player = require("../models/Player");
 
-/* global beforeEach, expect, test */
-const { prismaMock } = require('../singleton')
+
+const { createMockContext } = require('../context')
+
+let mockCtx
+
+beforeEach(() => {
+  mockCtx = createMockContext()
+})
 
 test('Test player id', () => {
     const player = new Player(89);
@@ -15,9 +21,9 @@ test('find function returns the right player', async () => {
         money: 11111
     }
     
-    prismaMock.user.create.mockResolvedValue(user)
+    mockCtx.prisma.user.findUnique.mockResolvedValue(user)
     
-    await expect(Player.find(800)).resolves.toEqual({
+    await expect(Player.find(800, mockCtx)).resolves.toEqual({
         id: 800,
         name: 'name',
         money: 11111

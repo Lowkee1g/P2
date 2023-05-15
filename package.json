@@ -9,11 +9,6 @@
     "start": "node ./bin/www",
     "nodemon": "nodemon ./bin/www"
   },
-  "jest": {
-    "setupFiles": [
-      "./setupTests.js"
-    ]
-  },
   "prisma": {
     "seed": "node prisma/seed.js"
   },
