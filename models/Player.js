@@ -55,13 +55,15 @@ class Player {
                 },
             };
 
+            let updateProperty;
+
             if (ctx === null){
-                await prisma.property.update(updateWhere);
+                updateProperty = await prisma.property.update(updateWhere);
             } else {
-                await ctx.prisma.property.update(updateWhere);
+                updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(this.id, -propertyInfo.price);
+            this.updateMoney(this.id, -propertyInfo.price, ctx);
 
         } else {
             console.log('Property is already owned');
@@ -92,7 +94,7 @@ class Player {
                 await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(this.id, propertyInfo.price); 
+            this.updateMoney(this.id, propertyInfo.price, ctx); 
 
         } else {
             console.log('This property does not belong to this player');
@@ -123,17 +125,17 @@ class Player {
                 await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(this.id, -(prop.price * 0.2 * parseInt(changeNo)))
+            this.updateMoney(this.id, -(prop.price * 0.2 * parseInt(changeNo)), ctx)
         } else {
             console.log('This property does not belong to this player');
         }
     }
 
-    static payRent = async (fromPlayer, toPlayer, amount) => {
+    static payRent = async (fromPlayer, toPlayer, amount, ctx) => {
         console.log("Charging: " + amount + " from player: " + fromPlayer.name + " to player: " + toPlayer.name);
         // Charge the player
-        this.updateMoney(fromplayer, -amount);
-        this.updateMoney(toPlayer, amount)
+        this.updateMoney(fromplayer, -amount, ctx);
+        this.updateMoney(toPlayer, amount, ctx)
     };
 
     async updateMoney(playerId, changeAmount, ctx){
