@@ -10,13 +10,12 @@ class Player {
     }
 
     static find = async (id) => {
-        const user = await prisma.user.findUnique({
+        return await prisma.user.findUnique({
             where: { id: id },
             include: {
                 properties: true,
             },
         });
-        return user;
     };
 
     static findByName = async (name) => {

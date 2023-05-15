@@ -1,5 +1,4 @@
 const Player = require("../models/Player");
-jest.mock("@services/mysql.service");
 
 /* global beforeEach, expect, test */
 const { prismaMock } = require('../singleton')
@@ -10,13 +9,19 @@ test('Test player id', () => {
 });
 
 test('find function returns the right player', async () => { 
-    let mock = {
-        find: {
-            findUnique: jest.fn()
-        }
+    const user = {
+        id: 800,
+        name: 'name',
+        money: 11111
     }
-    Player.find(800)
-    await expect(mock.find.findUnique).toHaveBeenCalled();
+    
+    prismaMock.user.create.mockResolvedValue(user)
+    
+    await expect(Player.find(800)).resolves.toEqual({
+        id: 800,
+        name: 'name',
+        money: 11111
+    });
 });
 
 
