@@ -123,10 +123,6 @@ class Player {
                 await ctx.prisma.property.update(updateWhere);
             }
 
-            const userInfo = await prisma.user.findUnique({
-                where: {id: this.id},
-            });
-
             this.updateMoney(this.id, -(prop.price * 0.2 * parseInt(changeNo)))
         } else {
             console.log('This property does not belong to this player');
@@ -140,17 +136,30 @@ class Player {
         this.updateMoney(toPlayer, amount)
     };
 
-    async updateMoney(playerId, changeAmount){
-        const userInfo = await prisma.user.findUnique({
+    async updateMoney(playerId, changeAmount, ctx){
+        let findWhere = {
             where: {id: playerId}
-        });
+        };
+
+        let userInfo;
+
+        if (ctx === null) {
+            userInfo = await prisma.user.findUnique(findWhere);
+        } else {
+            userInfo = await ctx.prisma.user.findUnique(findWhere);
+        }
 
         let newBalance = userInfo.money + changeAmount;
-
-        return await prisma.user.update({
+        let updateWhere = {
             where: {id: parseInt(playerId)},
             data: {money: newBalance},
-        });
+        };
+
+        if (ctx === null) {
+            return await prisma.user.update(updateWhere);            
+        } else {
+            return await ctx.prisma.user.update(updateWhere);            
+        }
     }
 }
 
