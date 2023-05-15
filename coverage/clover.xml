@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683794059461" clover="3.2.0">
-  <project timestamp="1683794059461" name="All files">
-    <metrics statements="176" coveredstatements="51" conditionals="6" coveredconditionals="6" methods="10" coveredmethods="4" elements="192" coveredelements="61" complexity="0" loc="176" ncloc="176" packages="2" files="2" classes="2"/>
+<coverage generated="1684136518335" clover="3.2.0">
+  <project timestamp="1684136518335" name="All files">
+    <metrics statements="176" coveredstatements="50" conditionals="7" coveredconditionals="6" methods="10" coveredmethods="4" elements="193" coveredelements="60" complexity="0" loc="176" ncloc="176" packages="2" files="2" classes="2"/>
     <package name="P2">
       <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
       <file name="singleton.js" path="/Volumes/AAUCode/P2/P2/singleton.js">
@@ -22,9 +22,9 @@
       </file>
     </package>
     <package name="P2.models">
-      <metrics statements="163" coveredstatements="38" conditionals="4" coveredconditionals="4" methods="10" coveredmethods="4"/>
+      <metrics statements="163" coveredstatements="37" conditionals="5" coveredconditionals="4" methods="10" coveredmethods="4"/>
       <file name="Player.js" path="/Volumes/AAUCode/P2/P2/models/Player.js">
-        <metrics statements="163" coveredstatements="38" conditionals="4" coveredconditionals="4" methods="10" coveredmethods="4"/>
+        <metrics statements="163" coveredstatements="37" conditionals="5" coveredconditionals="4" methods="10" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -42,8 +42,8 @@
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
+        <line num="18" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
