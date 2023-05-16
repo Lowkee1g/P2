@@ -45,19 +45,16 @@ class Player {
         } else {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
-
-        console.log('property info in player ', propertyInfo);
         
         if(!propertyInfo.owned){
             let updateWhere = {
                 where: {id: parseInt(propertyInfo.id)}, 
                 data: {
-                    userId: 801,
+                    userId: this.id,
                     owned: true, 
                 },
             };
 
-            console.log(updateWhere);
             let updateProperty;
 
             if (ctx === null){
@@ -65,11 +62,8 @@ class Player {
             } else {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
-            console.log(updateProperty);
 
-            let userUpdate = this.updateMoney(this.id, -propertyInfo.price, ctx);
-
-            console.log('In player', updateProperty);
+            this.updateMoney(this.id, -propertyInfo.price, ctx);
 
             return updateProperty;
 
@@ -86,8 +80,8 @@ class Player {
         } else {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
-        
-        if(propertyInfo.userId != this.id){
+
+        if(propertyInfo.userId == this.id){
             let updateWhere = {
                 where: {id: parseInt(propertyId)}, 
                 data: {
@@ -95,20 +89,25 @@ class Player {
                     owned: false, 
                 },
             };
+
+            let updateProperty;
             
             if (ctx === null){
-                await prisma.property.update(updateWhere);
+                updateProperty = await prisma.property.update(updateWhere);
             } else {
-                await ctx.prisma.property.update(updateWhere);
+                updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
             this.updateMoney(this.id, propertyInfo.price, ctx); 
+
+            return updateProperty;
+
         } else {
             console.log('This property does not belong to this player');
         }
     };
 
-    async UpDownGradeProperty(propertyId, changeNo, ctx) {
+    async upDownGradeProperty(propertyId, changeNo, ctx) {
         let findWhere = {where: {id: parseInt(propertyId)}};
         let propertyInfo;
         if (ctx === null) {
@@ -126,13 +125,18 @@ class Player {
                 },
             };
 
+            let updateProperty;
+
             if (ctx === null) {
-                await prisma.property.update(updateWhere);
+                updateProperty = await prisma.property.update(updateWhere);
             } else {
-                await ctx.prisma.property.update(updateWhere);
+                updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(this.id, -(prop.price * 0.2 * parseInt(changeNo)), ctx)
+            this.updateMoney(this.id, -(propertyInfo.price * 0.2 * parseInt(changeNo)), ctx);
+
+            return updateProperty;
+
         } else {
             console.log('This property does not belong to this player');
         }
