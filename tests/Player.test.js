@@ -55,13 +55,12 @@ test('Buy property updates the property properly', async () => {
     mockCtx.prisma.user.update.mockResolvedValue(user);
     mockCtx.prisma.property.update.mockResolvedValue(propertyObj);
 
-    let updates = await playerClass.buyProperty(propertyObj.id, mockCtx);
+    let updates = playerClass.buyProperty(propertyObj.id, mockCtx);
 
     console.log(updates);
-    console.log(updates.property);
-    console.log(updates.user);
+    console.log("Update property: " + updates.property);
 
-    expect(updates.property).resolves.toEqual({
+    await expect(updates).resolves.toEqual({
         id: 123,
         name: 'Pentagon',
         userId: user.id,

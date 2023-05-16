@@ -50,9 +50,9 @@ class Player {
         
         if(!propertyInfo.owned){
             let updateWhere = {
-                where: {id: parseInt(propertyId)}, 
+                where: {id: parseInt(propertyInfo.id)}, 
                 data: {
-                    userId: this.id,
+                    userId: 801,
                     owned: true, 
                 },
             };
@@ -64,15 +64,14 @@ class Player {
                 updateProperty = await prisma.property.update(updateWhere);
             } else {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
-                console.log(updateProperty);
             }
+            console.log(updateProperty);
 
             let userUpdate = this.updateMoney(this.id, -propertyInfo.price, ctx);
 
-            console.log('In player', updateProperty, userUpdate);
+            console.log('In player', updateProperty);
 
-            return {property: updateProperty,
-                    user: userUpdate}
+            return updateProperty;
 
         } else {
             console.log('Property is already owned');
@@ -104,7 +103,6 @@ class Player {
             }
 
             this.updateMoney(this.id, propertyInfo.price, ctx); 
-
         } else {
             console.log('This property does not belong to this player');
         }
