@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1684242637642" clover="3.2.0">
-  <project timestamp="1684242637642" name="All files">
-    <metrics statements="190" coveredstatements="160" conditionals="21" coveredconditionals="9" methods="11" coveredmethods="9" elements="222" coveredelements="178" complexity="0" loc="190" ncloc="190" packages="2" files="2" classes="2"/>
+<coverage generated="1684242904773" clover="3.2.0">
+  <project timestamp="1684242904773" name="All files">
+    <metrics statements="217" coveredstatements="165" conditionals="21" coveredconditionals="9" methods="13" coveredmethods="9" elements="251" coveredelements="183" complexity="0" loc="217" ncloc="217" packages="2" files="2" classes="2"/>
     <package name="P2">
       <metrics statements="11" coveredstatements="11" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="context.js" path="/Volumes/AAUCode/P2/P2/context.js">
@@ -20,9 +20,9 @@
       </file>
     </package>
     <package name="P2.models">
-      <metrics statements="179" coveredstatements="149" conditionals="20" coveredconditionals="8" methods="10" coveredmethods="8"/>
+      <metrics statements="206" coveredstatements="154" conditionals="20" coveredconditionals="8" methods="12" coveredmethods="8"/>
       <file name="Player.js" path="/Volumes/AAUCode/P2/P2/models/Player.js">
-        <metrics statements="179" coveredstatements="149" conditionals="20" coveredconditionals="8" methods="10" coveredmethods="8"/>
+        <metrics statements="206" coveredstatements="154" conditionals="20" coveredconditionals="8" methods="12" coveredmethods="8"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -167,7 +167,7 @@
         <line num="142" count="0" type="stmt"/>
         <line num="143" count="1" type="stmt"/>
         <line num="144" count="1" type="stmt"/>
-        <line num="145" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="145" count="1" type="stmt"/>
         <line num="146" count="0" type="stmt"/>
         <line num="147" count="0" type="stmt"/>
         <line num="148" count="0" type="stmt"/>
@@ -201,7 +201,34 @@
         <line num="176" count="5" type="stmt"/>
         <line num="177" count="1" type="stmt"/>
         <line num="178" count="1" type="stmt"/>
-        <line num="179" count="1" type="stmt"/>
+        <line num="179" count="0" type="stmt"/>
+        <line num="180" count="0" type="stmt"/>
+        <line num="181" count="0" type="stmt"/>
+        <line num="182" count="0" type="stmt"/>
+        <line num="183" count="0" type="stmt"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="185" count="0" type="stmt"/>
+        <line num="186" count="0" type="stmt"/>
+        <line num="187" count="0" type="stmt"/>
+        <line num="188" count="0" type="stmt"/>
+        <line num="189" count="0" type="stmt"/>
+        <line num="190" count="0" type="stmt"/>
+        <line num="191" count="0" type="stmt"/>
+        <line num="192" count="0" type="stmt"/>
+        <line num="193" count="0" type="stmt"/>
+        <line num="194" count="0" type="stmt"/>
+        <line num="195" count="0" type="stmt"/>
+        <line num="196" count="0" type="stmt"/>
+        <line num="197" count="0" type="stmt"/>
+        <line num="198" count="0" type="stmt"/>
+        <line num="199" count="1" type="stmt"/>
+        <line num="200" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="201" count="0" type="stmt"/>
+        <line num="202" count="0" type="stmt"/>
+        <line num="203" count="1" type="stmt"/>
+        <line num="204" count="1" type="stmt"/>
+        <line num="205" count="1" type="stmt"/>
+        <line num="206" count="1" type="stmt"/>
       </file>
     </package>
   </project>
