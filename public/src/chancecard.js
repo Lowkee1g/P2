@@ -65,6 +65,7 @@ function getQuote() {
 
     // Display the quote in the p class="quote"
     document.getElementById("quote").innerHTML = quotes[i];
+    return;
 }
 
 // Get a reference to the button element
@@ -74,3 +75,4 @@ closeButtonId.addEventListener('click', function() {
     // Close the window when the button is clicked
     document.querySelector('.chance-card').style.display = 'none';
 });
+
