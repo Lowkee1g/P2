@@ -3,11 +3,11 @@ const prisma = new PrismaClient();
 class Player {
     constructor(id){
         this.id = id;
-    }
+    };
 
     getId(){
         return this.id
-    }
+    };
 
     static find = async (id, ctx) => {
         let usr = {
@@ -45,6 +45,8 @@ class Player {
         } else {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
+
+        console.log('property info in player ', propertyInfo);
         
         if(!propertyInfo.owned){
             let updateWhere = {
@@ -55,20 +57,27 @@ class Player {
                 },
             };
 
+            console.log(updateWhere);
             let updateProperty;
 
             if (ctx === null){
                 updateProperty = await prisma.property.update(updateWhere);
             } else {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
+                console.log(updateProperty);
             }
 
-            this.updateMoney(this.id, -propertyInfo.price, ctx);
+            let userUpdate = this.updateMoney(this.id, -propertyInfo.price, ctx);
+
+            console.log('In player', updateProperty, userUpdate);
+
+            return {property: updateProperty,
+                    user: userUpdate}
 
         } else {
             console.log('Property is already owned');
         }
-    }
+    };
 
     async sellProperty(propertyId, ctx) {
         let findWhere =  {where: {id: parseInt(propertyId)}};
@@ -99,7 +108,7 @@ class Player {
         } else {
             console.log('This property does not belong to this player');
         }
-    }
+    };
 
     async UpDownGradeProperty(propertyId, changeNo, ctx) {
         let findWhere = {where: {id: parseInt(propertyId)}};
@@ -129,7 +138,7 @@ class Player {
         } else {
             console.log('This property does not belong to this player');
         }
-    }
+    };
 
     static payRent = async (fromPlayer, toPlayer, amount, ctx) => {
         console.log("Charging: " + amount + " from player: " + fromPlayer.name + " to player: " + toPlayer.name);
@@ -162,7 +171,7 @@ class Player {
         } else {
             return await ctx.prisma.user.update(updateWhere);            
         }
-    }
+    };
 }
 
 module.exports = Player;

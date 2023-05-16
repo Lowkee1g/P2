@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.4% </span>
+                <span class="strong">55.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>87/166</span>
+                <span class='fraction'>98/177</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.4% </span>
+                <span class="strong">55.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>87/166</span>
+                <span class='fraction'>98/177</span>
             </div>
         
             
@@ -229,7 +229,18 @@
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -287,7 +298,18 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -400,11 +422,11 @@ const prisma = new PrismaClient();
 class Player {
     constructor(id){
         this.id = id;
-    }
+    };
 &nbsp;
     getId(){
         return this.id
-    }
+    };
 &nbsp;
     static find = async (id, ctx) =&gt; {
         let usr = {
@@ -442,6 +464,8 @@ class Player {
         } else {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
+&nbsp;
+        console.log('property info in player ', propertyInfo);
         
         if(!propertyInfo.owned){
             let updateWhere = {
@@ -452,18 +476,27 @@ class Player {
                 },
             };
 &nbsp;
+            console.log(updateWhere);
+            let updateProperty;
+&nbsp;
             if (ctx === null)<span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >                await prisma.property.update(updateWhere);</span>
+<span class="cstat-no" title="statement not covered" >                updateProperty = await prisma.property.update(updateWhere);</span>
             } else {
-                await ctx.prisma.property.update(updateWhere);
+                updateProperty = await ctx.prisma.property.update(updateWhere);
+                console.log(updateProperty);
             }
 &nbsp;
-            this.updateMoney(this.id, -propertyInfo.price, ctx);
+            let userUpdate = this.updateMoney(this.id, -propertyInfo.price, ctx);
+&nbsp;
+            console.log('In player', updateProperty, userUpdate);
+&nbsp;
+            return {property: updateProperty,
+                    user: userUpdate}
 &nbsp;
         }<span class="branch-0 cbranch-no" title="branch not covered" > else {</span>
 <span class="cstat-no" title="statement not covered" >            console.log('Property is already owned');</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-    }
+    };
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async sellProperty(propertyId, ctx) {</span>
 <span class="cstat-no" title="statement not covered" >        let findWhere =  {where: {id: parseInt(propertyId)}};</span>
@@ -494,7 +527,7 @@ class Player {
 <span class="cstat-no" title="statement not covered" >        } else {</span>
 <span class="cstat-no" title="statement not covered" >            console.log('This property does not belong to this player');</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async UpDownGradeProperty(propertyId, changeNo, ctx) {</span>
 <span class="cstat-no" title="statement not covered" >        let findWhere = {where: {id: parseInt(propertyId)}};</span>
@@ -524,7 +557,7 @@ class Player {
 <span class="cstat-no" title="statement not covered" >        } else {</span>
 <span class="cstat-no" title="statement not covered" >            console.log('This property does not belong to this player');</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
 &nbsp;
     static payRent = <span class="fstat-no" title="function not covered" >async (fromPlayer, toPlayer, amount, ctx) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        console.log("Charging: " + amount + " from player: " + fromPlayer.name + " to player: " + toPlayer.name);</span>
@@ -557,7 +590,7 @@ class Player {
         } else {
             return await ctx.prisma.user.update(updateWhere);            
         }
-    }
+    };
 }
 &nbsp;
 module.exports = Player;
@@ -568,7 +601,7 @@ module.exports = Player;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-15T10:47:08.525Z
+                at 2023-05-16T10:10:56.747Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

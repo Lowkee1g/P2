@@ -39,8 +39,8 @@ test('Buy property updates the property properly', async () => {
 
     let playerClass = new Player(user.id);
 
-    const property = {
-        id: 1234,
+    const propertyObj = {
+        id: 123,
         name: 'Pentagon',
         userId: null,
         houses: 0,
@@ -51,12 +51,18 @@ test('Buy property updates the property properly', async () => {
     };
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
-    mockCtx.prisma.property.findUnique.mockResolvedValue(property);
+    mockCtx.prisma.property.findUnique.mockResolvedValue(propertyObj);
+    mockCtx.prisma.user.update.mockResolvedValue(user);
+    mockCtx.prisma.property.update.mockResolvedValue(propertyObj);
 
-    playerClass.buyProperty(property.id, mockCtx);
+    let updates = await playerClass.buyProperty(propertyObj.id, mockCtx);
 
-    expect(property).resolves.toEqual({
-        id: 1234,
+    console.log(updates);
+    console.log(updates.property);
+    console.log(updates.user);
+
+    expect(updates.property).resolves.toEqual({
+        id: 123,
         name: 'Pentagon',
         userId: user.id,
         houses: 0,
