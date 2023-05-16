@@ -28,14 +28,14 @@ function throwDice() {
   const roll1 = diceRoll();
   const roll2 = diceRoll();
   updateDiceimages(roll1,roll2)
-  a += roll1 + roll2;
+  currentdicesum += roll1 + roll2;
 
   if (roll1 === roll2 && p1check < 3) {
       p1check += 1;
       return;
   } else if (roll1 === roll2 && p1check === 2) {
       moveToJail();
-      a = 10;
+      currentdicesum = 10;
       jailp1 = 1;
       p1check = 0;
       return;
@@ -53,13 +53,14 @@ rollButton.addEventListener('click', () => {
   }
   if (jailp1 === 0) {
       throwDice();
-      if (a % 40 === 30) {
+      if (currentdicesum % 40 === 30) {
           moveToJail();
           jailp1 = 1;
           return;
       } else {
-          movePlayerSocket(playerId,a);
-          if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
+          movePlayerSocket(playerId,currentdicesum);
+          if (currentdicesum % 40 == 2 || currentdicesum % 40 == 4 || currentdicesum % 40 == 7 || currentdicesum % 40 == 17 || 
+              currentdicesum % 40 == 22 || currentdicesum % 40 == 33 || currentdicesum % 40 == 36 || currentdicesum % 40 == 38) {
               document.querySelector('.chance-card').style.display = 'block';
               getQuote();
           }
