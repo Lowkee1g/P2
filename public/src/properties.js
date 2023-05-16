@@ -39,140 +39,250 @@ let dummyProperties = [
 ];
 
 
-// Iterate over each field
-fields.forEach(field => {
-  // Add a click event listener to the field
-  field.addEventListener('click', () => {
-    // Check if the field has the class 'property'
-    if (field.classList.contains('property')) {
-      // Get the name and price of the property
-      const name = field.querySelector('.name').textContent;
-      const price = field.querySelector('.price').textContent;
-      
+function showPopup(field, isProperty) {
+  // Get the name and price of the item
+  const name = field.querySelector('.name').textContent;
+  const price = field.querySelector('.price').textContent;
+
+  // Update the popup with the item details
+  popupTitle.textContent = name;
+  popupDescription.querySelector('.price').textContent = 'Price: ' + price;
+
+  // Check if the item is a property
+  if (isProperty) {
       // Get the color of the color bar
       const colorBar = field.querySelector('.color-bar');
       const color = window.getComputedStyle(colorBar).backgroundColor;
-      
-      // Update the popup with the property details
-      popupTitle.textContent = name;
+
+      // Update the popup header color
       popupHeader.style.backgroundColor = color;
-      popupHeader.style.border = '1px solid black';
-      popupDescription.querySelector('.price').textContent = 'Price: ' + price;
-      
+
       // Calculate and update the house prices based on the property price
-      document.querySelector('.one-house').textContent = 'ONE: ' + parseInt(price)*0.2 + ' DKK';
-      document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price)*0.4 + ' DKK';
-      document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price)*0.6 + ' DKK';
-      document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price)*0.8 + ' DKK';
-      
-      // Display the popup
-      popup.style.display = 'block';
-    }
-  });
-});
-
-
-// Iterate over each railroad field
-railroads.forEach(field => {
-  // Add a click event listener to the field
-  field.addEventListener('click', () => {
-    // Check if the field has the class 'railroad'
-    if (field.classList.contains('railroad')) {
-      // Get the name and price of the railroad
-      const name = field.querySelector('.name').textContent;
-      const price = field.querySelector('.price').textContent;
-      
-      // Update the popup with the railroad details
-      popupTitle.textContent = name;
+      document.querySelector('.one-house').textContent = 'ONE: ' + parseInt(price) * 0.2 + ' DKK';
+      document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price) * 0.4 + ' DKK';
+      document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price) * 0.6 + ' DKK';
+      document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price) * 0.8 + ' DKK';
+  } else {
+      // If the item is a railroad, set the popup header color to white
       popupHeader.style.backgroundColor = 'white';
-      popupHeader.style.border = '1px solid black';
-      popupDescription.querySelector('.price').textContent = 'Price: ' + price;
-      
-      // Display the popup
-      popup.style.display = 'block';
-    }
+  }
+
+  // Display the popup
+  popup.style.display = 'block';
+
+  // Check ownership and update button states
+  checkOwnership(name);
+}
+
+function checkOwnership(name) {
+  dummyProperties.forEach(property => {
+      if (property.name === name) {
+          // Disable the buy button if the property is owned
+          if (property.owned) {
+              buyButton.style.background = 'grey';
+              buyButton.style.pointerEvents = 'none';
+          } else {
+              buyButton.style.background = '';
+              buyButton.style.pointerEvents = 'auto';
+          }
+
+          // Disable the upgrade and sell buttons if the property is not owned
+          if (!property.owned) {
+              upgradeButton.style.background = 'grey';
+              upgradeButton.style.pointerEvents = 'none';
+              sellButton.style.background = 'grey';
+              sellButton.style.pointerEvents = 'none';
+              buyButton.style.background = 'grey';
+              buyButton.style.pointerEvents = 'none';
+
+          } else {
+              upgradeButton.style.background = '';
+              upgradeButton.style.pointerEvents = 'auto';
+              sellButton.style.background = '';
+              sellButton.style.pointerEvents = 'auto';
+          }
+
+          // Display the owner of the property
+          if (property.userid === null) {
+              document.querySelector('.owner').textContent = 'Owner: None';
+          } else {
+              document.querySelector('.owner').textContent = 'Owner: USER' + property.userid;
+          }
+      }
   });
-});
+}
 
 
 
-closePopup.addEventListener('click', () => {
-  popup.style.display = 'none';
-});
+function setupGame() {
+  fields.forEach(field => {
+      field.addEventListener('click', () => {
+          if (field.classList.contains('property')) {
+              showPopup(field, true);
+          }
+      });
+  });
 
+  railroads.forEach(field => {
+      field.addEventListener('click', () => {
+          if (field.classList.contains('railroad')) {
+              showPopup(field, false);
+          }
+      });
+  });
 
+  closePopup.addEventListener('click', () => {
+      popup.style.display = 'none';
+  });
+}
 const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', () => {
-  alert('BOUGHT!');
+    alert('BOUGHT!');
 });
 
 const upgradeButton = document.querySelector('.upgrade-button');
 upgradeButton.addEventListener('click', () => {
-  alert('UPGRADED!');
+    alert('UPGRADED!');
 });
 
 const sellButton = document.querySelector('.sell-button');
 sellButton.addEventListener('click', () => {
-  alert('SOLD!');
-});
-
-const containers = document.querySelectorAll('.container');
-
-// Loop through all containers
-containers.forEach(container => {
-  // Add a click event listener to each container
-  container.addEventListener('click', () => {
-    // Get the name of the clicked field
-    const name = container.querySelector('.name').textContent;
-
-    // Loop through all containers
-containers.forEach(container => {
-    // Add a click event listener to each container
-    container.addEventListener('click', () => {
-      // Get the name of the clicked field
-      const name = container.querySelector('.name').textContent;
-  
-      // Check if the property is owned
-      dummyProperties.forEach(property => {
-        if (property.name === name) {  
-          console.log(property.owned);
-  
-          // Disable the buy button if the property is owned
-          if (property.owned) {
-            buyButton.style.background = 'grey';
-            buyButton.style.pointerEvents = 'none';
-          } else {
-            buyButton.style.background = '';
-            buyButton.style.pointerEvents = 'auto';
-          }
-  
-          // Disable the upgrade and sell buttons if the property is not owned
-          if (!property.owned) {
-            upgradeButton.style.background = 'grey';
-            upgradeButton.style.pointerEvents = 'none';
-            sellButton.style.background = 'grey';
-            sellButton.style.pointerEvents = 'none';
-          } else {
-            upgradeButton.style.background = '';
-            upgradeButton.style.pointerEvents = 'auto';
-            sellButton.style.background = '';
-            sellButton.style.pointerEvents = 'auto';
-          }
-          //display the owner of the property userid
-            if (property.userid === null) {
-                document.querySelector('.owner').textContent = 'Owner: None';
-                } else {
-                document.querySelector('.owner').textContent = 'Owner: USER' + property.userid;
-                }
-        }
-      });
-    });
-  });
-  
-  });
+    alert('SOLD!');
 });
 
 
+setupGame();
+
+// // Iterate over each field
+// fields.forEach(field => {
+//   // Add a click event listener to the field
+//   field.addEventListener('click', () => {
+//     console.log("field clicked");
+//     // Check if the field has the class 'property'
+//     if (field.classList.contains('property')) {
+//       // Get the name and price of the property
+//       const name = field.querySelector('.name').textContent;
+//       const price = field.querySelector('.price').textContent;
+      
+//       // Get the color of the color bar
+//       const colorBar = field.querySelector('.color-bar');
+//       const color = window.getComputedStyle(colorBar).backgroundColor;
+      
+//       // Update the popup with the property details
+//       popupTitle.textContent = name;
+//       popupHeader.style.backgroundColor = color;
+//       popupHeader.style.border = '1px solid black';
+//       popupDescription.querySelector('.price').textContent = 'Price: ' + price;
+      
+//       // Calculate and update the house prices based on the property price
+//       document.querySelector('.one-house').textContent = 'ONE: ' + parseInt(price)*0.2 + ' DKK';
+//       document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price)*0.4 + ' DKK';
+//       document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price)*0.6 + ' DKK';
+//       document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price)*0.8 + ' DKK';
+      
+//       // Display the popup
+//       popup.style.display = 'block';
+//     }
+//   });
+// });
 
 
-    
+// // Iterate over each railroad field
+// railroads.forEach(field => {
+//   // Add a click event listener to the field
+//   field.addEventListener('click', () => {
+//     // Check if the field has the class 'railroad'
+//     if (field.classList.contains('railroad')) {
+//       // Get the name and price of the railroad
+//       const name = field.querySelector('.name').textContent;
+//       const price = field.querySelector('.price').textContent;
+      
+//       // Update the popup with the railroad details
+//       popupTitle.textContent = name;
+//       popupHeader.style.backgroundColor = 'white';
+//       popupHeader.style.border = '1px solid black';
+//       popupDescription.querySelector('.price').textContent = 'Price: ' + price;
+      
+//       // Display the popup
+//       popup.style.display = 'block';
+//     }
+//   });
+// });
+
+
+
+// closePopup.addEventListener('click', () => {
+//   popup.style.display = 'none';
+// });
+
+
+// const buyButton = document.querySelector('.buy-button');
+// buyButton.addEventListener('click', () => {
+//   alert('BOUGHT!');
+// });
+
+// const upgradeButton = document.querySelector('.upgrade-button');
+// upgradeButton.addEventListener('click', () => {
+//   alert('UPGRADED!');
+// });
+
+// const sellButton = document.querySelector('.sell-button');
+// sellButton.addEventListener('click', () => {
+//   alert('SOLD!');
+// });
+
+// const containers = document.querySelectorAll('.container');
+
+// // Loop through all containers
+// containers.forEach(container => {
+//   // Add a click event listener to each container
+//   container.addEventListener('click', () => {
+//     // Get the name of the clicked field
+//     const name = container.querySelector('.name').textContent;
+
+//     // Loop through all containers
+// containers.forEach(container => {
+//     // Add a click event listener to each container
+//     container.addEventListener('click', () => {
+//       // Get the name of the clicked field
+//       const name = container.querySelector('.name').textContent;
+  
+//       // Check if the property is owned
+//       dummyProperties.forEach(property => {
+//         if (property.name === name) {  
+//           console.log(property.owned);
+  
+//           // Disable the buy button if the property is owned
+//           if (property.owned) {
+//             buyButton.style.background = 'grey';
+//             buyButton.style.pointerEvents = 'none';
+//           } else {
+//             buyButton.style.background = '';
+//             buyButton.style.pointerEvents = 'auto';
+//           }
+  
+//           // Disable the upgrade and sell buttons if the property is not owned
+//           if (!property.owned) {
+//             upgradeButton.style.background = 'grey';
+//             upgradeButton.style.pointerEvents = 'none';
+//             sellButton.style.background = 'grey';
+//             sellButton.style.pointerEvents = 'none';
+//           } else {
+//             upgradeButton.style.background = '';
+//             upgradeButton.style.pointerEvents = 'auto';
+//             sellButton.style.background = '';
+//             sellButton.style.pointerEvents = 'auto';
+//           }
+//           //display the owner of the property userid
+//             if (property.userid === null) {
+//                 document.querySelector('.owner').textContent = 'Owner: None';
+//                 } else {
+//                 document.querySelector('.owner').textContent = 'Owner: USER' + property.userid;
+//                 }
+//         }
+//       });
+//     });
+//   });
+  
+//   });
+// });
