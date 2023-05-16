@@ -39,39 +39,61 @@ let dummyProperties = [
 ];
 
 
+// Iterate over each field
 fields.forEach(field => {
+  // Add a click event listener to the field
   field.addEventListener('click', () => {
+    // Check if the field has the class 'property'
     if (field.classList.contains('property')) {
+      // Get the name and price of the property
       const name = field.querySelector('.name').textContent;
       const price = field.querySelector('.price').textContent;
+      
+      // Get the color of the color bar
       const colorBar = field.querySelector('.color-bar');
       const color = window.getComputedStyle(colorBar).backgroundColor;
+      
+      // Update the popup with the property details
       popupTitle.textContent = name;
       popupHeader.style.backgroundColor = color;
       popupHeader.style.border = '1px solid black';
       popupDescription.querySelector('.price').textContent = 'Price: ' + price;
+      
+      // Calculate and update the house prices based on the property price
       document.querySelector('.one-house').textContent = 'ONE: ' + parseInt(price)*0.2 + ' DKK';
       document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price)*0.4 + ' DKK';
       document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price)*0.6 + ' DKK';
       document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price)*0.8 + ' DKK';
+      
+      // Display the popup
       popup.style.display = 'block';
     }
   });
 });
 
+
+// Iterate over each railroad field
 railroads.forEach(field => {
-    field.addEventListener('click', () => {
-      if (field.classList.contains('railroad')) {
-        const name = field.querySelector('.name').textContent;
-        const price = field.querySelector('.price').textContent;
-        popupTitle.textContent = name;
-        popupHeader.style.backgroundColor = 'white';
-        popupHeader.style.border = '1px solid black';
-        popupDescription.querySelector('.price').textContent = 'Price: ' + price;
-        popup.style.display = 'block';
-      }
-    });
+  // Add a click event listener to the field
+  field.addEventListener('click', () => {
+    // Check if the field has the class 'railroad'
+    if (field.classList.contains('railroad')) {
+      // Get the name and price of the railroad
+      const name = field.querySelector('.name').textContent;
+      const price = field.querySelector('.price').textContent;
+      
+      // Update the popup with the railroad details
+      popupTitle.textContent = name;
+      popupHeader.style.backgroundColor = 'white';
+      popupHeader.style.border = '1px solid black';
+      popupDescription.querySelector('.price').textContent = 'Price: ' + price;
+      
+      // Display the popup
+      popup.style.display = 'block';
+    }
   });
+});
+
 
 
 closePopup.addEventListener('click', () => {
@@ -93,8 +115,6 @@ const sellButton = document.querySelector('.sell-button');
 sellButton.addEventListener('click', () => {
   alert('SOLD!');
 });
-
-
 
 const containers = document.querySelectorAll('.container');
 
@@ -151,6 +171,8 @@ containers.forEach(container => {
   
   });
 });
+
+
 
 
     
