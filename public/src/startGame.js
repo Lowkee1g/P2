@@ -90,6 +90,7 @@ socket.on("recieveTurn", (playerId) => {
         console.log("Its my turn bitch: " + playerId);
         currentPlayersTurn();
     } else {
+        console.log(playerId);
         disableDice();
         hideEndButton();
     }
