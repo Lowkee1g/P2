@@ -35,6 +35,9 @@ function addPlayerToGame() {
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
+            console.log('xhr = ', xhr);
+            console.log('textstatus = ', textStatus);
+            console.log('error = ', error);
         }
     })
 }

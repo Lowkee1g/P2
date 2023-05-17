@@ -10,6 +10,7 @@ router.use(bodyParser.json())
 
 // IMPORT CONTROLLERS
 var player_controller = require("../controllers/playerController");
+var start_controller = require("../controllers/startController");
 
 /* GET home page. */
 router.get("/lobby", async (req, res, next) => {
@@ -29,14 +30,32 @@ router.get("/startGame", async (req, res, next) => {
 // Route for setting username in session
 router.post("/joinPlayer", async (req, res, next) => {
   req.session.user = req.body.data;
-  player_controller.createPlayer(req, res);
+  req.session.save();
+  await player_controller.createPlayer(req, res);
 });
 
 router.post('/api/charge-rent', (req, res) => {
   player_controller.chargeRent(req, res);
 });
 
+router.post('/api/chanceData', (req, res) => {
+  player_controller.chanceData(req, res);
+})
+
+router.post('/endTurn', (req, res) => {
+  player_controller.endTurn(req, res);
+})
+
 router.get("/user/:id", player_controller.getUserInformation);
+
+router.get("/userByName",  (req, res) => {
+  start_controller.getPlayer(req,res)
+});
+
+
+router.get("/getAllPlayers",  (req, res) => {
+  start_controller.getAllPlayers(req,res)
+});
 
 router.get("/userBuyProperty/:propertyId",  (req, res) => {
   player_controller.userBuyProperty(req, res, req.params.propertyId)

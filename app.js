@@ -25,17 +25,19 @@ let numberOfPlayers = 0;
 //TODO: fix number of players ONLY if they have joined the game
 
 io.on("connection", (socket) => {
+
+
   console.log('a user connected: ' + socket.id);
   // On player join send data to other users and the broadcaster
   socket.on("playerJoin", (player) => {
     // Add player to array with socket id
     players.push({player: player, socketId: socket.id});
+
     numberOfPlayers+=1;
 
     socket.broadcast.emit("playerJoin", player, numberOfPlayers);
     socket.emit("playerJoin", player, numberOfPlayers);
     console.log(numberOfPlayers);
-
   });
 
   // When a player leaves the page, disconnect the socket
@@ -67,6 +69,16 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("message_recieve", data);
     socket.emit("message_send", data);
   });
+  
+  socket.on("movePlayer", (playerId, dicesum) => {
+    socket.broadcast.emit("movePlayer", playerId,dicesum);
+    socket.emit("movePlayer", playerId,dicesum);
+  });
+  
+  socket.on("sendTurn", (playerId) => {
+    socket.broadcast.emit("recieveTurn", playerId);
+    socket.emit("recieveTurn", playerId);
+  });
 });
 
 server.listen(7070, () => {
@@ -79,8 +91,9 @@ server.listen(7070, () => {
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'secret-key',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
+  cookie: { maxAge: 8*60*60*1000 },
 }))
 // Session END
 
