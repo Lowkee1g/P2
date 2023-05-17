@@ -92,8 +92,9 @@ server.listen(7070, () => {
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'secret-key',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
+  cookie: { maxAge: 8*60*60*1000 },
 }))
 // Session END
 

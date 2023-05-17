@@ -22,17 +22,15 @@ module.exports = class player {
          const user = await prisma.user.create({
                data: { name: req.body.data, money: 16000 },
          });
+         playerUser = new Player(user.id);
          if(user.id == 1) {
             await prisma.user.update({
                where: {id: user.id}, 
                data: {
                    hasTurn: true,
                },
-         });
-      }
-         playerUser = new Player(user.id);
-         console.log(playerUser);
-         console.log(user)
+            });
+         }
          res.json(user);
       } catch (error) {
          res.status(500).json({error: error.message})
