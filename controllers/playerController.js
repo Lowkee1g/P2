@@ -19,14 +19,14 @@ module.exports = class player {
 
    static async createPlayer(req,res,next) {
       try {
-         const check = await prisma.findMany({
+         const check = await prisma.user.findFirst({
             where: {id: 1}
          });
 
          let user;
          if (check === null){
             user = await prisma.user.create({
-               data: { name: req.body.data, money: 16000, hasTurn: true },
+               data: { name: req.body.data, money: 16000, hasTurn: 1 },
             });
          } else {
             user = await prisma.user.create({
