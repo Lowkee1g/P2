@@ -19,25 +19,24 @@ module.exports = class player {
 
    static async createPlayer(req,res,next) {
       try {
-         const user = await prisma.user.create({
-               data: { name: req.body.data, money: 16000 },
+         const check = await prisma.findMany({
+            where: {id: 1}
          });
+
+         let user;
+         if (check === null){
+            user = await prisma.user.create({
+               data: { name: req.body.data, money: 16000, hasTurn: true },
+            });
+         } else {
+            user = await prisma.user.create({
+               data: { name: req.body.data, money: 16000 },
+            });
+         }
          playerUser = new Player(user.id);
-         await this.ifPlayerOne(user)
          res.json(user);
       } catch (error) {
          res.status(500).json({error: error.message})
-      }
-   }
-
-   static async ifPlayerOne(user){
-      if(user.id == 1) {
-         await prisma.user.update({
-            where: {id: user.id}, 
-            data: {
-                hasTurn: true,
-            },
-         });
       }
    }
 
