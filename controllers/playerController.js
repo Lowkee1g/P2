@@ -31,6 +31,8 @@ module.exports = class player {
          });
       }
          playerUser = new Player(user.id);
+         console.log(playerUser);
+         console.log(user)
          res.json(user);
       } catch (error) {
          res.status(500).json({error: error.message})

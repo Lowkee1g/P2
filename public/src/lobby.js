@@ -1,5 +1,6 @@
 //Functions
 let currentPlayer;
+let userAdded = false;
 
 // Open socket connection
 const socket = io("http://localhost:7070");
@@ -17,19 +18,22 @@ document.querySelector('#start').addEventListener('click', startGame)
 function addPlayerToGame() {
     // Get username from input field
     let username = document.querySelector('#username').value;
+    let userAdded = true;
 
     $.ajax({
         type: 'post',
         url: '/joinPlayer',
         contentType: 'application/json',
         processData: false,
-        data: JSON.stringify({data: username}),
+        data: JSON.stringify({
+            data: username
+        }),
         dataType: 'json',
-        success: function (playerData) {
-            console.log(playerData)
+        success: function (user) {
+            console.log("This is all of the data that has been received "+ user.name)
             // Emit data to server via playerjoin - Send data
-            socket.emit("playerJoin", playerData)
-            currentPlayer = playerData;
+            socket.emit("playerJoin", user)
+            currentPlayer = user;
             // Call function to change submit button to a start button 
             changeSubmitButtonToStart();
         },
@@ -41,8 +45,9 @@ function addPlayerToGame() {
 
 // If something is emitted to playerJoin on socket.io call this function - Recieve data
 socket.on("playerJoin", (player, numberOfPlayers) => {
+    console.log("Player joined with this - " + player.name);
     // Call function to add the new user to the player list
-    writeAddedUserToPlayerList(player);
+    writeAddedUserToPlayerList(player.name);
     // Call enableStartButton function with numberOfPlayers to enable button - numberOfPlayers viable coming from app.js
     enableStartButton(numberOfPlayers);
 
@@ -51,10 +56,18 @@ socket.on("playerJoin", (player, numberOfPlayers) => {
     updateNumberOfPlayers(numberOfPlayers);
 });
 
-socket.on('disconnect', function() {
+/*
+socket.on('disconnect', function(player) {
     numberOfPlayers--;
+
     console.log('Disconnected from server');
 });
+*/
+socket.on("playerDisconnect", (player, numberOfPlayers) => {
+    updateNumberOfPlayers(numberOfPlayers);
+});
+
+
 
 // Function that updates the number of players in the lobby
 function updateNumberOfPlayers(numberOfPlayers) {
