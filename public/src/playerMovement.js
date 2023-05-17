@@ -89,60 +89,30 @@ function random(number) {
 }
 
 function movePlayer(playerdicesum) {
+    const currentFieldIndex = playerdicesum % 40;
+    const currentField = document.querySelector('#field-' + currentFieldIndex);
 
-    if (playerdicesum % 40 === 10) {
+    if (currentFieldIndex === 10) {
         const player = document.querySelector('.player' + playerId + '-test');
-        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerId + '-placejail');
+        const field = document.querySelector('#field-' + currentFieldIndex + ' .player' + playerId + '-placejail');
         field.appendChild(player);
     } else {
         const player = document.querySelector('.player' + playerId + '-test');
-        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerId + '-place');
-        const currentField = document.querySelector('#field-' + (playerdicesum % 40));
+        const field = document.querySelector('#field-' + currentFieldIndex + ' .player' + playerId + '-place');
         field.appendChild(player);
 
-        // Display the popup
-        // Show the popup
-        if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) { // Check if the current field is a chance field
+        if ([7, 22, 36].includes(currentFieldIndex)) { // Check if the current field is a chance field
             popup.style.display = 'none';
+        } else if (currentField.classList.contains('property')) { // Check if the current field is a property
+            showPopup(currentField, true);
+        } else {
+            showPopup(currentField, false);
         }
-        else if (currentField.classList.contains('property')) { // Check if the current field is a property
-            popup.style.display = 'block';
-        }
-
-        popupTitle.textContent = currentField.querySelector('.name').textContent;
-
-        // Update the popup with the property details
-        console.log(currentField.id);
-        const colorBar = document.querySelector('#'+currentField.id + ' .color-bar');
-        if (colorBar == null) {
-            popupHeader.style.backgroundColor = 'white';
-        } 
-        const color = window.getComputedStyle(colorBar).backgroundColor;
-        
-        // Update the popup with the property details
-        popupHeader.style.backgroundColor = color;
-        console.log(currentField);
 
         closePopup.addEventListener('click', () => {
             popup.style.display = 'none';
-          });
+        });
 
-        // Update the popup buy, sell and upgrade buttons
-        const buyButton = document.querySelector('#buy');
-        const sellButton = document.querySelector('#sell');
-        const upgradeButton = document.querySelector('#upgrade');
-          
-         // Check if the property is owned
-         console.log(property)
-         if (property.owned) {
-            buyButton.style.background = 'grey';
-            buyButton.style.pointerEvents = 'none';
-            console.log(property.owned);
-          } else {
-            buyButton.style.background = '';
-            buyButton.style.pointerEvents = 'auto';
-          }
-        
+        checkOwnership(currentField.querySelector('.name').textContent);
     }
 }
-
