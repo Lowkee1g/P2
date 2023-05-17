@@ -2,6 +2,11 @@
 const socket = io("http://localhost:7070");
 socket.on("connection");
 
+window.addEventListener("DOMContentLoaded", (event) => {
+    console.log(document.querySelectorAll('.container'));
+});
+
+
 let player;
 let playerId;
 let players;
@@ -14,6 +19,8 @@ function getPlayerOnStart() {
         url: '/userByName/?name='+username,
     });
 }
+
+
 
 function setPlayerData(data) {
     player = data;
@@ -37,9 +44,23 @@ function getAllPlayers(data) {
     players = data;
     // Get all players to end turn to next player
     console.log(data);
+    generatePlayerPosistions(data);
 }
 
 apiAllPlayers().done(getAllPlayers);
+
+function generatePlayerPosistions(players) {
+    let allFields = document.querySelectorAll('.container');
+    players.forEach(player => {
+        console.log(player);
+        allFields.forEach(field => {
+            let playerPlace = document.createElement('div');
+            playerPlace.className = "player" + player.id + "-place";
+            console.log(field.appendChild(playerPlace));
+            field.appendChild(playerPlace);
+        });
+    });
+}
 
 function enableIfPlayerOne() {
     console.log("Should enable")

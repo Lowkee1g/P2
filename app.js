@@ -9,15 +9,13 @@ const createError = require("http-errors");
 const path = require("path");
 
 const indexRouter = require("./routes/index");
-
+var players = [];
 // Socket.io START - connect on port 7070
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 
 // array to store players and socket id
-let players = [];
-
-
+// catch 404 and forward to error handler
 
 // Count number of players - Used in lobby.js to enable start button
 let numberOfPlayers = 0;
@@ -26,19 +24,17 @@ let numberOfPlayers = 0;
 
 io.on("connection", (socket) => {
 
-
   console.log('a user connected: ' + socket.id);
   // On player join send data to other users and the broadcaster
   socket.on("playerJoin", (player) => {
     // Add player to array with socket id
     //console.log("User Joined with this - " + player.body.username);
-    players.push({player: player, socketId: socket.id});
-
+    
+    
     numberOfPlayers+=1;
 
     socket.broadcast.emit("playerJoin", player, numberOfPlayers);
     socket.emit("playerJoin", player, numberOfPlayers);
-    console.log(numberOfPlayers);
   });
 
   // When a player leaves the page, disconnect the socket
@@ -105,7 +101,6 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
-
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
