@@ -40,25 +40,18 @@ module.exports = class player {
       }
    }
 
-   static async userBuyProperty(req, res, propertyId){
+   static async userBuyProperty(req, res){
       try {
-         if (playerUser) {
-            await playerUser.buyProperty(propertyId);
-            } else {
-            res.status(500).json({error: 'playerUser is undefined or null'});
-            }
+         const property = await Player.buyProperty(req.body.propertyID, req.body.user, null);
+         res.send(property);
       } catch (error) {
          res.status(500).json({error: error.message})
       }
    }
 
-   static async userSellProperty(req, res, propertyId){
+   static async userSellProperty(req, res){
       try {
-         if (playerUser) {
-            await playerUser.sellProperty(propertyId);
-            } else {
-            res.status(500).json({error: 'playerUser is undefined or null'});
-            }
+         await Player.sellProperty(req.body.propertyID, req.body.user, null)
       } catch (error) {
          res.status(500).json({error: error.message})
       }
@@ -67,7 +60,7 @@ module.exports = class player {
    static async userUpDownGradeProperty(req, res, propertyId, changeNo){
       try {
          if (playerUser) {
-            await playerUser.UpDownGradeProperty(propertyId, changeNo);
+            await playerUser.UpDownGradeProperty(propertyId, changeNo, null);
             } else {
             res.status(500).json({error: 'playerUser is undefined or null'});
             }

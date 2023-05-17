@@ -151,16 +151,73 @@ function setupGame() {
 const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', () => {
     alert('BOUGHT!');
+
+    $.ajax({
+        type: 'POST',
+        url: '/userBuyProperty',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify({propertyID: 8, user: player}),
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+            
+        },
+        error: function(xhr, textStatus, error) {
+            console.log('Error');
+            console.log('xhr ', xhr);
+            console.log('text, ', textStatus);
+            console.log('Error', error);
+        }
+    });
 });
 
 const upgradeButton = document.querySelector('.upgrade-button');
 upgradeButton.addEventListener('click', () => {
     alert('UPGRADED!');
+
+    $.ajax({
+        type: 'POST',
+        url: '/UpOrDownGrade',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify({propertyID: 8, user: player, changeAmount: 2}),
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+            
+        },
+        error: function(xhr, textStatus, error) {
+            console.log('Error');
+            console.log('xhr ', xhr);
+            console.log('text, ', textStatus);
+            console.log('Error', error);
+        }
+    })
 });
 
 const sellButton = document.querySelector('.sell-button');
 sellButton.addEventListener('click', () => {
     alert('SOLD!');
+
+    $.ajax({
+        type: 'POST',
+        url: '/userSellProperty',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify({propertyID: 8, user: player}),
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+            
+        },
+        error: function(xhr, textStatus, error) {
+            console.log('Error');
+            console.log('xhr ', xhr);
+            console.log('text, ', textStatus);
+            console.log('Error', error);
+        }
+    })
 });
 
 

@@ -57,16 +57,25 @@ router.get("/getAllPlayers",  (req, res) => {
   start_controller.getAllPlayers(req,res)
 });
 
-router.get("/userBuyProperty/:propertyId",  (req, res) => {
+router.post("/userBuyProperty",  (req, res) => {
+  player_controller.userBuyProperty(req, res)
+});
+/* router.get("/userBuyProperty/:propertyId",  (req, res) => {
   player_controller.userBuyProperty(req, res, req.params.propertyId)
-});
+}); */
 
-router.get("/userSellProperty/:propertyId",  (req, res) => {
-  player_controller.userSellProperty(req, res, req.params.propertyId)
+router.post("/userSellProperty",  (req, res) => {
+  player_controller.userSellProperty(req, res)
 });
+// router.get("/userSellProperty/:propertyId",  (req, res) => {
+//   player_controller.userSellProperty(req, res, req.params.propertyId)
+// });
 
-router.get('/UpOrDownGrade/:propertyId/:changeNo', (req, res) => {
-  player_controller.userUpDownGradeProperty(req, res, req.params.propertyId, req.params.changeNo)
+router.post("/UpOrDownGrade",  (req, res) => {
+  player_controller.userSellProperty(req, res)
 });
+// router.get('/UpOrDownGrade/:propertyId/:changeNo', (req, res) => {
+//   player_controller.userUpDownGradeProperty(req, res, req.params.propertyId, req.params.changeNo)
+// });
 
 module.exports = router;
