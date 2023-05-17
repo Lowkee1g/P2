@@ -49,11 +49,12 @@ socket.on("movePlayer", (playerId,dicesum) => {
 function movePlayer(playerToMove, playerdicesum) {
     if (playerdicesum % 40 === 10) {
         const player = document.querySelector('.player' + playerToMove + '-piece');
-        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerId + '-placejail');
+        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-placejail');
         field.appendChild(player);
     } else {
         const player = document.querySelector('.player' + playerToMove + '-piece');
-        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerId + '-place');
+        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-place');
+        console.log(field);
         field.appendChild(player);
 
         if ([7, 22, 36].includes(currentFieldIndex)) { // Check if the current field is a chance field

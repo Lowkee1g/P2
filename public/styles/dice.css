@@ -44,3 +44,7 @@ img {
   .notTurnDice {
     opacity: 0.4;
   }
+
+  .notPlayersTurn {
+    display: none;
+  }
