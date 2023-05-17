@@ -4,6 +4,7 @@ const closePopup = document.querySelector('.closePopup');
 const popupTitle = document.querySelector('.popup-title');
 const popupHeader = document.querySelector('.popup-header');
 const popupDescription = document.querySelector('.popup-description');
+const popupRailroadDescription = document.querySelector('.popup-railroad-description');
 
 const railroads = document.querySelectorAll('.railroad');
 
@@ -54,18 +55,28 @@ function showPopup(field, isProperty) {
       const colorBar = field.querySelector('.color-bar');
       const color = window.getComputedStyle(colorBar).backgroundColor;
 
+      // Hide the railroad description
+      popupRailroadDescription.style.display = 'none';
+      popupDescription.style.display = 'block';
+
       // Update the popup header color
       popupHeader.style.backgroundColor = color;
 
-      // Calculate and update the house prices based on the property price
+      // Calculate and update the house prices based on the property price. If the property is a railroad, hide the description
       document.querySelector('.one-house').textContent = 'ONE: ' + parseInt(price) * 0.2 + ' DKK';
       document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price) * 0.4 + ' DKK';
       document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price) * 0.6 + ' DKK';
       document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price) * 0.8 + ' DKK';
   } else {
       // If the item is a railroad, set the popup header color to white
+      popupRailroadDescription.style.display = 'block';
       popupHeader.style.backgroundColor = 'white';
+      popupDescription.style.display = 'none';
+      rentPrice = parseInt(price) * 0.3;
+      document.querySelector('.railroad-rent').textContent =  rentPrice + ' DKK';
+      popupRailroadDescription.querySelector('.price').textContent = 'Price: ' + price;
   }
+
 
   // Display the popup
   popup.style.display = 'block';
@@ -135,6 +146,8 @@ function setupGame() {
       popup.style.display = 'none';
   });
 }
+
+
 const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', () => {
     alert('BOUGHT!');
