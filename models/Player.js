@@ -31,9 +31,9 @@ class Player {
             },
         };
         if (ctx === null){
-            return await prisma.user.findUnique();
+            return await prisma.user.findUnique(usr);
         } else {
-            return await ctx.prisma.user.findUnique();
+            return await ctx.prisma.user.findUnique(usr);
         }
     };
     

@@ -47,9 +47,6 @@ function enableIfPlayerOne() {
 }
 
 document.querySelector("#endturn").addEventListener("click", () => {
-// 0: {id: 1, name: 'Player1', money: 16000, hasTurn: true}
-// 1: {id: 2, name: 'Player2', money: 16000, hasTurn: false}
-// 2: {id: 3, name: 'Player3', money: 16000, hasTurn: false}
     let nextPlayer;
     let index = players.findIndex(x => x.id === player.id + 1);
     if(index == -1) {

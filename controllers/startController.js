@@ -15,7 +15,7 @@ module.exports = class player {
    }
     static async getPlayer(req,res,next) {
         try {
-            const user = await Player.findByName(req.query.name);
+            const user = await Player.findByName(req.query.name, null);
             res.send(user);
          } catch (error) {
             res.status(500).json({ error: error.message });
