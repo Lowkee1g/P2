@@ -31,6 +31,7 @@ io.on("connection", (socket) => {
   // On player join send data to other users and the broadcaster
   socket.on("playerJoin", (player) => {
     // Add player to array with socket id
+    //console.log("User Joined with this - " + player.body.username);
     players.push({player: player, socketId: socket.id});
 
     numberOfPlayers+=1;
@@ -42,13 +43,13 @@ io.on("connection", (socket) => {
 
   // When a player leaves the page, disconnect the socket
   socket.on("disconnect", () => {
-    numberOfPlayers--;
     console.log("user disconnected: " + socket.id);
-
+    
     // Find the player in the array and remove it
     for (let i = 0; i < players.length; i++) {
       if(players[i].socketId == socket.id) {
-        console.log(players[i].player);
+        console.log("User Disconnected " + players[i].player);
+        numberOfPlayers--;
         
         // Emit to other users that a player has left
         socket.broadcast.emit("playerDisconnect", players[i].player, numberOfPlayers);
