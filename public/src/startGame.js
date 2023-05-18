@@ -2,11 +2,6 @@
 const socket = io("http://localhost:7070");
 socket.on("connection");
 
-window.addEventListener("DOMContentLoaded", (event) => {
-    console.log(document.querySelectorAll('.container'));
-});
-
-
 let player;
 let playerId;
 let players;
@@ -23,8 +18,6 @@ function apiAllPlayers() {
     return $.ajax({
         type: 'get',
         url: '/getAllPlayers/?names='+url,
-        data: arrayOfPlayersToGet,
-        traditional: true,
     });
 }
 
@@ -61,11 +54,33 @@ getPlayerOnStart().done(setPlayerData)
 function generatePlayerPosistions(players) {
     let allFields = document.querySelectorAll('.container');
     players.forEach(player => {
+        let index = players.findIndex(x => x.name === player.name);
+        let playerPiece = document.createElement('div');
+        playerPiece.className = "player"+player.id + "-piece player-piece"
+        if(index === 0) {
+            playerPiece.classList.add('player1-piece')
+        }else if (index === 1) {
+            playerPiece.classList.add('player2-piece')
+        } else if(index === 2) {
+            playerPiece.classList.add('player3-piece')
+        } else {
+            playerPiece.classList.add('player4-piece')
+        }
         allFields.forEach(field => {
             let playerPlace = document.createElement('div');
             playerPlace.className = "player" + player.id + "-place";
+            if(index === 0) {
+                playerPlace.classList.add('player1-place')
+            }else if (index === 1) {
+                playerPlace.classList.add('player2-place')
+            } else if(index === 2) {
+                playerPlace.classList.add('player3-place')
+            } else {
+                playerPlace.classList.add('player4-place')
+            }
             field.appendChild(playerPlace);
         });
+        document.querySelector("#field-0 .container .player"+player.id+"-place").appendChild(playerPiece);
     });
 }
 
@@ -76,10 +91,7 @@ function enableIfPlayerOne() {
 
 document.querySelector("#endturn").addEventListener("click", () => {
     let nextPlayer;
-    console.log(players);
-    console.log(player);
     let index = players.findIndex(x => x.name === player.name);
-    console.log(index);
     if(index + 1 === players.length) {
         nextPlayer = players[0].id;
     } else {
@@ -95,7 +107,6 @@ const sendNextTurn = (name) => {
 
 socket.on("recieveTurn", (playerId) => {
     if(player.id === playerId) {
-        console.log("Its my turn bitch: " + playerId);
         currentPlayersTurn();
     } else {
         console.log(playerId);
