@@ -219,7 +219,7 @@ block content
     if user
       input(type="hidden", id="userID", value=user)
     each player in players
-      p= player
+      input(type="hidden" class="playerNameHidden" value=player)
   script(src="/../src/startGame.js")
   script(src="src/chancecard.js") 
   script(src="/../src/board.js")

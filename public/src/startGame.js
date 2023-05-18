@@ -34,9 +34,19 @@ function setPlayerData(data) {
 getPlayerOnStart().done(setPlayerData)
 
 function apiAllPlayers() {
+    let arrayOfPlayersToGet = [];
+    const getPlayers = document.querySelectorAll(".playerNameHidden");
+    let url = "";
+    getPlayers.forEach(player => {
+        arrayOfPlayersToGet.push(player.value);
+        url += player.value+";"
+    })
+    console.log(url);
     return $.ajax({
         type: 'get',
-        url: '/getAllPlayers',
+        url: '/getAllPlayers/?names='+url,
+        data: arrayOfPlayersToGet,
+        traditional: true,
     });
 }
 
@@ -52,11 +62,9 @@ apiAllPlayers().done(getAllPlayers);
 function generatePlayerPosistions(players) {
     let allFields = document.querySelectorAll('.container');
     players.forEach(player => {
-        console.log(player);
         allFields.forEach(field => {
             let playerPlace = document.createElement('div');
             playerPlace.className = "player" + player.id + "-place";
-            console.log(field.appendChild(playerPlace));
             field.appendChild(playerPlace);
         });
     });
