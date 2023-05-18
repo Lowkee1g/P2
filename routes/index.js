@@ -72,7 +72,7 @@ router.post("/userSellProperty",  (req, res) => {
 // });
 
 router.post("/UpOrDownGrade",  (req, res) => {
-  player_controller.userSellProperty(req, res)
+  player_controller.userUpDownGradeProperty(req, res)
 });
 // router.get('/UpOrDownGrade/:propertyId/:changeNo', (req, res) => {
 //   player_controller.userUpDownGradeProperty(req, res, req.params.propertyId, req.params.changeNo)
