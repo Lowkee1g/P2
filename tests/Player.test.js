@@ -61,7 +61,7 @@ test('Buy property updates the property properly', async () => {
     mockCtx.prisma.user.update.mockResolvedValue(user);
     mockCtx.prisma.property.update.mockResolvedValue({...propertyObj, userId: user.id, owned: true});
 
-    let updateProperty = playerClass.buyProperty(propertyObj.id, mockCtx);
+    let updateProperty = Player.buyProperty(propertyObj.id,user, mockCtx);
 
     await expect(updateProperty).resolves.toEqual({
         id: 3,
@@ -99,7 +99,7 @@ test('sell property updates the property properly', async () => {
     mockCtx.prisma.property.findUnique.mockResolvedValue(property);
     mockCtx.prisma.property.update.mockResolvedValue({...property, userId: null, owned: false});
 
-    let updateProperty = playerClass.sellProperty(property.id, mockCtx);
+    let updateProperty = Player.sellProperty(property.id, user,mockCtx);
 
     await expect(updateProperty).resolves.toEqual({
         id: 805,
@@ -137,7 +137,7 @@ test('upgradeProperty updates the property properly', async () => {
     mockCtx.prisma.property.findUnique.mockResolvedValue(property);
     mockCtx.prisma.property.update.mockResolvedValue({...property, houses: 1});
 
-    let updateProperty = playerClass.upgradeProperty(property.id, mockCtx);
+    let updateProperty = Player.upgradeProperty(property.id, user ,mockCtx);
 
     await expect(updateProperty).resolves.toEqual({ 
         id: 901,
@@ -165,7 +165,7 @@ test('updateMoney updates the player properly when adding money', async () => {
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.user.update.mockResolvedValue({...user, money: user.money + 100});
 
-    let updateUser = playerClass.updateMoney(user.id, moneyAmount, mockCtx);
+    let updateUser = Player.updateMoney(user.id, moneyAmount, mockCtx);
 
     await expect(updateUser).resolves.toEqual({
         id: 1000,
@@ -188,7 +188,7 @@ test('updateMoney updates the player properly when adding money', async () => {
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.user.update.mockResolvedValue({...user, money: user.money - 100});
 
-    let updateUser = playerClass.updateMoney(user.id, moneyAmount, mockCtx);
+    let updateUser = Player.updateMoney(user.id, moneyAmount, mockCtx);
 
     await expect(updateUser).resolves.toEqual({
         id: 1000,
