@@ -82,10 +82,10 @@ function showPopup(field, isProperty) {
   popup.style.display = 'block';
 
   // Check ownership and update button states
-  checkOwnership(name);
+  checkOwnershipClick(name);
 }
 
-function checkOwnership(name) {
+function checkOwnershipClick(name) {
   dummyProperties.forEach(property => {
       if (property.name === name) {
           // Disable the buy button if the property is owned
@@ -105,6 +105,44 @@ function checkOwnership(name) {
               sellButton.style.pointerEvents = 'none';
               buyButton.style.background = 'grey';
               buyButton.style.pointerEvents = 'none';
+         
+
+          } else {
+              upgradeButton.style.background = '';
+              upgradeButton.style.pointerEvents = 'auto';
+              sellButton.style.background = '';
+              sellButton.style.pointerEvents = 'auto';
+          }
+
+          // Display the owner of the property
+          if (property.userid === null) {
+              document.querySelector('.owner').textContent = 'Owner: None';
+          } else {
+              document.querySelector('.owner').textContent = 'Owner: USER' + property.userid;
+          }
+      }
+  });
+}
+
+function checkOwnershipLand(name) {
+  dummyProperties.forEach(property => {
+      if (property.name === name) {
+          // Disable the buy button if the property is owned
+          if (property.owned) {
+              buyButton.style.background = 'grey';
+              buyButton.style.pointerEvents = 'none';
+          } else {
+              buyButton.style.background = '';
+              buyButton.style.pointerEvents = 'auto';
+          }
+
+          // Disable the upgrade and sell buttons if the property is not owned
+          if (!property.owned) {
+              upgradeButton.style.background = 'grey';
+              upgradeButton.style.pointerEvents = 'none';
+              sellButton.style.background = 'grey';
+              sellButton.style.pointerEvents = 'none';
+         
 
           } else {
               upgradeButton.style.background = '';
