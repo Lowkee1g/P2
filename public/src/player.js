@@ -4,9 +4,13 @@ function getPlayerProperties(player) {
     
     player.properties.forEach(property => {
         let cardClone = card.cloneNode(true)
-        cardClone.querySelector('.cardTitle').textContent = property.name 
+        cardClone.querySelector('.name').textContent = property.name 
         cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr"
-        cardClone.querySelector('.cardPrice').textContent = "Rent " + property.price + "kr"
+        cardClone.querySelector('.price').textContent = "Rent " + property.price + "kr"
+        cardClone.querySelector('.card').addEventListener("click", (event) => {
+            console.log(event.target);
+            showPopup(event.target,property);
+        });
         cardContainer.appendChild(cardClone)
     })
 }
