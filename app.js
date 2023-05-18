@@ -10,6 +10,7 @@ const path = require("path");
 
 const indexRouter = require("./routes/index");
 var players = [];
+
 // Socket.io START - connect on port 7070
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
@@ -19,8 +20,6 @@ const io = require("socket.io")(server, { cors: { origin: "*" } });
 
 // Count number of players - Used in lobby.js to enable start button
 let numberOfPlayers = 0;
-
-//TODO: fix number of players ONLY if they have joined the game
 
 io.on("connection", (socket) => {
 

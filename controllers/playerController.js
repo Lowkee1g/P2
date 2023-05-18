@@ -29,6 +29,8 @@ module.exports = class player {
       }
    }
 
+
+
    static async userBuyProperty(req, res, propertyId){
       try {
          if (playerUser) {
