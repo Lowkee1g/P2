@@ -6,6 +6,30 @@ let player;
 let playerId;
 let players;
 // We use this because we need callback to use the data outside the ajax success function
+function apiAllPlayers() {
+    let arrayOfPlayersToGet = [];
+    const getPlayers = document.querySelectorAll(".playerNameHidden");
+    let url = "";
+    getPlayers.forEach(player => {
+        arrayOfPlayersToGet.push(player.value);
+        url += player.value+";"
+    })
+    console.log(url);
+    return $.ajax({
+        type: 'get',
+        url: '/getAllPlayers/?names='+url,
+    });
+}
+
+function getAllPlayers(data) {
+    players = data;
+    // Get all players to end turn to next player
+
+    generatePlayerPosistions(data);
+}
+
+apiAllPlayers().done(getAllPlayers);
+
 function getPlayerOnStart() {
     // let username = "Player1";
     let username = document.querySelector("#userID").value;
@@ -18,7 +42,7 @@ function getPlayerOnStart() {
 function setPlayerData(data) {
     player = data;
     playerId = data.id;
-    if(data.id == 1) {
+    if(players[0]['id'] === playerId) {
         currentPlayersTurn()
         // enableIfPlayerOne();
     }
@@ -26,20 +50,39 @@ function setPlayerData(data) {
 
 getPlayerOnStart().done(setPlayerData)
 
-function apiAllPlayers() {
-    return $.ajax({
-        type: 'get',
-        url: '/getAllPlayers',
+
+function generatePlayerPosistions(players) {
+    let allFields = document.querySelectorAll('.container');
+    players.forEach(player => {
+        let index = players.findIndex(x => x.name === player.name);
+        let playerPiece = document.createElement('div');
+        playerPiece.className = "player"+player.id + "-piece player-piece"
+        if(index === 0) {
+            playerPiece.classList.add('player1-piece')
+        }else if (index === 1) {
+            playerPiece.classList.add('player2-piece')
+        } else if(index === 2) {
+            playerPiece.classList.add('player3-piece')
+        } else {
+            playerPiece.classList.add('player4-piece')
+        }
+        allFields.forEach(field => {
+            let playerPlace = document.createElement('div');
+            playerPlace.className = "player" + player.id + "-place";
+            if(index === 0) {
+                playerPlace.classList.add('player1-place')
+            }else if (index === 1) {
+                playerPlace.classList.add('player2-place')
+            } else if(index === 2) {
+                playerPlace.classList.add('player3-place')
+            } else {
+                playerPlace.classList.add('player4-place')
+            }
+            field.appendChild(playerPlace);
+        });
+        document.querySelector("#field-0 .container .player"+player.id+"-place").appendChild(playerPiece);
     });
 }
-
-function getAllPlayers(data) {
-    players = data;
-    // Get all players to end turn to next player
-    console.log(data);
-}
-
-apiAllPlayers().done(getAllPlayers);
 
 function enableIfPlayerOne() {
     console.log("Should enable")
@@ -48,36 +91,13 @@ function enableIfPlayerOne() {
 
 document.querySelector("#endturn").addEventListener("click", () => {
     let nextPlayer;
-    let index = players.findIndex(x => x.id === player.id + 1);
-    if(index == -1) {
-        console.log('test');
-        nextPlayer = 1;
+    let index = players.findIndex(x => x.name === player.name);
+    if(index + 1 === players.length) {
+        nextPlayer = players[0].id;
     } else {
-
-        nextPlayer = players[index].id;
+        nextPlayer = players[index + 1].id;
     }
-    console.log("Length of array: " + players.length);
-    console.log("Next player is: " + nextPlayer);
-
-    $.ajax({
-        type: 'post',
-        url: '/endTurn',
-        contentType: 'application/json',
-        processData: false,
-        data: JSON.stringify({data: player, nextPlayer: nextPlayer}),
-        dataType: 'json',
-        success: function (nextPlayer) {
-            //Disbable button for all but nextPlayer
-            console.log(nextPlayer.name);
-            sendNextTurn(nextPlayer.id);
-        },
-        error: function(xhr, textStatus, error) {
-                console.log(xhr.responseText);
-                console.log(xhr.statusText);
-                console.log(textStatus);
-                console.log(error);
-        }
-    })
+    sendNextTurn(parseInt(nextPlayer));
 });
 
 // Emit ud så player 2 nu kan trykke på knappen;
@@ -87,7 +107,6 @@ const sendNextTurn = (name) => {
 
 socket.on("recieveTurn", (playerId) => {
     if(player.id === playerId) {
-        console.log("Its my turn bitch: " + playerId);
         currentPlayersTurn();
     } else {
         console.log(playerId);

@@ -429,83 +429,61 @@ h1, h2, h3, h4, h5, h6 {
     top: 5px;
 }
 
+.player-piece {
+    position: absolute;
+    height: 25px;
+    width: 20px;
+    top: 22%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .player1-piece {
-    position: absolute;
-    height: 25px;
-    width: 20px;
-    top: 22%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
     background-color: #1f3cae;
   }
-  .player2-piece {
-    position: absolute;
-    height: 25px;
-    width: 20px;
-    top: 22%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #ae4f1f;
-  }
+.player2-piece {
+background-color: #ae4f1f;
+}
 
-  .player3-piece {
-    position: absolute;
-    height: 25px;
-    width: 20px;
-    top: 22%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #1fae21;
-  }
+.player3-piece {
+background-color: #1fae21;
+}
 
-  .player4-piece {
-    position: absolute;
-    height: 25px;
-    width: 20px;
-    top: 22%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #a1bb22;
-  }
+.player4-piece {
+background-color: #a1bb22;
+}
 
-  .player1-place {
+.player1-place {
     position: absolute;
     height: 50px;
     width: 40px;
     top: 20%;
     left: 0;
-  }
-  .player2-place {
+}
+.player2-place {
     position: absolute;
     height: 50px;
     width: 40px;
     top: 20%;
     right: 0;
-  }
-  .player3-place {
+}
+.player3-place {
     position: absolute;
     height: 50px;
     width: 40px;
     bottom: 0;
     left: 0;
-  }
-  .player4-place {
+}
+.player4-place {
     position: absolute;
     height: 50px;
     width: 40px;
     bottom: 0;
     right: 0;
-  }
-  
+}
+
 
   .player1-placejail {
     position: absolute;

@@ -7,7 +7,10 @@ const prisma = new PrismaClient();
 module.exports = class player {
    static async getAllPlayers(req,res) {
       try {
-         const users = await Player.getAllPlayers();
+         const names = req.query.names.split(';');
+         // Remove last element from array;
+         names.pop();
+         const users = await Player.getAllPlayers(names);
          res.send(users);
       } catch (error) {
          res.status(500).json({ error: error.message });

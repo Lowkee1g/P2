@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid')
 // Bodyparser allows us to get data from ajax as json
 var bodyParser = require('body-parser')
 router.use(bodyParser.json())
-
+let players = [];
 
 // IMPORT CONTROLLERS
 var player_controller = require("../controllers/playerController");
@@ -19,7 +19,7 @@ router.get("/lobby", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   var user = req.session.user;
-  res.render("index", { title: "Express", user: user});
+  res.render("index", { title: "Express", user: user, players: players});
 });
 
 // router.get("/startGame", player_controller.getUserInformation);
@@ -31,7 +31,8 @@ router.get("/startGame", async (req, res, next) => {
 router.post("/joinPlayer", async (req, res, next) => {
   req.session.user = req.body.data;
   req.session.save();
-  await player_controller.createPlayer(req, res);
+  players.push(req.body.data);
+  player_controller.createPlayer(req, res);
 });
 
 router.post('/api/charge-rent', (req, res) => {
@@ -53,8 +54,8 @@ router.get("/userByName",  (req, res) => {
 });
 
 
-router.get("/getAllPlayers",  (req, res) => {
-  start_controller.getAllPlayers(req,res)
+router.get("/getAllPlayers/",  (req, res) => {
+    start_controller.getAllPlayers(req,res)
 });
 
 router.post("/userBuyProperty",  (req, res) => {

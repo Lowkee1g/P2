@@ -197,8 +197,12 @@ class Player {
         return thisPlayerHasTurn;
     }
 
-    static getAllPlayers = async () => {
-        const users =  await prisma.user.findMany();
+    static getAllPlayers = async (players) => {
+        const users =  await prisma.user.findMany({
+            where: {
+                name: { in: players },
+            }
+        });
         return users;
     };
 }
