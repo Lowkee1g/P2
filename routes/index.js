@@ -35,6 +35,13 @@ router.post("/joinPlayer", async (req, res, next) => {
   player_controller.createPlayer(req, res);
 });
 
+// Route for deleting username from session
+router.post("/leavePlayer", async (req, res, next) => {
+  req.session.destroy();
+  players = players.filter(e => e !== req.body.data);
+  res.redirect('/lobby');
+});
+
 router.post('/api/charge-rent', (req, res) => {
   player_controller.chargeRent(req, res);
 });

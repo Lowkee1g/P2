@@ -36,7 +36,7 @@ function addPlayerToGame() {
             socket.emit("playerJoin", user)
             currentPlayer = user;
             // Call function to change submit button to a start button 
-            changeSubmitButtonToStart();
+            changeSubmitButtonToStart(); 
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -60,13 +60,7 @@ socket.on("playerJoin", (player, numberOfPlayers) => {
     updateNumberOfPlayers(numberOfPlayers);
 });
 
-/*
-socket.on('disconnect', function(player) {
-    numberOfPlayers--;
 
-    console.log('Disconnected from server');
-});
-*/
 socket.on("playerDisconnect", (player, numberOfPlayers) => {
     updateNumberOfPlayers(numberOfPlayers);
     removeUserFromPlayerList(player.name);
