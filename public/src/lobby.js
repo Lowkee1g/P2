@@ -1,6 +1,8 @@
 //Functions
 let currentPlayer;
 let userAdded = false;
+let playerList = [];
+
 
 // Open socket connection
 const socket = io("http://localhost:7070");
@@ -18,7 +20,6 @@ document.querySelector('#start').addEventListener('click', startGame)
 function addPlayerToGame() {
     // Get username from input field
     let username = document.querySelector('#username').value;
-    let userAdded = true;
 
     $.ajax({
         type: 'post',
@@ -68,14 +69,18 @@ socket.on('disconnect', function(player) {
 */
 socket.on("playerDisconnect", (player, numberOfPlayers) => {
     updateNumberOfPlayers(numberOfPlayers);
+    removeUserFromPlayerList(player.name);
 });
 
 
+    
 
 // Function that updates the number of players in the lobby
 function updateNumberOfPlayers(numberOfPlayers) {
     // get <a> element and set textcontent to number of players
     document.querySelector('.playerCount').textContent = numberOfPlayers + " / 4";
+    playerList = document.querySelector('.playerList').querySelectorAll('p');
+    
 
 }
 
@@ -86,6 +91,22 @@ function writeAddedUserToPlayerList(player) {
     // Append the p element to player list
     document.querySelector('.playerList').appendChild(p);
 }
+
+// Function that removes a p element from player list if user disconnects
+function removeUserFromPlayerList(player) {
+    playerList = document.querySelector('.playerList').querySelectorAll('p');
+    console.log(playerList)
+
+    // Loop through all p elements in player list
+    for (let i = 0; i < playerList.length; i++) {
+        // If the p element textcontent is equal to the player that disconnected
+        if (playerList[i].textContent == player) {
+            // Remove the p element from player list
+            playerList[i].remove();
+        }
+    }
+}
+
 
 // Function that hide submit button and show start button
 function changeSubmitButtonToStart() {
@@ -118,41 +139,7 @@ function startGame() {
     })
 }
 
-//import rent.js
-document.querySelector('#Test').addEventListener('click', async () => {
-    var playerId = 1;
-    var tile = 2;
-    console.log('test');
 
-    $.ajax({
-        type: 'POST',
-        url: '/api/charge-rent',
-        data: JSON.stringify({
-            player: playerId,
-            tile: tile
-        }),
-        contentType: 'application/json',
-        success: function (data) {
-            console.log("lobby: " + data);
-        },
-        error: function(xhr, textStatus, error) {
-            console.log(error);
-            console.log(xhr);
-            console.log(textStatus);
-        }
-    })
-
-
-    /*
-    await fetch('/api/charge-rent', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ player, tile })
-    });
-    */
-});
 
 
 // If startGame recieve click redirect all users to board
