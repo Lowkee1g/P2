@@ -57,10 +57,10 @@ module.exports = class player {
       }
    }
       
-   static async userUpDownGradeProperty(req, res, propertyId, changeNo){
+   static async userUpgradeProperty(req, res, propertyId){
       try {
          if (playerUser) {
-            await playerUser.UpDownGradeProperty(propertyId, changeNo, null);
+            await playerUser.upgradeProperty(propertyId, null);
             } else {
             res.status(500).json({error: 'playerUser is undefined or null'});
             }

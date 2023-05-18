@@ -107,7 +107,7 @@ class Player {
         }
     };
 
-    static async upDownGradeProperty(propertyId, user, changeNo, ctx) {
+    static async upgradeProperty(propertyId, user, ctx) {
         let findWhere = {where: {id: parseInt(propertyId)}};
         let propertyInfo;
         if (ctx === null) {
@@ -116,11 +116,11 @@ class Player {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
         
-        if(propertyInfo.userId === user.id && propertyInfo.houses + changeNo < 6){ //The right user buys and property does not reach max houses
+        if(propertyInfo.userId === user.id && propertyInfo.houses + 1 < 6){ //The right user buys and property does not reach max houses
             let updateWhere = {
                 where: {id: parseInt(propertyId)}, 
                 data: {
-                    houses: parseInt(propertyInfo.houses) + parseInt(changeNo),
+                    houses: parseInt(propertyInfo.houses) + parseInt(1),
                     rent: propertyInfo.rent * 1.3,
                 },
             };
@@ -133,7 +133,7 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, -(propertyInfo.price * 0.2 * parseInt(changeNo)), ctx);
+            this.updateMoney(user.id, -(propertyInfo.price * 0.2 * parseInt(1)), ctx);
 
             return updateProperty;
 

@@ -35,6 +35,7 @@ test('find function returns the right player', async () => {
     });
 });
 
+
 test('Buy property updates the property properly', async () => {
     const user = {
         id: 1,
@@ -112,7 +113,7 @@ test('sell property updates the property properly', async () => {
     });
 });
 
-test('upDownGradeProperties updates the property properly', async () => {
+test('upgradeProperty updates the property properly', async () => {
     const user = {
         id: 900,
         name: 'Plyaer 900',
@@ -134,15 +135,15 @@ test('upDownGradeProperties updates the property properly', async () => {
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.property.findUnique.mockResolvedValue(property);
-    mockCtx.prisma.property.update.mockResolvedValue({...property, houses: 2});
+    mockCtx.prisma.property.update.mockResolvedValue({...property, houses: 1});
 
-    let updateProperty = playerClass.upDownGradeProperty(property.id, 2, mockCtx);
+    let updateProperty = playerClass.upgradeProperty(property.id, mockCtx);
 
     await expect(updateProperty).resolves.toEqual({ 
         id: 901,
         name: 'Area 51',
         userId: user.id,
-        houses: 2,
+        houses: 1,
         price: 9000,
         rent: 300,
         collection: 'places',
