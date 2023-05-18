@@ -23,14 +23,6 @@ module.exports = class player {
                data: { name: req.body.data, money: 16000 },
          });
          playerUser = new Player(user.id);
-         if(user.id == 1) {
-            await prisma.user.update({
-               where: {id: user.id}, 
-               data: {
-                   hasTurn: true,
-               },
-            });
-         }
          res.json(user);
       } catch (error) {
          res.status(500).json({error: error.message})
