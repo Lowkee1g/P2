@@ -89,6 +89,8 @@ class Player {
                 data: {
                     userId: null,
                     owned: false, 
+                    houses: 0,
+                    rent: parseInt(propertyInfo.price * 0.3)
                 },
             };
 
@@ -120,7 +122,7 @@ class Player {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
         
-        if(propertyInfo.userId === user.id && propertyInfo.houses + 1 < 6){ //The right user buys and property does not reach max houses
+        if(propertyInfo.userId === user.id && propertyInfo.houses < 4){ //The right user buys and property does not reach max houses
             let updateWhere = {
                 where: {id: parseInt(propertyId)}, 
                 data: {
@@ -189,7 +191,7 @@ class Player {
             data: {
                 hasTurn: false,
             }
-        })
+        });
 
         let thisPlayerHasTurn = await prisma.user.update({
             where: {
@@ -198,7 +200,7 @@ class Player {
             data: {
                 hasTurn: true,
             }
-        })
+        });
 
         return thisPlayerHasTurn;
     }

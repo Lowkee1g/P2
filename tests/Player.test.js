@@ -84,16 +84,16 @@ test('sell property updates the property properly', async () => {
         id: 805,
         name: 'Pentagon',
         userId: user.id,
-        houses: 0,
+        houses: 1,
         price: 9001,
-        rent: 300,
+        rent: parseInt((9001 * 0.3) * 1.3),
         collection: 'places',
         owned: true
     };
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.property.findUnique.mockResolvedValue(property);
-    mockCtx.prisma.property.update.mockResolvedValue({...property, userId: null, owned: false});
+    mockCtx.prisma.property.update.mockResolvedValue({...property, userId: null, owned: false, houses: 0, rent: parseInt(9001 * 0.3)});
 
     let updateProperty = Player.sellProperty(property.id, user,mockCtx);
 
@@ -103,7 +103,7 @@ test('sell property updates the property properly', async () => {
         userId: null,
         houses: 0,
         price: 9001,
-        rent: 300,
+        rent: parseInt(9001 * 0.3),
         collection: 'places',
         owned: false
     });
@@ -129,7 +129,7 @@ test('upgradeProperty updates the property properly', async () => {
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.property.findUnique.mockResolvedValue(property);
-    mockCtx.prisma.property.update.mockResolvedValue({...property, houses: 1});
+    mockCtx.prisma.property.update.mockResolvedValue({...property, houses: 1, rent: 300 * 1.3});
 
     let updateProperty = Player.upgradeProperty(property.id, user ,mockCtx);
 
@@ -139,7 +139,7 @@ test('upgradeProperty updates the property properly', async () => {
         userId: user.id,
         houses: 1,
         price: 9000,
-        rent: 300,
+        rent: 300 * 1.3,
         collection: 'places',
         owned: true
     })

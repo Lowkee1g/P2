@@ -25,10 +25,6 @@ class PropertyTile extends Tile {
 
         return property;
     }
-
-    addHouse() {
-
-    }
 }
 
 module.exports = PropertyTile
