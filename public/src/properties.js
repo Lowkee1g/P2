@@ -39,12 +39,37 @@ let dummyProperties = [
 ];
 
 let fieldId;
-function showPopup(field, isProperty) {
-  // Get the name and price of the item
-  const name = field.querySelector('.name').textContent;
-  const price = field.querySelector('.price').textContent;
-  fieldId = parseInt(field.id.slice(6));
+function runAjax(id) {
+    return new Promise(function(resolve, reject) {
+      $.ajax({
+        type: 'POST',
+        url: "/getSpecificProperty",
+        data: JSON.stringify({ id: fieldId }),
+        contentType: 'application/json',
+        success: function(data) {
+          console.log("TIS: " + JSON.stringify(data));
+          console.log("TESTING FRA POPUP: " + data.name);
+          resolve(data);
+        },
+        error: function(xhr, textStatus, error) {
+          console.log(error);
+          console.log(xhr);
+          console.log(textStatus);
+          reject(error);
+        }
+      });
+    });
+  }
 
+
+  async function showPopup(field, isProperty) {
+    fieldId = parseInt(field.id.slice(6));
+    
+      const data = await runAjax(fieldId);
+      const name = data.name;
+      const price = data.price; 
+      
+  
   // Update the popup with the item details
   popupTitle.textContent = name;
   popupDescription.querySelector('.price').textContent = 'Price: ' + price;

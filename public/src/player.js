@@ -16,34 +16,42 @@
 // }
 
 function getPlayerProperties(player) {
+    // Get the template for a property card and the container where the cards will be added
     let card = document.querySelector('.cardTemplate').content;
     let cardContainer = document.querySelector('.cards');
 
+    // Iterate over each property owned by the player
     player.properties.forEach(property => {
+        // Clone the template to create a new card for each property
         let cardClone = card.cloneNode(true);
 
-        // Get the corresponding field
+        // Get the corresponding field on the game board based on the property's name
         let field = [...document.querySelectorAll('.property .name')]
                       .find(nameElement => nameElement.textContent === property.name)
                       .parentElement.parentElement;
 
+        // Get the color bar element of the field and compute its background color
         let colorBar = field.querySelector('.color-bar');
         let color = window.getComputedStyle(colorBar).backgroundColor;
 
+        // Set the name, rent, and price values on the card
         cardClone.querySelector('.name').textContent = property.name;
         cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr";
         cardClone.querySelector('.price').textContent = "Rent " + property.price + "kr";
 
-        // Set the color
+        // Set the color of the color bar on the card
         cardClone.querySelector('.color-bar').style.backgroundColor = color;
 
+        // Add a click event listener to the card to show a popup when clicked
         cardClone.querySelector('.card').addEventListener("click", () => {
             showPopup(field, true);
         });
 
+        // Add the cloned card to the container
         cardContainer.appendChild(cardClone);
     });
 }
+
 
 function getPlayerInfo(player) {
     console.log(player);

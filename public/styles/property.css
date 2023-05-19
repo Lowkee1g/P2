@@ -1,4 +1,4 @@
-.popup {
+  .popup {
     display: none;
     position: absolute;
     top: 30%;
@@ -13,12 +13,19 @@
     height: 300px;
   }
   
+  .popup-rent {
+    position: absolute;
+    top: 24%;
+    right: 15%;
+  }
+
   .popup-header {
     background-color: #0077be;
     color: rgb(0, 0, 0);
     padding: 3px;
     border-radius: 5px 5px 0 0;
   }
+
   
   .popup h2 {
     font-size: 24px;
