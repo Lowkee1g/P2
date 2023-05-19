@@ -27,6 +27,11 @@ router.get("/startGame", async (req, res, next) => {
     res.redirect('/');
 });
 
+router.post("/getSpecificProperty", async (req, res, next) => {
+  console.log(req.body.id)
+    player_controller.getSpecificProperty(req, res);
+});
+
 // Route for setting username in session
 router.post("/joinPlayer", async (req, res, next) => {
   req.session.user = req.body.data;
