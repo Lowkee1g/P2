@@ -1,18 +1,48 @@
-function getPlayerProperties(player) {
-    let card = document.querySelector('.cardTemplate').content
-    let cardContainer = document.querySelector('.cards')
+// function getPlayerProperties(player) {
+//     let card = document.querySelector('.cardTemplate').content
+//     let cardContainer = document.querySelector('.cards')
     
+//     player.properties.forEach(property => {
+//         let cardClone = card.cloneNode(true)
+//         cardClone.querySelector('.name').textContent = property.name 
+//         cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr"
+//         cardClone.querySelector('.price').textContent = "Rent " + property.price + "kr"
+//         cardClone.querySelector('.card').addEventListener("click", (event) => {
+//             console.log(event.target);
+//             showPopup(event.target,property);
+//         });
+//         cardContainer.appendChild(cardClone)
+//     })
+// }
+
+function getPlayerProperties(player) {
+    let card = document.querySelector('.cardTemplate').content;
+    let cardContainer = document.querySelector('.cards');
+
     player.properties.forEach(property => {
-        let cardClone = card.cloneNode(true)
-        cardClone.querySelector('.name').textContent = property.name 
-        cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr"
-        cardClone.querySelector('.price').textContent = "Rent " + property.price + "kr"
-        cardClone.querySelector('.card').addEventListener("click", (event) => {
-            console.log(event.target);
-            showPopup(event.target,property);
+        let cardClone = card.cloneNode(true);
+
+        // Get the corresponding field
+        let field = [...document.querySelectorAll('.property .name')]
+                      .find(nameElement => nameElement.textContent === property.name)
+                      .parentElement.parentElement;
+
+        let colorBar = field.querySelector('.color-bar');
+        let color = window.getComputedStyle(colorBar).backgroundColor;
+
+        cardClone.querySelector('.name').textContent = property.name;
+        cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr";
+        cardClone.querySelector('.price').textContent = "Rent " + property.price + "kr";
+
+        // Set the color
+        cardClone.querySelector('.color-bar').style.backgroundColor = color;
+
+        cardClone.querySelector('.card').addEventListener("click", () => {
+            showPopup(field, true);
         });
-        cardContainer.appendChild(cardClone)
-    })
+
+        cardContainer.appendChild(cardClone);
+    });
 }
 
 function getPlayerInfo(player) {

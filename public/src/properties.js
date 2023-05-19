@@ -5,7 +5,6 @@ const popupTitle = document.querySelector('.popup-title');
 const popupHeader = document.querySelector('.popup-header');
 const popupDescription = document.querySelector('.popup-description');
 const popupRailroadDescription = document.querySelector('.popup-railroad-description');
-
 const railroads = document.querySelectorAll('.railroad');
 
 let dummyProperties = [
