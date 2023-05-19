@@ -1,4 +1,4 @@
-let a = 0;
+let currentdicesum = 0;
 let p1check = 0;
 let random1 = 0;
 let random2 = 0;
@@ -19,7 +19,7 @@ function prisonEscape() {
 
         if (roll1 === roll2) {
             jailp1 = 0;
-            a = 10;
+            currentdicesum = 10;
             return;
         }
     }
