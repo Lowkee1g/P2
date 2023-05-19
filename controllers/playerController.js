@@ -20,7 +20,7 @@ module.exports = class player {
    static async createPlayer(req,res,next) {
       try {
          const user = await prisma.user.create({
-               data: { name: req.body.data, money: 16000 },
+            data: { name: req.body.data, money: 16000 },
          });
          playerUser = new Player(user.id);
          res.json(user);

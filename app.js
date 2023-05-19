@@ -29,11 +29,11 @@ io.on("connection", (socket) => {
     // Add player to array with socket id
     //console.log("User Joined with this - " + player.body.username);
     
-    
-    numberOfPlayers+=1;
-
-    socket.broadcast.emit("playerJoin", player, numberOfPlayers);
-    socket.emit("playerJoin", player, numberOfPlayers);
+    if (numberOfPlayers <= 3) {
+      numberOfPlayers+=1;
+      socket.broadcast.emit("playerJoin", player, numberOfPlayers);
+      socket.emit("playerJoin", player, numberOfPlayers);
+    }
   });
 
   // When a player leaves the page, disconnect the socket
