@@ -65,6 +65,8 @@ class Player {
 
             this.updateMoney(user.id, -propertyInfo.price, ctx);
 
+            console.log('Property bought');
+
             return updateProperty;
 
         } else {
@@ -100,6 +102,8 @@ class Player {
 
             this.updateMoney(user.id, propertyInfo.price, ctx); 
 
+            console.log('Property sold');
+
             return updateProperty;
 
         } else {
@@ -134,6 +138,8 @@ class Player {
             }
 
             this.updateMoney(user.id, -(propertyInfo.price * 0.2 * parseInt(1)), ctx);
+
+            console.log('Property upgraded');
 
             return updateProperty;
 
