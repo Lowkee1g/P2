@@ -43,8 +43,6 @@ test('Buy property updates the property properly', async () => {
         money: 11112,
     };
 
-    let playerClass = new Player(user.id);
-
     const propertyObj = {
         id: 3,
         name: 'Pentagon',
@@ -82,8 +80,6 @@ test('sell property updates the property properly', async () => {
         money: 11112,
     };
 
-    let playerClass = new Player(user.id);
-
     const property = {
         id: 805,
         name: 'Pentagon',
@@ -119,8 +115,6 @@ test('upgradeProperty updates the property properly', async () => {
         name: 'Plyaer 900',
         money: 10000
     };
-
-    let playerClass = new Player(user.id);
 
     const property = { 
         id: 901,
@@ -158,8 +152,6 @@ test('updateMoney updates the player properly when adding money', async () => {
         money: 1000
     }
 
-    let playerClass = new Player(user.id);
-
     let moneyAmount = 100;
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
@@ -174,14 +166,12 @@ test('updateMoney updates the player properly when adding money', async () => {
     })
 });
 
-test('updateMoney updates the player properly when adding money', async () => {
+test('updateMoney updates the player properly when removing money', async () => {
     const user = {
         id: 1000,
         name: 'Player 1000',
         money: 1000
     }
-
-    let playerClass = new Player(user.id);
 
     let moneyAmount = 100;
 

@@ -38,11 +38,12 @@ let dummyProperties = [
         {id: 28, userid: null, name: "Islands Brygge", houses: 0, price: 600, rent: 200, collection: "Amager", owned: false},
 ];
 
-
+let fieldId;
 function showPopup(field, isProperty) {
   // Get the name and price of the item
   const name = field.querySelector('.name').textContent;
   const price = field.querySelector('.price').textContent;
+  fieldId = parseInt(field.id.slice(6));
 
   // Update the popup with the item details
   popupTitle.textContent = name;
@@ -187,17 +188,17 @@ function setupGame() {
 
 const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', () => {
-    alert('BOUGHT!');
 
     $.ajax({
         type: 'POST',
         url: '/userBuyProperty',
         contentType: 'application/json',
         processData: false,
-        data: JSON.stringify({propertyID: 8, user: player}),
+        data: JSON.stringify({propertyID: fieldId, user: player}),
         dataType: 'json',
         success: function (data) {
             console.log(data)
+            alert('BOUGHT!');
             
         },
         error: function(xhr, textStatus, error) {
@@ -218,7 +219,7 @@ upgradeButton.addEventListener('click', () => {
         url: '/UpOrDownGrade',
         contentType: 'application/json',
         processData: false,
-        data: JSON.stringify({propertyID: 8, user: player, changeAmount: 2}),
+        data: JSON.stringify({propertyID: fieldId, user: player, changeAmount: 2}),
         dataType: 'json',
         success: function (data) {
             console.log(data)
@@ -242,7 +243,7 @@ sellButton.addEventListener('click', () => {
         url: '/userSellProperty',
         contentType: 'application/json',
         processData: false,
-        data: JSON.stringify({propertyID: 8, user: player}),
+        data: JSON.stringify({propertyID: fieldId, user: player}),
         dataType: 'json',
         success: function (data) {
             console.log(data)

@@ -37,7 +37,7 @@ FN:200,<static_initializer>
 FN:200,getAllPlayers
 FNF:12
 FNH:8
-FNDA:6,Player
+FNDA:1,Player
 FNDA:1,getId
 FNDA:1,find
 FNDA:0,findByName
@@ -53,8 +53,8 @@ DA:1,1
 DA:2,1
 DA:3,1
 DA:4,1
-DA:5,6
-DA:6,6
+DA:5,1
+DA:6,1
 DA:7,1
 DA:8,1
 DA:9,1
@@ -261,7 +261,7 @@ DA:209,1
 DA:210,1
 LF:210
 LH:154
-BRDA:4,0,0,6
+BRDA:4,0,0,1
 BRDA:8,1,0,1
 BRDA:12,2,0,1
 BRDA:19,3,0,0
