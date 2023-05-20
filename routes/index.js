@@ -27,6 +27,11 @@ router.get("/startGame", async (req, res, next) => {
     res.redirect('/');
 });
 
+router.post("/getSpecificProperty", async (req, res, next) => {
+  console.log(req.body.id)
+    player_controller.getSpecificProperty(req, res);
+});
+
 // Route for setting username in session
 router.post("/joinPlayer", async (req, res, next) => {
   req.session.user = req.body.data;
@@ -65,16 +70,25 @@ router.get("/getAllPlayers/",  (req, res) => {
     start_controller.getAllPlayers(req,res)
 });
 
-router.get("/userBuyProperty/:propertyId",  (req, res) => {
+router.post("/userBuyProperty",  (req, res) => {
+  player_controller.userBuyProperty(req, res)
+});
+/* router.get("/userBuyProperty/:propertyId",  (req, res) => {
   player_controller.userBuyProperty(req, res, req.params.propertyId)
-});
+}); */
 
-router.get("/userSellProperty/:propertyId",  (req, res) => {
-  player_controller.userSellProperty(req, res, req.params.propertyId)
+router.post("/userSellProperty",  (req, res) => {
+  player_controller.userSellProperty(req, res)
 });
+// router.get("/userSellProperty/:propertyId",  (req, res) => {
+//   player_controller.userSellProperty(req, res, req.params.propertyId)
+// });
 
-router.get('/UpOrDownGrade/:propertyId/:changeNo', (req, res) => {
-  player_controller.userUpDownGradeProperty(req, res, req.params.propertyId, req.params.changeNo)
+router.post("/UpOrDownGrade",  (req, res) => {
+  player_controller.userUpgradeProperty(req, res)
 });
+// router.get('/UpOrDownGrade/:propertyId/:changeNo', (req, res) => {
+//   player_controller.userUpgradeProperty(req, res, req.params.propertyId, req.params.changeNo)
+// });
 
 module.exports = router;

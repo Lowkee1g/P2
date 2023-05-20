@@ -46,6 +46,8 @@ function setPlayerData(data) {
         currentPlayersTurn()
         // enableIfPlayerOne();
     }
+    getPlayerProperties(data);
+    getPlayerInfo(data);
 }
 
 getPlayerOnStart().done(setPlayerData)

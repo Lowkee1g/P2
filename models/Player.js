@@ -37,7 +37,7 @@ class Player {
         }
     };
     
-    async buyProperty(propertyId, ctx){
+    static async buyProperty(propertyId, user, ctx){
         let findWhere =  {where: {id: parseInt(propertyId)}};
         let propertyInfo;
         if (ctx === null){
@@ -50,7 +50,7 @@ class Player {
             let updateWhere = {
                 where: {id: parseInt(propertyInfo.id)}, 
                 data: {
-                    userId: this.id,
+                    userId: user.id,
                     owned: true, 
                 },
             };
@@ -63,7 +63,9 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(this.id, -propertyInfo.price, ctx);
+            this.updateMoney(user.id, -propertyInfo.price, ctx);
+
+            console.log('Property bought');
 
             return updateProperty;
 
@@ -72,7 +74,7 @@ class Player {
         }
     };
 
-    async sellProperty(propertyId, ctx) {
+    static async sellProperty(propertyId, user, ctx) {
         let findWhere =  {where: {id: parseInt(propertyId)}};
         let propertyInfo;
         if (ctx === null){
@@ -81,12 +83,14 @@ class Player {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
 
-        if(propertyInfo.userId == this.id){
+        if(propertyInfo.userId == user.id){
             let updateWhere = {
                 where: {id: parseInt(propertyId)}, 
                 data: {
                     userId: null,
                     owned: false, 
+                    houses: 0,
+                    rent: parseInt(propertyInfo.price * 0.3)
                 },
             };
 
@@ -98,7 +102,9 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(this.id, propertyInfo.price, ctx); 
+            this.updateMoney(user.id, propertyInfo.price, ctx); 
+
+            console.log('Property sold');
 
             return updateProperty;
 
@@ -107,7 +113,10 @@ class Player {
         }
     };
 
-    async upDownGradeProperty(propertyId, changeNo, ctx) {
+    static async upgradeProperty(propertyId, user, ctx) {
+        let maxHouses = 4;
+        let rentIncreaseRate = 1.3;
+        let housePriceRate = 0.2;
         let findWhere = {where: {id: parseInt(propertyId)}};
         let propertyInfo;
         if (ctx === null) {
@@ -116,12 +125,12 @@ class Player {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
         
-        if(propertyInfo.userId === this.id && propertyInfo.houses + changeNo < 6){ //The right user buys and property does not reach max houses
+        if(propertyInfo.userId === user.id && propertyInfo.houses < maxHouses){ //The right user buys and property does not reach max houses
             let updateWhere = {
                 where: {id: parseInt(propertyId)}, 
                 data: {
-                    houses: parseInt(propertyInfo.houses) + parseInt(changeNo),
-                    rent: propertyInfo.rent * 1.3,
+                    houses: parseInt(propertyInfo.houses) + parseInt(1),
+                    rent: propertyInfo.rent * rentIncreaseRate,
                 },
             };
 
@@ -133,12 +142,14 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(this.id, -(propertyInfo.price * 0.2 * parseInt(changeNo)), ctx);
+            this.updateMoney(user.id, -(propertyInfo.price * housePriceRate), ctx);
+
+            console.log('Property upgraded');
 
             return updateProperty;
 
         } else {
-            console.log('This property does not belong to this player');
+            console.log('Upgrade unavailable');
         }
     };
 
@@ -149,7 +160,7 @@ class Player {
         this.updateMoney(toPlayer, amount, ctx)
     };
 
-    async updateMoney(playerId, changeAmount, ctx){
+    static async updateMoney(playerId, changeAmount, ctx){
         let findWhere = {
             where: {id: playerId}
         };
@@ -183,7 +194,7 @@ class Player {
             data: {
                 hasTurn: false,
             }
-        })
+        });
 
         let thisPlayerHasTurn = await prisma.user.update({
             where: {
@@ -192,7 +203,7 @@ class Player {
             data: {
                 hasTurn: true,
             }
-        })
+        });
 
         return thisPlayerHasTurn;
     }

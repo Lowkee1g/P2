@@ -35,14 +35,13 @@ test('find function returns the right player', async () => {
     });
 });
 
+
 test('Buy property updates the property properly', async () => {
     const user = {
         id: 1,
         name: 'Player 800',
         money: 11112,
     };
-
-    let playerClass = new Player(user.id);
 
     const propertyObj = {
         id: 3,
@@ -60,7 +59,7 @@ test('Buy property updates the property properly', async () => {
     mockCtx.prisma.user.update.mockResolvedValue(user);
     mockCtx.prisma.property.update.mockResolvedValue({...propertyObj, userId: user.id, owned: true});
 
-    let updateProperty = playerClass.buyProperty(propertyObj.id, mockCtx);
+    let updateProperty = Player.buyProperty(propertyObj.id,user, mockCtx);
 
     await expect(updateProperty).resolves.toEqual({
         id: 3,
@@ -81,24 +80,22 @@ test('sell property updates the property properly', async () => {
         money: 11112,
     };
 
-    let playerClass = new Player(user.id);
-
     const property = {
         id: 805,
         name: 'Pentagon',
         userId: user.id,
-        houses: 0,
+        houses: 1,
         price: 9001,
-        rent: 300,
+        rent: parseInt((9001 * 0.3) * 1.3),
         collection: 'places',
         owned: true
     };
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.property.findUnique.mockResolvedValue(property);
-    mockCtx.prisma.property.update.mockResolvedValue({...property, userId: null, owned: false});
+    mockCtx.prisma.property.update.mockResolvedValue({...property, userId: null, owned: false, houses: 0, rent: parseInt(9001 * 0.3)});
 
-    let updateProperty = playerClass.sellProperty(property.id, mockCtx);
+    let updateProperty = Player.sellProperty(property.id, user,mockCtx);
 
     await expect(updateProperty).resolves.toEqual({
         id: 805,
@@ -106,20 +103,18 @@ test('sell property updates the property properly', async () => {
         userId: null,
         houses: 0,
         price: 9001,
-        rent: 300,
+        rent: parseInt(9001 * 0.3),
         collection: 'places',
         owned: false
     });
 });
 
-test('upDownGradeProperties updates the property properly', async () => {
+test('upgradeProperty updates the property properly', async () => {
     const user = {
         id: 900,
         name: 'Plyaer 900',
         money: 10000
     };
-
-    let playerClass = new Player(user.id);
 
     const property = { 
         id: 901,
@@ -134,17 +129,17 @@ test('upDownGradeProperties updates the property properly', async () => {
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.property.findUnique.mockResolvedValue(property);
-    mockCtx.prisma.property.update.mockResolvedValue({...property, houses: 2});
+    mockCtx.prisma.property.update.mockResolvedValue({...property, houses: 1, rent: 300 * 1.3});
 
-    let updateProperty = playerClass.upDownGradeProperty(property.id, 2, mockCtx);
+    let updateProperty = Player.upgradeProperty(property.id, user ,mockCtx);
 
     await expect(updateProperty).resolves.toEqual({ 
         id: 901,
         name: 'Area 51',
         userId: user.id,
-        houses: 2,
+        houses: 1,
         price: 9000,
-        rent: 300,
+        rent: 300 * 1.3,
         collection: 'places',
         owned: true
     })
@@ -157,14 +152,12 @@ test('updateMoney updates the player properly when adding money', async () => {
         money: 1000
     }
 
-    let playerClass = new Player(user.id);
-
     let moneyAmount = 100;
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.user.update.mockResolvedValue({...user, money: user.money + 100});
 
-    let updateUser = playerClass.updateMoney(user.id, moneyAmount, mockCtx);
+    let updateUser = Player.updateMoney(user.id, moneyAmount, mockCtx);
 
     await expect(updateUser).resolves.toEqual({
         id: 1000,
@@ -173,21 +166,19 @@ test('updateMoney updates the player properly when adding money', async () => {
     })
 });
 
-test('updateMoney updates the player properly when adding money', async () => {
+test('updateMoney updates the player properly when removing money', async () => {
     const user = {
         id: 1000,
         name: 'Player 1000',
         money: 1000
     }
 
-    let playerClass = new Player(user.id);
-
     let moneyAmount = 100;
 
     mockCtx.prisma.user.findUnique.mockResolvedValue(user);
     mockCtx.prisma.user.update.mockResolvedValue({...user, money: user.money - 100});
 
-    let updateUser = playerClass.updateMoney(user.id, moneyAmount, mockCtx);
+    let updateUser = Player.updateMoney(user.id, moneyAmount, mockCtx);
 
     await expect(updateUser).resolves.toEqual({
         id: 1000,

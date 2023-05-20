@@ -29,36 +29,27 @@ module.exports = class player {
       }
    }
 
-
-
-   static async userBuyProperty(req, res, propertyId){
+   static async userBuyProperty(req, res){
       try {
-         if (playerUser) {
-            await playerUser.buyProperty(propertyId);
-            } else {
-            res.status(500).json({error: 'playerUser is undefined or null'});
-            }
+         const property = await Player.buyProperty(req.body.propertyID, req.body.user, null);
+         res.send(property);
       } catch (error) {
          res.status(500).json({error: error.message})
       }
    }
 
-   static async userSellProperty(req, res, propertyId){
+   static async userSellProperty(req, res){
       try {
-         if (playerUser) {
-            await playerUser.sellProperty(propertyId);
-            } else {
-            res.status(500).json({error: 'playerUser is undefined or null'});
-            }
+         await Player.sellProperty(req.body.propertyID, req.body.user, null)
       } catch (error) {
          res.status(500).json({error: error.message})
       }
    }
       
-   static async userUpDownGradeProperty(req, res, propertyId, changeNo){
+   static async userUpgradeProperty(req, res, propertyId){
       try {
          if (playerUser) {
-            await playerUser.UpDownGradeProperty(propertyId, changeNo);
+            await playerUser.upgradeProperty(propertyId, null);
             } else {
             res.status(500).json({error: 'playerUser is undefined or null'});
             }
@@ -106,12 +97,23 @@ module.exports = class player {
 		try {
 			let currentPlayer = req.body.data;
          let newPlayerTurn = await Player.endTurn(currentPlayer,req.body.nextPlayer);
-         console.log(req.body.nextPlayer)
-         console.log(newPlayerTurn)
+         console.log(req.body.nextPlayer);
+         console.log(newPlayerTurn);
          res.json(newPlayerTurn);
 		}
 		catch (error) {
 			res.status(500).json({ error: error.message });
 		}
 	}
+
+
+   static async getSpecificProperty(req, res) {
+      try {
+         let specificProperty = await Property.getProperty(req.body.id);
+         res.send(specificProperty);
+      }
+      catch (error) {
+         res.status(500).json({ error: error.message });
+      }
+   }
 };

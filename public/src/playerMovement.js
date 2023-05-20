@@ -4,6 +4,9 @@ let random1 = 0;
 let random2 = 0;
 let jailp1 = 0;
 
+//Properties
+
+
 //mangler at få lavet end turn funktionen
 
 const startGameBtn = document.getElementById('startGame');
@@ -42,8 +45,10 @@ socket.on("movePlayer", (playerId,dicesum) => {
     movePlayer(playerId,dicesum)
 });
 
+
 // Moveplayer should be called with socket so we can update on other screens with their player ID
 function movePlayer(playerToMove, playerdicesum) {
+    
     if (playerdicesum % 40 === 10) {
         const player = document.querySelector('.player' + playerToMove + '-piece');
         const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-placejail');
@@ -53,5 +58,25 @@ function movePlayer(playerToMove, playerdicesum) {
         const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-place');
         console.log(field);
         field.appendChild(player);
+
+        const currentFieldIndex = playerdicesum % 40;
+        const currentField = document.querySelector('#field-' + currentFieldIndex);
+
+
+        if ([2, 4, 7, 17, 22, 33, 36, 38].includes(currentFieldIndex)) { // Check if the current field is a chance field
+            popup.style.display = 'none';
+        } else if (currentField.classList.contains('property')) { // Check if the current field is a property
+            buyButton.style.background = 'grey';
+            buyButton.style.pointerEvents = 'none';
+            showPopup(currentField, true);
+        } else {
+            showPopup(currentField, false);
+        }
+
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        checkOwnershipLand(currentField.querySelector('.name').textContent);
     }
 }
