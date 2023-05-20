@@ -114,6 +114,9 @@ class Player {
     };
 
     static async upgradeProperty(propertyId, user, ctx) {
+        let maxHouses = 4;
+        let rentIncreaseRate = 1.3;
+        let housePriceRate = 0.2;
         let findWhere = {where: {id: parseInt(propertyId)}};
         let propertyInfo;
         if (ctx === null) {
@@ -122,12 +125,12 @@ class Player {
             propertyInfo = await ctx.prisma.property.findUnique(findWhere);
         }
         
-        if(propertyInfo.userId === user.id && propertyInfo.houses < 4){ //The right user buys and property does not reach max houses
+        if(propertyInfo.userId === user.id && propertyInfo.houses < maxHouses){ //The right user buys and property does not reach max houses
             let updateWhere = {
                 where: {id: parseInt(propertyId)}, 
                 data: {
                     houses: parseInt(propertyInfo.houses) + parseInt(1),
-                    rent: propertyInfo.rent * 1.3,
+                    rent: propertyInfo.rent * rentIncreaseRate,
                 },
             };
 
@@ -139,14 +142,14 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, -(propertyInfo.price * 0.2 * parseInt(1)), ctx);
+            this.updateMoney(user.id, -(propertyInfo.price * housePriceRate), ctx);
 
             console.log('Property upgraded');
 
             return updateProperty;
 
         } else {
-            console.log('This property does not belong to this player');
+            console.log('Upgrade unavailable');
         }
     };
 
