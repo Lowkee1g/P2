@@ -141,7 +141,6 @@ buyButton.addEventListener('click', () => {
         data: JSON.stringify({propertyID: fieldId, user: player}),
         dataType: 'json',
         success: function (data) {
-            console.log(data)
             checkOwnership(data.property);
             getPlayerProperties(data.user)
             getPlayerInfo(data.user)
@@ -158,8 +157,6 @@ buyButton.addEventListener('click', () => {
 
 const upgradeButton = document.querySelector('.upgrade-button');
 upgradeButton.addEventListener('click', () => {
-    alert('UPGRADED!');
-
     $.ajax({
         type: 'POST',
         url: '/UpOrDownGrade',
@@ -168,7 +165,7 @@ upgradeButton.addEventListener('click', () => {
         data: JSON.stringify({propertyID: fieldId, user: player, changeAmount: 2}),
         dataType: 'json',
         success: function (data) {
-            console.log(data)
+            getPlayerInfo(data.user)
             showAlert(data.message,data.property)
         },
         error: function(xhr, textStatus, error) {
@@ -204,7 +201,6 @@ sellButton.addEventListener('click', () => {
 });
 
 function showAlert(message,property) {
-    console.log('test');
     document.querySelector(".alert .message .successMessage").textContent = message + " " + property.name;
     document.querySelector(".alert").classList.remove("hideAlert");
     setTimeout(() => {

@@ -19,9 +19,16 @@ module.exports = class player {
 
    static async createPlayer(req,res,next) {
       try {
-         const user = await prisma.user.create({
-            data: { name: req.body.data, money: 16000 },
-         });
+         const user = await prisma.user.upsert({
+            where: {
+              name: req.body.data,
+            },
+            update: { money: 16000},
+            create: {
+              name: req.body.data,
+              money: 16000,
+            },
+          })
          playerUser = new Player(user.id);
          res.json(user);
       } catch (error) {
@@ -57,13 +64,15 @@ module.exports = class player {
       }
    }
       
-   static async userUpgradeProperty(req, res, propertyId){
+   static async userUpgradeProperty(req, res){
       try {
-         if (playerUser) {
-            await playerUser.upgradeProperty(propertyId, null);
-            } else {
-            res.status(500).json({error: 'playerUser is undefined or null'});
-            }
+         const property = await Player.upgradeProperty(req.body.propertyID, req.body.user, null);
+         const user = await Player.findByName(req.body.user.name, null)
+         res.send(
+            {property: property,
+            user: user,
+            message: "You have successfully upgraded"
+         });
       } catch (error) {
          res.status(500).json({error: error.message})
       }

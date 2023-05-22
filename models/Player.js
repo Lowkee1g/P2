@@ -130,7 +130,7 @@ class Player {
                 where: {id: parseInt(propertyId)}, 
                 data: {
                     houses: parseInt(propertyInfo.houses) + parseInt(1),
-                    rent: propertyInfo.rent * rentIncreaseRate,
+                    rent: Math.round(propertyInfo.rent * rentIncreaseRate),
                 },
             };
 
@@ -149,7 +149,7 @@ class Player {
             return updateProperty;
 
         } else {
-            console.log('Upgrade unavailable');
+            return propertyInfo;
         }
     };
 
