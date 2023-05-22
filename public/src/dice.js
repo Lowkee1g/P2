@@ -32,6 +32,7 @@ function throwDice() {
 
   if (roll1 === roll2 && p1check < 3) {
       p1check += 1;
+      movePlayerSocket(playerId,currentdicesum);
       return;
   } else if (roll1 === roll2 && p1check === 2) {
       moveToJail();
