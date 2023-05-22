@@ -61,16 +61,17 @@ function movePlayer(playerToMove, playerdicesum) {
 
         const currentFieldIndex = playerdicesum % 40;
         const currentField = document.querySelector('#field-' + currentFieldIndex);
-
-
-        if ([2, 4, 7, 17, 22, 33, 36, 38].includes(currentFieldIndex)) { // Check if the current field is a chance field
-            popup.style.display = 'none';
-        } else if (currentField.classList.contains('property')) { // Check if the current field is a property
-            buyButton.style.background = 'grey';
-            buyButton.style.pointerEvents = 'none';
-            showPopup(currentField, true);
-        } else {
-            showPopup(currentField, false);
+     
+        if(playerToMove === playerId) {
+            if ([0,10,20,30,2, 4, 7, 17, 22, 33, 36, 38].includes(currentFieldIndex)) { // Check if the current field is a chance field OR is corner field
+                popup.style.display = 'none';
+            } else if (currentField.classList.contains('property')) { // Check if the current field is a property
+                buyButton.style.background = 'grey';
+                buyButton.style.pointerEvents = 'none';
+                showPopup(currentField, true);
+            } else {
+                showPopup(currentField, false);
+            }
         }
 
         closePopup.addEventListener('click', () => {
