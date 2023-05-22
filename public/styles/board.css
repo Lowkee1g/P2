@@ -519,3 +519,26 @@ background-color: #a1bb22;
   .board img {
     pointer-events: none;
   }
+
+  .alert {
+    width: auto;
+    position: absolute;
+    background-color: white;
+    border-radius: 3px;
+    right: 1%;
+    top: 1%;
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .successMessage {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .hideAlert {
+    display: none;
+  }

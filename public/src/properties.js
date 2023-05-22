@@ -145,6 +145,7 @@ buyButton.addEventListener('click', () => {
             checkOwnership(data.property);
             getPlayerProperties(data.user)
             getPlayerInfo(data.user)
+            showAlert(data.message,data.property)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -168,7 +169,7 @@ upgradeButton.addEventListener('click', () => {
         dataType: 'json',
         success: function (data) {
             console.log(data)
-            
+            showAlert(data.message,data.property)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -202,5 +203,13 @@ sellButton.addEventListener('click', () => {
     })
 });
 
+function showAlert(message,property) {
+    console.log('test');
+    document.querySelector(".alert .message .successMessage").textContent = message + " " + property.name;
+    document.querySelector(".alert").classList.remove("hideAlert");
+    setTimeout(() => {
+        document.querySelector(".alert").classList.add("hideAlert");
+    }, 3000);
+}
 
 setupGame();

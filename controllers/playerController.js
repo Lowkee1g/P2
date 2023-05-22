@@ -36,7 +36,7 @@ module.exports = class player {
          res.send(
             {property: property,
             user: user,
-            successMessage: "You have successfully bought"
+            message: "You have successfully bought"
             });
       } catch (error) {
          res.status(500).json({error: error.message})
@@ -50,7 +50,7 @@ module.exports = class player {
          res.send(
             {property: property,
             user: user,
-            successMessage: "You have successfully sold"
+            message: "You have successfully sold"
             });
       } catch (error) {
          res.status(500).json({error: error.message})

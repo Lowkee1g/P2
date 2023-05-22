@@ -32,7 +32,7 @@ function prisonEscape() {
 
 function moveToJail() {
     const player = document.querySelector('.player' + playerId + '-test');
-    const field = document.querySelector('#field-10 .player' + playerId + '-placejail');
+    const field = document.querySelector('#field-10 .player' + playerId + '-place');
     field.appendChild(player);
 }
 
