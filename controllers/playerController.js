@@ -109,7 +109,7 @@ module.exports = class player {
 
    static async getSpecificProperty(req, res) {
       try {
-         let specificProperty = await Property.getProperty(req.body.id);
+         let specificProperty = await Property.getProperty(req.query.fieldName);
          res.send(specificProperty);
       }
       catch (error) {
