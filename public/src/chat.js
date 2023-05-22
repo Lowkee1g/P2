@@ -1,46 +1,34 @@
 
-const chat = (msg) => {
-    socket.emit("message", msg);
+const chat = (msg,playerId) => {
+    socket.emit("message", msg,playerId);
 };
 
-socket.on("message_send", (msg) => {
-    console.log("Send msg: " + msg);
-});
-
-socket.on("message_recieve", (msg) => {
-    console.log("Res msg: " + msg);
-    receiveMessage("Pengu", msg);
-});
-
-function sendMessage() {
-    //Get input from inputarea
-    var input = document.getElementById("inputtxtID").value;
-
-    //Send message to server
-    chat(input);
-
+socket.on("message_send", (msg,playerId) => {
     
-    document.getElementById("conversation").innerHTML += "<p class='p_send'>" + input + "</p>";
-    document.getElementById("inputtxtID").value = "";
-}
+    receiveMessage(msg,playerId);
+});
 
-function receiveMessage(from, input) {
+socket.on("message_recieve", (msg,playerId) => {
+    
+    receiveMessage(msg,playerId);
+});
+
+document.querySelector("#sendMessage").addEventListener("click", () => {
+    var input = document.getElementById("inputtxtID").value;
+    chat(input,playerId);
+})
+
+function receiveMessage(message, player) {
     let newmessage = document.createElement("p");
     let newdiv = document.createElement("div");
-    let newimg = document.createElement("img");
 
-    newdiv.className = "receive_message";
-    newmessage.className = "p_receive";
-    newimg.className = "chat_img";
+    newmessage.classList.add("p_receive");
 
-    newmessage.innerHTML = input;
+    newmessage.innerHTML = message;
     document.getElementById("conversation").appendChild(newdiv);
 
     newdiv.appendChild(newmessage);
-    newdiv.appendChild(newimg);
-    
 }
-
 
 
 // Execute a function when the user presses a key on the keyboard
@@ -50,6 +38,7 @@ document.getElementById("inputtxtID").addEventListener("keypress", function(even
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
-        document.getElementById("inputbutton").click();
+        var input = document.getElementById("inputtxtID").value;
+        chat(input,playerId);
     }
 });

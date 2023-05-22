@@ -61,9 +61,9 @@ io.on("connection", (socket) => {
     socket.emit("startGame");
   })
 
-  socket.on("message", (data) => {
-    socket.broadcast.emit("message_recieve", data);
-    socket.emit("message_send", data);
+  socket.on("message", (data,playerId) => {
+    socket.broadcast.emit("message_recieve", data,playerId);
+    socket.emit("message_send", data,playerId);
   });
   
   socket.on("movePlayer", (playerId, dicesum) => {
