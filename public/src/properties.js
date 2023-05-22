@@ -143,7 +143,8 @@ buyButton.addEventListener('click', () => {
         success: function (data) {
             console.log(data)
             alert('BOUGHT!');
-            checkOwnership(data);
+            checkOwnership(data.property);
+            getPlayerProperties(data.user)
             
         },
         error: function(xhr, textStatus, error) {

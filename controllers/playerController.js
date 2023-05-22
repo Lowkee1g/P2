@@ -32,7 +32,12 @@ module.exports = class player {
    static async userBuyProperty(req, res){
       try {
          const property = await Player.buyProperty(req.body.propertyID, req.body.user, null);
-         res.send(property);
+         const user = await Player.findByName(req.body.user.name, null)
+         res.send(
+            {property: property,
+            user: user,
+            successMessage: "You have successfully bought"
+            });
       } catch (error) {
          res.status(500).json({error: error.message})
       }
