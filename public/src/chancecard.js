@@ -41,7 +41,7 @@ function getQuote() {
         type: 'POST',
         url: '/api/chanceData',
         data: JSON.stringify ({
-            playerUser: 1,
+            playerUser: playerId,
             quote: quoteValue[i],
         }),
         contentType: 'application/json',

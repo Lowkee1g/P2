@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 var Tile = require('./TileModel');
+var Player = require("../models/Player");
 
 class ChanceTile extends Tile {
     constructor(id, picture, chanceText){
@@ -10,23 +11,23 @@ class ChanceTile extends Tile {
     }
 
     static changeMoney = async (id, money) => {
-        const player = await prisma.user.findUnique({
-            where: {
-                id: id
-            }
-        })
+
+        const player = await Player.find(id, null);
 
         if (!player) {
             console.log(`Error: player ${id} not found in the database`);
             return;
         }
-
+        let newBalance = player.money + money;
         let user = await prisma.user.update({
             where: {
-                id: id
+                id: player.id
             },
             data: {
-                money: player.money + money
+                money: newBalance
+            },
+            include: {
+                properties: true
             }
         })
         return user;
