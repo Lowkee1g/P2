@@ -142,10 +142,9 @@ buyButton.addEventListener('click', () => {
         dataType: 'json',
         success: function (data) {
             console.log(data)
-            alert('BOUGHT!');
             checkOwnership(data.property);
             getPlayerProperties(data.user)
-            
+            getPlayerInfo(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -182,8 +181,6 @@ upgradeButton.addEventListener('click', () => {
 
 const sellButton = document.querySelector('.sell-button');
 sellButton.addEventListener('click', () => {
-    alert('SOLD!');
-
     $.ajax({
         type: 'POST',
         url: '/userSellProperty',
@@ -192,8 +189,9 @@ sellButton.addEventListener('click', () => {
         data: JSON.stringify({propertyID: fieldId, user: player}),
         dataType: 'json',
         success: function (data) {
-            console.log(data)
-            
+            checkOwnership(data.property);
+            getPlayerProperties(data.user)
+            getPlayerInfo(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');

@@ -45,7 +45,13 @@ module.exports = class player {
 
    static async userSellProperty(req, res){
       try {
-         await Player.sellProperty(req.body.propertyID, req.body.user, null)
+         const property = await Player.sellProperty(req.body.propertyID, req.body.user, null)
+         const user = await Player.findByName(req.body.user.name, null)
+         res.send(
+            {property: property,
+            user: user,
+            successMessage: "You have successfully sold"
+            });
       } catch (error) {
          res.status(500).json({error: error.message})
       }

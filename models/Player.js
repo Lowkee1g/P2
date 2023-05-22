@@ -63,7 +63,7 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, -propertyInfo.price, ctx);
+            await this.updateMoney(user.id, -propertyInfo.price, ctx);
 
             console.log('Property bought');
 
@@ -102,7 +102,7 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, propertyInfo.price, ctx); 
+            await this.updateMoney(user.id, propertyInfo.price, ctx); 
 
             console.log('Property sold');
 
@@ -142,7 +142,7 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, -(propertyInfo.price * housePriceRate), ctx);
+            await this.updateMoney(user.id, -(propertyInfo.price * housePriceRate), ctx);
 
             console.log('Property upgraded');
 
