@@ -71,9 +71,9 @@ io.on("connection", (socket) => {
     socket.emit("movePlayer", playerId,dicesum);
   });
   
-  socket.on("sendTurn", (playerId) => {
-    socket.broadcast.emit("recieveTurn", playerId);
-    socket.emit("recieveTurn", playerId);
+  socket.on("sendTurn", (playerId, nextPlayerName) => {
+    socket.broadcast.emit("recieveTurn", playerId, nextPlayerName);
+    socket.emit("recieveTurn", playerId, nextPlayerName);
   });
 });
 
