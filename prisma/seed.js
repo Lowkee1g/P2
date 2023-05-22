@@ -8,7 +8,7 @@ async function main() {
             {name: "Frederiksberg", houses: 0, price: 3000, rent: parseInt(3000 * 0.3), collection: "København K"},
             {name: "Østrebro", houses: 0, price: 2500, rent: parseInt(2500 * 0.3), collection: "København K"},
             {name: "Hellerup", houses: 0, price: 1500, rent: parseInt(1500 * 0.3), collection: "Whiskeybæltet"},
-            {name: "Chalottenlund", houses: 0, price: 1500, rent: parseInt(1500 * 0.3), collection: "Whiskeybæltet"},
+            {name: "Skodsborg", houses: 0, price: 1500, rent: parseInt(1500 * 0.3), collection: "Whiskeybæltet"},
             {name: "Gentofte", houses: 0, price: 1500, rent: parseInt(1500 * 0.3), collection: "Whiskeybæltet"},
             {name: "Strandvejen", houses: 0, price: 5500, rent: parseInt(5500 * 0.3), collection: "Expensive"},
             {name: "Amalienborg", houses: 0, price: 5000, rent: parseInt(5000 * 0.3), collection: "Expensive"},

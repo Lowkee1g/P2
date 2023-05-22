@@ -26,7 +26,7 @@ function getPlayerProperties(player) {
         let cardClone = card.cloneNode(true);
 
         // Get the corresponding field on the game board based on the property's name
-        let field = [...document.querySelectorAll('.property .name')]
+        let field = [...document.querySelectorAll('.container .name')]
                       .find(nameElement => nameElement.textContent === property.name)
                       .parentElement.parentElement;
 

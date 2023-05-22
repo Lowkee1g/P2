@@ -11,7 +11,7 @@ let dummyProperties = [
         {id: 1, userid: null, name: "Frederiksberg", houses: 0, price: 3000, rent: 900, collection: "København K", owned: false},
         {id: 2, userid: null, name: "Østerbro", houses: 0, price: 2500, rent: 750, collection: "København K", owned: false},
         {id: 3, userid: 3, name: "Hellerup", houses: 0, price: 1500, rent: 450, collection: "Whiskeybæltet", owned: true},
-        {id: 4, userid: null, name: "Charlotten- lund", houses: 0, price: 1500, rent: 450, collection: "Whiskeybæltet", owned: false},
+        {id: 4, userid: null, name: "Skodsborg", houses: 0, price: 1500, rent: 450, collection: "Whiskeybæltet", owned: false},
         {id: 5, userid: 3, name: "Gentofte", houses: 0, price: 1500, rent: 450, collection: "Whiskeybæltet", owned: true},
         {id: 6, userid: null, name: "Strandvejen", houses: 0, price: 5500, rent: 1400, collection: "Expensive", owned: false},
         {id: 7, userid: null, name: "Amalienborg", houses: 0, price: 5000, rent: 1350, collection: "Expensive", owned: false},
@@ -70,6 +70,10 @@ let dummyProperties = [
       document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price) * 0.4 + ' DKK';
       document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price) * 0.6 + ' DKK';
       document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price) * 0.8 + ' DKK';
+
+      document.querySelector('.rent').textContent = 'Rent: ' + data.rent + ' DKK';
+      document.querySelector('.houses').textContent = 'Houses: ' + data.houses;
+    
   } else {
       // If the item is a railroad, set the popup header color to white
       popupRailroadDescription.style.display = 'block';
