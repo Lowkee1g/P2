@@ -47,7 +47,7 @@ router.post("/leavePlayer", async (req, res, next) => {
   res.redirect('/lobby');
 });
 
-router.post('/api/charge-rent', (req, res) => {
+router.post('/userPayRent', (req, res) => {
   player_controller.chargeRent(req, res);
 });
 

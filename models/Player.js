@@ -154,10 +154,9 @@ class Player {
     };
 
     static payRent = async (fromPlayer, toPlayer, amount, ctx) => {
-        console.log("Charging: " + amount + " from player: " + fromPlayer.name + " to player: " + toPlayer.name);
         // Charge the player
-        this.updateMoney(fromplayer, -amount, ctx);
-        this.updateMoney(toPlayer, amount, ctx)
+        await this.updateMoney(fromPlayer, -amount, ctx);
+        await  this.updateMoney(toPlayer, amount, ctx)
     };
 
     static async updateMoney(playerID, changeAmount, ctx){
