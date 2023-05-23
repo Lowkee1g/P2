@@ -12,7 +12,7 @@ const indexRouter = require("./routes/index");
 var players = [];
 
 // Socket.io START - connect on port 7070
-const server = require("http").Server(app);
+const server = require("https").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 
 // array to store players and socket id
@@ -77,8 +77,8 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8080, () => {
-    console.log("Server is listning on port: 8080");
+server.listen(7070, () => {
+    console.log("Server is listning on port: 7070");
 });
 
 // socket.io END
