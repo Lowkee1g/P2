@@ -9,42 +9,42 @@ const createError = require("http-errors");
 const path = require("path");
 
 const indexRouter = require("./routes/index");
+var players = [];
 
 // Socket.io START - connect on port 7070
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 
 // array to store players and socket id
-let players = [];
-
-
+// catch 404 and forward to error handler
 
 // Count number of players - Used in lobby.js to enable start button
 let numberOfPlayers = 0;
 
 io.on("connection", (socket) => {
+
   console.log('a user connected: ' + socket.id);
   // On player join send data to other users and the broadcaster
   socket.on("playerJoin", (player) => {
     // Add player to array with socket id
-    players.push({player: player, socketId: socket.id});
-    numberOfPlayers+=1;
-
-    socket.broadcast.emit("playerJoin", player, numberOfPlayers);
-    socket.emit("playerJoin", player, numberOfPlayers);
-    console.log(numberOfPlayers);
-
+    //console.log("User Joined with this - " + player.body.username);
+    
+    if (numberOfPlayers <= 3) {
+      numberOfPlayers+=1;
+      socket.broadcast.emit("playerJoin", player, numberOfPlayers);
+      socket.emit("playerJoin", player, numberOfPlayers);
+    }
   });
 
   // When a player leaves the page, disconnect the socket
   socket.on("disconnect", () => {
-    numberOfPlayers--;
     console.log("user disconnected: " + socket.id);
-
+    
     // Find the player in the array and remove it
     for (let i = 0; i < players.length; i++) {
       if(players[i].socketId == socket.id) {
-        console.log(players[i].player);
+        console.log("User Disconnected " + players[i].player);
+        numberOfPlayers--;
         
         // Emit to other users that a player has left
         socket.broadcast.emit("playerDisconnect", players[i].player, numberOfPlayers);
@@ -61,9 +61,19 @@ io.on("connection", (socket) => {
     socket.emit("startGame");
   })
 
-  socket.on("message", (data) => {
-    socket.broadcast.emit("message_recieve", data);
-    socket.emit("message_send", data);
+  socket.on("message", (data,playerId) => {
+    socket.broadcast.emit("message_recieve", data,playerId);
+    socket.emit("message_send", data,playerId);
+  });
+  
+  socket.on("movePlayer", (playerId, dicesum) => {
+    socket.broadcast.emit("movePlayer", playerId,dicesum);
+    socket.emit("movePlayer", playerId,dicesum);
+  });
+  
+  socket.on("sendTurn", (playerId, nextPlayerName) => {
+    socket.broadcast.emit("recieveTurn", playerId, nextPlayerName);
+    socket.emit("recieveTurn", playerId, nextPlayerName);
   });
 });
 
@@ -77,8 +87,9 @@ server.listen(7070, () => {
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'secret-key',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
+  cookie: { maxAge: 8*60*60*1000 },
 }))
 // Session END
 
@@ -89,15 +100,6 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use('/', indexRouter);
-
-//Socket.io
-const server = require("http").Server(app);
-const io = require("socket.io")(server , {cors: {origin: "*"}});
-
-server.listen(3001, () => {
-  console.log("Server is listning on port 3001");
-});
-
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -116,6 +118,7 @@ app.use((err, req, res, next) => {
   res.render("error");
 });
 
+/*
 app.post('/api/charge-rent', (req, res) => {
   const player = req.body.player;
   const tile = req.body.tile;
@@ -125,5 +128,5 @@ app.post('/api/charge-rent', (req, res) => {
 
   res.sendStatus(200);
 });
-
+*/
 module.exports = app;

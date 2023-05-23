@@ -1,7 +1,7 @@
 //- CARD INFO
 block content
     .dice-container
-        button#roll-button(type='button')
-            img(src='/../images/1eye.png' id="dice1")
-            img(src='/../images/1eye.png' id="dice2")
+        button#roll-button(type='button' disabled)
+            img(src='/../images/1eye.png' id="dice1" class="dice notTurnDice")
+            img(src='/../images/1eye.png' id="dice2" class="dice notTurnDice")
     script(src="/../../src/dice.js")

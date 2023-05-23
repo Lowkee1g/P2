@@ -1,54 +1,220 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 class Player {
-    constructor(name, id, money, properties, hasTurn) {
-        this.name = name;
+    constructor(id){
         this.id = id;
-        this.money = money;
-        this.properties = properties;
-        this.hasTurn = hasTurn;
-    }
+    };
 
-    static find = async (id) => {
-        const user = await prisma.user.findUnique({
+    getId(){
+        return this.id
+    };
+
+    static find = async (id, ctx) => {
+        let usr = {
             where: { id: id },
             include: {
                 properties: true,
             },
-        });
-        return user;
+        };
+        if(ctx === null){
+            return await prisma.user.findUnique(usr);
+        } else {
+            return await ctx.prisma.user.findUnique(usr);
+        }
     };
 
-    throwDice() {}
+    static findByName = async (name, ctx) => {
+        let usr = {
+            where: { name: name },
+            include: {
+                properties: true,
+            },
+        };
+        if (ctx === null){
+            return await prisma.user.findUnique(usr);
+        } else {
+            return await ctx.prisma.user.findUnique(usr);
+        }
+    };
+    
+    static async buyProperty(propertyId, user, ctx){
+        let findWhere =  {where: {id: parseInt(propertyId)}};
+        let propertyInfo;
+        if (ctx === null){
+            propertyInfo = await prisma.property.findUnique(findWhere);
+        } else {
+            propertyInfo = await ctx.prisma.property.findUnique(findWhere);
+        }
+        
+        if(!propertyInfo.owned){
+            let updateWhere = {
+                where: {id: parseInt(propertyInfo.id)}, 
+                data: {
+                    userId: user.id,
+                    owned: true, 
+                },
+            };
 
-    buyProperty() {}
+            let updateProperty;
 
-    sellProperty() {}
+            if (ctx === null){
+                updateProperty = await prisma.property.update(updateWhere);
+            } else {
+                updateProperty = await ctx.prisma.property.update(updateWhere);
+            }
 
-    static payRent = async (fromPlayer, toPlayer, amount) => {
+            await this.updateMoney(user.id, -propertyInfo.price, ctx);
+
+            console.log('Property bought');
+
+            return updateProperty;
+
+        } else {
+            console.log('Property is already owned');
+        }
+    };
+
+    static async sellProperty(propertyId, user, ctx) {
+        let findWhere =  {where: {id: parseInt(propertyId)}};
+        let propertyInfo;
+        if (ctx === null){
+            propertyInfo = await prisma.property.findUnique(findWhere);
+        } else {
+            propertyInfo = await ctx.prisma.property.findUnique(findWhere);
+        }
+
+        if(propertyInfo.userId == user.id){
+            let updateWhere = {
+                where: {id: parseInt(propertyId)}, 
+                data: {
+                    userId: null,
+                    owned: false, 
+                    houses: 0,
+                    rent: parseInt(propertyInfo.price * 0.3)
+                },
+            };
+
+            let updateProperty;
+            
+            if (ctx === null){
+                updateProperty = await prisma.property.update(updateWhere);
+            } else {
+                updateProperty = await ctx.prisma.property.update(updateWhere);
+            }
+
+            await this.updateMoney(user.id, propertyInfo.price, ctx); 
+
+            console.log('Property sold');
+
+            return updateProperty;
+
+        } else {
+            console.log('This property does not belong to this player');
+        }
+    };
+
+    static async upgradeProperty(propertyId, user, ctx) {
+        let maxHouses = 4;
+        let rentIncreaseRate = 1.3;
+        let housePriceRate = 0.2;
+        let findWhere = {where: {id: parseInt(propertyId)}};
+        let propertyInfo;
+        if (ctx === null) {
+            propertyInfo = await prisma.property.findUnique(findWhere);
+        } else {
+            propertyInfo = await ctx.prisma.property.findUnique(findWhere);
+        }
+        
+        if(propertyInfo.userId === user.id && propertyInfo.houses < maxHouses){ //The right user buys and property does not reach max houses
+            let updateWhere = {
+                where: {id: parseInt(propertyId)}, 
+                data: {
+                    houses: parseInt(propertyInfo.houses) + parseInt(1),
+                    rent: Math.round(propertyInfo.rent * rentIncreaseRate),
+                },
+            };
+
+            let updateProperty;
+
+            if (ctx === null) {
+                updateProperty = await prisma.property.update(updateWhere);
+            } else {
+                updateProperty = await ctx.prisma.property.update(updateWhere);
+            }
+
+            await this.updateMoney(user.id, -(propertyInfo.price * housePriceRate), ctx);
+
+            console.log('Property upgraded');
+
+            return updateProperty;
+
+        } else {
+            return propertyInfo;
+        }
+    };
+
+    static payRent = async (fromPlayer, toPlayer, amount, ctx) => {
         console.log("Charging: " + amount + " from player: " + fromPlayer.name + " to player: " + toPlayer.name);
         // Charge the player
-        const newBalance = fromPlayer.money - amount;
+        this.updateMoney(fromplayer, -amount, ctx);
+        this.updateMoney(toPlayer, amount, ctx)
+    };
 
-        // remove money from one player
+    static async updateMoney(playerId, changeAmount, ctx){
+        let findWhere = {
+            where: {id: playerId}
+        };
+
+        let userInfo;
+
+        if (ctx === null) {
+            userInfo = await prisma.user.findUnique(findWhere);
+        } else {
+            userInfo = await ctx.prisma.user.findUnique(findWhere);
+        }
+
+        let newBalance = userInfo.money + changeAmount;
+        let updateWhere = {
+            where: {id: parseInt(playerId)},
+            data: {money: newBalance},
+        };
+
+        if (ctx === null) {
+            return await prisma.user.update(updateWhere);            
+        } else {
+            return await ctx.prisma.user.update(updateWhere);            
+        }
+    };
+
+    static endTurn = async (currentPlayer,nextPlayerId) => {
         await prisma.user.update({
             where: {
-                id: fromPlayer.id,
+                id: currentPlayer.id,
             },
             data: {
-                money: newBalance,
-            },
+                hasTurn: false,
+            }
         });
 
-        // add money to another player
-        await prisma.user.update({
+        let thisPlayerHasTurn = await prisma.user.update({
             where: {
-                id: toPlayer.id,
+                id: nextPlayerId,
             },
             data: {
-                money: toPlayer.money + amount,
-            },
+                hasTurn: true,
+            }
         });
+
+        return thisPlayerHasTurn;
+    }
+
+    static getAllPlayers = async (players) => {
+        const users =  await prisma.user.findMany({
+            where: {
+                name: { in: players },
+            }
+        });
+        return users;
     };
 }
 

@@ -13,6 +13,7 @@
 	color: red;
 	font-size: 30px;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 
 a {
@@ -95,35 +96,24 @@ a:hover {
 }
 
 
-@import url('https://fonts.googleapis.com/css?family=Lobster');
-
-html{
-  --bg-one: #973999;
-  --bg-two: #f8598b;
-  --bg-three: #f7bf00;
-  --bg-panel: #ffffff;
-  --color-headings: #333;
-  --color-text: #9f0000;
-  --color-fun: #c44394;
-  --distance: 4rem;
-}
 
 
 .cards {
   display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
   outline: black;
 }
 
 .card {
   z-index: 1;
-  margin-bottom: 20px;
-  background: var(--bg-panel);
+  margin-bottom: 10px;
+  background: white;
   padding: 1rem;
   box-shadow: 2px 2px 6px 1px rgba(black, 0.60);
   transition: 0.2s;
   color: black;
-  height: 180px;
-  width: 120px;
+
 }
 
 .card:not(:first-child) {
@@ -145,17 +135,32 @@ html{
 }
 
 
-#propName {
+.cardTitle {
     font-size: 14px;
 	margin-left: 5px;
     font-style: bold;
 }
 
 
-#propDesc {
+.cardRent, .cardPrice {
     font-size: 18px;
 	font-weight: lighter;
     margin-left: -5px;
     font-style: italic  ;
 	text-transform: capitalize;
+}
+
+.playerdata {
+	font-size: 30px;
+	font-weight: bold;
+	font-style: italic  ;
+	text-transform: capitalize;
+}
+.notclickable {
+	pointer-events: none;
+}
+
+.card p {
+	margin: 5px 0 5px 0;
+	font-size: 18px;
 }

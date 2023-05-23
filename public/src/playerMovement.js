@@ -1,12 +1,13 @@
-let a = 0;
+let currentdicesum = 0;
 let p1check = 0;
 let random1 = 0;
 let random2 = 0;
 let jailp1 = 0;
-let playerId = 1; //skal ændres til player id fra databasen
+
+//Properties
+
 
 //mangler at få lavet end turn funktionen
-
 
 const startGameBtn = document.getElementById('startGame');
 const player1Place = document.getElementsByClassName('player1-place');
@@ -21,7 +22,7 @@ function prisonEscape() {
 
         if (roll1 === roll2) {
             jailp1 = 0;
-            a = 10;
+            currentdicesum = 10;
             return;
         }
     }
@@ -29,75 +30,52 @@ function prisonEscape() {
 
 
 
-
-function throwDice() {
-    const roll1 = diceRoll();
-    const roll2 = diceRoll();
-    a += roll1 + roll2;
-    console.log(playerId + " slog " + roll1 + " " + roll2);
-    console.log(a);
-    if (roll1 === roll2 && p1check < 3) {
-        p1check += 1;
-        return;
-    } else if (roll1 === roll2 && p1check === 2) {
-        moveToJail();
-        a = 10;
-        jailp1 = 1;
-        p1check = 0;
-        return;
-    } else if (roll1 != roll2) {
-        p1check = 0;
-        return;
-    }
-}
-
-//startGameBtn skal ændres til når der trykkes på terningerne
-rollButton.addEventListener('click', () => {
-    console.log(jailp1);
-    if (jailp1 === 1) {
-        prisonEscape();
-        return;
-    }
-    if (jailp1 === 0) {
-        throwDice();
-        if (a % 40 === 30) {
-            moveToJail();
-            jailp1 = 1;
-            return;
-        } else {
-            movePlayer(a);
-            if (a % 40 == 7 || a % 40 == 22 || a % 40 == 36) {
-                document.querySelector('.chance-card').style.display = 'block';
-                getQuote();
-            }
-            return;
-        }
-    }
-});
-
 function moveToJail() {
     const player = document.querySelector('.player' + playerId + '-test');
-    const field = document.querySelector('#field-10 .player' + playerId + '-placejail');
+    const field = document.querySelector('#field-10 .player' + playerId + '-place');
     field.appendChild(player);
 }
 
-function random(number) {
-    return Math.floor(Math.random() * number + 1);
-}
+const movePlayerSocket = (playerId,dicesum) => {
+    socket.emit("movePlayer", playerId,dicesum);
+};
 
-function movePlayer(playerdicesum) {
+// Call moveplayer to all players who are connected
+socket.on("movePlayer", (playerId,dicesum) => {
+    movePlayer(playerId,dicesum)
+});
 
+
+// Moveplayer should be called with socket so we can update on other screens with their player ID
+function movePlayer(playerToMove, playerdicesum) {
+    
     if (playerdicesum % 40 === 10) {
-        const player = document.querySelector('.player' + playerId + '-test');
-        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerId + '-placejail');
+        const player = document.querySelector('.player' + playerToMove + '-piece');
+        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-place');
         field.appendChild(player);
     } else {
-        const player = document.querySelector('.player' + playerId + '-test');
-        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerId + '-place');
+        const player = document.querySelector('.player' + playerToMove + '-piece');
+        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-place');
+        console.log(field);
         field.appendChild(player);
+
+        const currentFieldIndex = playerdicesum % 40;
+        const currentField = document.querySelector('#field-' + currentFieldIndex);
+     
+        if(playerToMove === playerId) {
+            if ([0,10,20,30,2, 4, 7, 17, 22, 33, 36, 38].includes(currentFieldIndex)) { // Check if the current field is a chance field OR is corner field
+                popup.style.display = 'none';
+            } else if (currentField.classList.contains('property')) { // Check if the current field is a property
+                showPopup(currentField, true, "land");
+            } else {
+                showPopup(currentField, false, "land");
+            }
+        }
+
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        // checkOwnershipLand(currentField.querySelector('.name').textContent);
     }
 }
-
-script(src="/../src/dice.js")
-script(src="/../src/chancecard.js")
-

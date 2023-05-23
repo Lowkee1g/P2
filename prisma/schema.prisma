@@ -11,6 +11,7 @@ model User {
   id    Int    @id @default(autoincrement())
   name  String  @unique
   money Int
+  hasTurn Int @default(0)
   properties Property[]
   logs Logs[]
 }
@@ -21,7 +22,6 @@ model Property {
   user      User?   @relation(fields: [userId], references: [id])
   userId    Int?
   houses    Int @default(0)
-  housePrice Int @default(0)
   price     Int @default(0)
   rent      Int?
   collection  String?

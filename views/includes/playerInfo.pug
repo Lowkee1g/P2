@@ -1,11 +1,25 @@
-//- PLAYER INFO
-block content
-  .player-info
-    p.player-name #[strong Player 1]
-    p.player-money #[strong Money]: 8000kr
-  template
-    .space.property
-      .container
-        .color-bar.light-blue
-          p.propetry-name
-          img(src='../images/new-window.png').property-icon
+.playerinfo-content
+  .tabbed
+    input#tab1(type='radio' name='css-tabs' checked='')
+    input#tab2(type='radio' name='css-tabs')
+    ul.tabs
+      li.tab
+        label(for='tab1') Player info
+      li.tab
+        label(for='tab2') Properties
+    .tab-content
+      .playerdata
+        h2.userName
+        h4.money
+        h4.propertiesOwned
+      // End turn button id = endbutton
+      button#endturn.notPlayersTurn End turn
+    .tab-content
+      h4 My properties:  
+      .cards
+      template.cardTemplate
+        .card
+          .color-bar.notclickable
+            p.name
+          p.price 
+          p.cardRent

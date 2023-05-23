@@ -24,7 +24,6 @@ img {
   h1 {
     text-align: center;
     font-size: 2em;
-    margin-top: 40px;
   }
   
   /* Style the roll button */
@@ -42,3 +41,10 @@ img {
     border-radius: 5px;
   }
   
+  .notTurnDice {
+    opacity: 0.4;
+  }
+
+  .notPlayersTurn {
+    display: none;
+  }

@@ -11,10 +11,10 @@ class PropertyTile extends Tile {
         this.hotel = hotel;
     }
 
-    static getProperty = async (id) => {
+    static getProperty = async (fieldName) => {
         const property = await prisma.property.findUnique({
             where: {
-                id: id
+                name: fieldName
             }
         })
 
@@ -24,10 +24,6 @@ class PropertyTile extends Tile {
         }
 
         return property;
-    }
-
-    addHouse() {
-
     }
 }
 

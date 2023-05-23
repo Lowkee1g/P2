@@ -15,51 +15,25 @@
 
 .inputbox {
     position: absolute;
+    display: flex;
+    justify-content: space-around;
     bottom: 0;
-    left: 0px;
     width: 100%;
     height: 15%;
 }
 
 .inputtxt {
-    font-family: 'Dosis', sans-serif;
-    font-size: large;
-    position: absolute;
-    top: 0;
-    left: 0px;
-    text-indent: 5%;
-    width: 70%;
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-    padding: 0 0px;
-    background-color: #aeaeae;
+  width: 80%;
+  font-size: 12px;
 }
 
 .inputbutton {
-    font-family: 'Dosis', sans-serif;
-    font-size: large;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 30%;
-    height: 100%;
-    border: 0;
-    border-radius: 0;
-
+  width: 20%;
 }
 
-.receive_message {
-    position: relative;
-    float: right;
-    right: 20px;
-    width: 51%;
-}
-
-.chat_img {
-    width: 30px;
-    height: 30px;
-    float: right;
+.send_message {
+    display: flex;
+    margin-left: auto;
 }
 
 .conversation {
@@ -73,7 +47,6 @@
 
 .p_send {
     position: relative;
-    
     width: 50%;
     border-radius: 25px;
     border-bottom-left-radius: 0px;
@@ -82,7 +55,7 @@
     padding: 5px;
     padding-left: 15px;
     clear: both;
-    background-color: #9feaed;
+    
 }
 
 .p_receive {
@@ -93,5 +66,5 @@
     padding: 5px;
     padding-right: 15px;
     clear: both;
-    background-color: #bdbdbd;
+    color: black;
 }
