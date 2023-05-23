@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://u240782778_sw2:Admin123@145.14.151.201:3306/u240782778_monopoly"
 }
 
 model User {
