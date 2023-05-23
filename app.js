@@ -13,7 +13,7 @@ var players = [];
 
 // Socket.io START - connect on port 7070
 const server = require("http").createServer(app);
-const io = require("socket.io")(server, { cors: { origin: "*" } });
+const io = require("socket.io")(server);
 
 // array to store players and socket id
 // catch 404 and forward to error handler
