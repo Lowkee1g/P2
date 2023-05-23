@@ -12,7 +12,7 @@ const indexRouter = require("./routes/index");
 var players = [];
 
 // Socket.io START - connect on port 7070
-const server = require("https").Server(app);
+const server = require("http").Server(app);
 const io = require("socket.io")(server, { cors: { origin: "*" } });
 
 // array to store players and socket id
