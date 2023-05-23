@@ -1,5 +1,5 @@
 //open socket connection
-const socket = io("https://sea-lion-app-m3uhu.ondigitalocean.app:8081");
+const socket = io("https://sea-lion-app-m3uhu.ondigitalocean.app");
 socket.on("connection");
 
 let player;
