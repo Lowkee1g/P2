@@ -1,5 +1,5 @@
 //open socket connection
-const socket = io("http://localhost:7070");
+const socket = io("https://stingray-app-8brvy.ondigitalocean.app:7070");
 socket.on("connection");
 
 let player;
