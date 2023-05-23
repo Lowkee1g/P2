@@ -116,4 +116,14 @@ module.exports = class player {
          res.status(500).json({ error: error.message });
       }
    }
+
+   static async getSpecificProperty(req, res) {
+      try {
+         let playerUpdate = await Player.updateMoney(req.body.playerId, req.body.changeAmount, null);
+         res.send(playerUpdate);
+      }
+      catch (error) {
+         res.status(500).json({ error: error.message });
+      }
+   }
 };

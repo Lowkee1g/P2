@@ -180,33 +180,11 @@ class Player {
         };
 
         if (ctx === null) {
-            return await prisma.user.update(updateWhere);            
+            return await prisma.user.update(updateWhere);
         } else {
             return await ctx.prisma.user.update(updateWhere);            
         }
     };
-
-    static endTurn = async (currentPlayer,nextPlayerId) => {
-        await prisma.user.update({
-            where: {
-                id: currentPlayer.id,
-            },
-            data: {
-                hasTurn: false,
-            }
-        });
-
-        let thisPlayerHasTurn = await prisma.user.update({
-            where: {
-                id: nextPlayerId,
-            },
-            data: {
-                hasTurn: true,
-            }
-        });
-
-        return thisPlayerHasTurn;
-    }
 
     static getAllPlayers = async (players) => {
         const users =  await prisma.user.findMany({

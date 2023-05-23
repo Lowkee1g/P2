@@ -1,3 +1,4 @@
+let previousDiceSum = 0;
 let currentdicesum = 0;
 let p1check = 0;
 let random1 = 0;
@@ -31,7 +32,7 @@ function prisonEscape() {
 
 
 function moveToJail() {
-    const player = document.querySelector('.player' + playerId + '-test');
+    const player = document.querySelector('.player' + playerId + '-piece');
     const field = document.querySelector('#field-10 .player' + playerId + '-placejail');
     field.appendChild(player);
 }
@@ -63,7 +64,7 @@ function movePlayer(playerToMove, playerdicesum) {
         const currentField = document.querySelector('#field-' + currentFieldIndex);
      
         if(playerToMove === playerId) {
-            if ([0,10,20,30,2, 4, 7, 17, 22, 33, 36, 38].includes(currentFieldIndex)) { // Check if the current field is a chance field OR is corner field
+            if ([0 ,10 ,20 ,30 ,2, 4, 7, 17, 22, 33, 36, 38].includes(currentFieldIndex)) { // Check if the current field is a chance field OR is corner field
                 popup.style.display = 'none';
             } else if (currentField.classList.contains('property')) { // Check if the current field is a property
                 buyButton.style.background = 'grey';
