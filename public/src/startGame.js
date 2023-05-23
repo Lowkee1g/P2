@@ -1,5 +1,5 @@
 //open socket connection
-const socket = io("https://sea-lion-app-m3uhu.ondigitalocean.app:7070");
+const socket = io("http://localhost:7070");
 socket.on("connection");
 
 let player;
