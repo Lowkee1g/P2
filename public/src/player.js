@@ -1,25 +1,8 @@
-// function getPlayerProperties(player) {
-//     let card = document.querySelector('.cardTemplate').content
-//     let cardContainer = document.querySelector('.cards')
-    
-//     player.properties.forEach(property => {
-//         let cardClone = card.cloneNode(true)
-//         cardClone.querySelector('.name').textContent = property.name 
-//         cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr"
-//         cardClone.querySelector('.price').textContent = "Rent " + property.price + "kr"
-//         cardClone.querySelector('.card').addEventListener("click", (event) => {
-//             console.log(event.target);
-//             showPopup(event.target,property);
-//         });
-//         cardContainer.appendChild(cardClone)
-//     })
-// }
-
 function getPlayerProperties(player) {
+    document.querySelector('.cards').innerHTML = "";
     // Get the template for a property card and the container where the cards will be added
     let card = document.querySelector('.cardTemplate').content;
     let cardContainer = document.querySelector('.cards');
-
     // Iterate over each property owned by the player
     player.properties.forEach(property => {
         // Clone the template to create a new card for each property
@@ -32,15 +15,17 @@ function getPlayerProperties(player) {
 
         // Get the color bar element of the field and compute its background color
         let colorBar = field.querySelector('.color-bar');
-        let color = window.getComputedStyle(colorBar).backgroundColor;
+        if(colorBar !== null) {
+            let color = window.getComputedStyle(colorBar).backgroundColor;
+            cardClone.querySelector('.color-bar').style.backgroundColor = color;
+        }
 
         // Set the name, rent, and price values on the card
         cardClone.querySelector('.name').textContent = property.name;
-        cardClone.querySelector('.cardRent').textContent = "Price " + property.rent + "kr";
-        cardClone.querySelector('.price').textContent = "Rent " + property.price + "kr";
+        cardClone.querySelector('.cardRent').textContent = "Price " + property.price + "kr";
+        cardClone.querySelector('.price').textContent = "Rent " + property.rent + "kr";
 
         // Set the color of the color bar on the card
-        cardClone.querySelector('.color-bar').style.backgroundColor = color;
 
         // Add a click event listener to the card to show a popup when clicked
         cardClone.querySelector('.card').addEventListener("click", () => {
@@ -61,8 +46,9 @@ function getPlayerInfo(player) {
     playerInfo.querySelector('.userName').textContent = player.name
 }
 
-function updatePlayerInfo(player) {
-    let playerInfo = document.querySelector('.playerdata')
-    playerInfo.querySelector('.money').textContent = "Money: " + player.money + "kr"
-}
+// function updatePlayerInfo(player) {
+//     let playerInfo = document.querySelector('.playerdata')
+//     playerInfo.querySelector('.propertiesOwned').textContent = "Properties owned: " + player.properties.length
+//     playerInfo.querySelector('.money').textContent = "Money: " + player.money + "kr"
+// }
 

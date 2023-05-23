@@ -19,9 +19,16 @@ module.exports = class player {
 
    static async createPlayer(req,res,next) {
       try {
-         const user = await prisma.user.create({
-            data: { name: req.body.data, money: 16000 },
-         });
+         const user = await prisma.user.upsert({
+            where: {
+              name: req.body.data,
+            },
+            update: { money: 16000},
+            create: {
+              name: req.body.data,
+              money: 16000,
+            },
+          })
          playerUser = new Player(user.id);
          res.json(user);
       } catch (error) {
@@ -32,7 +39,12 @@ module.exports = class player {
    static async userBuyProperty(req, res){
       try {
          const property = await Player.buyProperty(req.body.propertyID, req.body.user, null);
-         res.send(property);
+         const user = await Player.findByName(req.body.user.name, null)
+         res.send(
+            {property: property,
+            user: user,
+            message: "You have successfully bought"
+            });
       } catch (error) {
          res.status(500).json({error: error.message})
       }
@@ -40,19 +52,27 @@ module.exports = class player {
 
    static async userSellProperty(req, res){
       try {
-         await Player.sellProperty(req.body.propertyID, req.body.user, null)
+         const property = await Player.sellProperty(req.body.propertyID, req.body.user, null)
+         const user = await Player.findByName(req.body.user.name, null)
+         res.send(
+            {property: property,
+            user: user,
+            message: "You have successfully sold"
+            });
       } catch (error) {
          res.status(500).json({error: error.message})
       }
    }
       
-   static async userUpgradeProperty(req, res, propertyId){
+   static async userUpgradeProperty(req, res){
       try {
-         if (playerUser) {
-            await playerUser.upgradeProperty(propertyId, null);
-            } else {
-            res.status(500).json({error: 'playerUser is undefined or null'});
-            }
+         const property = await Player.upgradeProperty(req.body.propertyID, req.body.user, null);
+         const user = await Player.findByName(req.body.user.name, null)
+         res.send(
+            {property: property,
+            user: user,
+            message: "You have successfully upgraded"
+         });
       } catch (error) {
          res.status(500).json({error: error.message})
       }
@@ -117,8 +137,9 @@ module.exports = class player {
       }
    }
 
-   static async getSpecificProperty(req, res) {
+   static async userPassStart(req, res) {
       try {
+         console.log('player_controller = ', req.body.playerId);
          let playerUpdate = await Player.updateMoney(req.body.playerId, req.body.changeAmount, null);
          res.send(playerUpdate);
       }

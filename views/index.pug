@@ -2,12 +2,15 @@ extends layout
 
 block content
   .table
-    include playerinfo.pug
-    include includes/chancecard.pug
+    include includes/alert.pug
+    include includes/turn.pug
+    include includes/playerInfo.pug
+    include includes/chat.pug
     .board
       img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1;')
       .center
         //- h1.title(style='background-color: #f50c2b;color: #fafaf8;padding-left: 13px;padding-right: 5px;text-shadow: -7px 7px #000000;') YLOPONOM
+        include includes/chancecard.pug
         include includes/property.pug
         include includes/dice.pug
       #field-0.space.corner.go
@@ -114,7 +117,7 @@ block content
         #field-11.space.property
           .container
             .color-bar.purple
-            .name.long-name Grupperum
+            .name.long-name Grupperummet
             .price 750 DKK
       #field-20.space.corner.free-parking
         .container
@@ -224,3 +227,4 @@ block content
   script(src='src/playerMovement.js')
   script(src="/../src/properties.js")
   script(src='../src/player.js')
+  script(src="/../../src/chat.js")

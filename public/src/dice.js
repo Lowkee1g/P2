@@ -28,7 +28,7 @@ function throwDice() {
   const roll1 = diceRoll();
   const roll2 = diceRoll();
   updateDiceimages(roll1,roll2)
-  if(currentdicesum > 39){
+  if(currentdicesum + roll1 + roll2 > 39){
     getMoneyOnStart();
   };
   currentdicesum += roll1 + roll2;
@@ -75,6 +75,7 @@ rollButton.addEventListener('click', () => {
 });
 
 function getMoneyOnStart(){
+  console.log(playerId);
   $.ajax({
     type: 'POST',
     url: '/userPassStart',
@@ -84,6 +85,7 @@ function getMoneyOnStart(){
     dataType: 'json',
     success: function (data) {
         console.log('getMonayOnStart() = ', data);
+        getPlayerInfo(data);
     },
     error: function(xhr, textStatus, error) {
         console.log('Error');

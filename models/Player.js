@@ -63,7 +63,7 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, -propertyInfo.price, ctx);
+            await this.updateMoney(user.id, -propertyInfo.price, ctx);
 
             console.log('Property bought');
 
@@ -102,7 +102,7 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, propertyInfo.price, ctx); 
+            await this.updateMoney(user.id, propertyInfo.price, ctx); 
 
             console.log('Property sold');
 
@@ -130,7 +130,7 @@ class Player {
                 where: {id: parseInt(propertyId)}, 
                 data: {
                     houses: parseInt(propertyInfo.houses) + parseInt(1),
-                    rent: propertyInfo.rent * rentIncreaseRate,
+                    rent: Math.round(propertyInfo.rent * rentIncreaseRate),
                 },
             };
 
@@ -142,14 +142,14 @@ class Player {
                 updateProperty = await ctx.prisma.property.update(updateWhere);
             }
 
-            this.updateMoney(user.id, -(propertyInfo.price * housePriceRate), ctx);
+            await this.updateMoney(user.id, -(propertyInfo.price * housePriceRate), ctx);
 
             console.log('Property upgraded');
 
             return updateProperty;
 
         } else {
-            console.log('Upgrade unavailable');
+            return propertyInfo;
         }
     };
 
@@ -160,9 +160,10 @@ class Player {
         this.updateMoney(toPlayer, amount, ctx)
     };
 
-    static async updateMoney(playerId, changeAmount, ctx){
+    static async updateMoney(playerID, changeAmount, ctx){
+        console.log('fra updatemoney er playerId = ', playerID);
         let findWhere = {
-            where: {id: playerId}
+            where: {id: parseInt(playerID)}
         };
 
         let userInfo;
@@ -175,8 +176,9 @@ class Player {
 
         let newBalance = userInfo.money + changeAmount;
         let updateWhere = {
-            where: {id: parseInt(playerId)},
-            data: {money: newBalance},
+            where: {id: parseInt(playerID)},
+            data: {money: Math.round(newBalance)},
+            include: {properties: true},
         };
 
         if (ctx === null) {

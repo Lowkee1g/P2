@@ -41,13 +41,13 @@ function getQuote() {
         type: 'POST',
         url: '/api/chanceData',
         data: JSON.stringify ({
-            playerUser: 1,
+            playerUser: playerId,
             quote: quoteValue[i],
         }),
         contentType: 'application/json',
         success: function (data) {
             console.log("Chance: " + JSON.stringify(data));
-            updatePlayerInfo(data);
+            getPlayerInfo(data);
         },
         error: function(xhr, textStatus, error) {
             console.log(error);

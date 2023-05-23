@@ -1,4 +1,3 @@
-let previousDiceSum = 0;
 let currentdicesum = 0;
 let p1check = 0;
 let random1 = 0;
@@ -33,7 +32,7 @@ function prisonEscape() {
 
 function moveToJail() {
     const player = document.querySelector('.player' + playerId + '-piece');
-    const field = document.querySelector('#field-10 .player' + playerId + '-placejail');
+    const field = document.querySelector('#field-10 .player' + playerId + '-place');
     field.appendChild(player);
 }
 
@@ -52,7 +51,7 @@ function movePlayer(playerToMove, playerdicesum) {
     
     if (playerdicesum % 40 === 10) {
         const player = document.querySelector('.player' + playerToMove + '-piece');
-        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-placejail');
+        const field = document.querySelector('#field-' + playerdicesum % 40 + ' .player' + playerToMove + '-place');
         field.appendChild(player);
     } else {
         const player = document.querySelector('.player' + playerToMove + '-piece');
@@ -67,11 +66,9 @@ function movePlayer(playerToMove, playerdicesum) {
             if ([0 ,10 ,20 ,30 ,2, 4, 7, 17, 22, 33, 36, 38].includes(currentFieldIndex)) { // Check if the current field is a chance field OR is corner field
                 popup.style.display = 'none';
             } else if (currentField.classList.contains('property')) { // Check if the current field is a property
-                buyButton.style.background = 'grey';
-                buyButton.style.pointerEvents = 'none';
-                showPopup(currentField, true);
+                showPopup(currentField, true, "land");
             } else {
-                showPopup(currentField, false);
+                showPopup(currentField, false, "land");
             }
         }
 
@@ -79,6 +76,6 @@ function movePlayer(playerToMove, playerdicesum) {
             popup.style.display = 'none';
         });
 
-        checkOwnershipLand(currentField.querySelector('.name').textContent);
+        // checkOwnershipLand(currentField.querySelector('.name').textContent);
     }
 }

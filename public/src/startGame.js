@@ -44,7 +44,7 @@ function setPlayerData(data) {
     playerId = data.id;
     if(players[0]['id'] === playerId) {
         currentPlayersTurn()
-        // enableIfPlayerOne();
+        showWhoHasTurn(player.name);
     }
     getPlayerProperties(data);
     getPlayerInfo(data);
@@ -93,21 +93,24 @@ function enableIfPlayerOne() {
 
 document.querySelector("#endturn").addEventListener("click", () => {
     let nextPlayer;
+    let nextPlayerName;
     let index = players.findIndex(x => x.name === player.name);
     if(index + 1 === players.length) {
         nextPlayer = players[0].id;
+        nextPlayerName = players[0].name;
     } else {
         nextPlayer = players[index + 1].id;
+        nextPlayerName = players[index + 1].name;
     }
-    sendNextTurn(parseInt(nextPlayer));
+    sendNextTurn(parseInt(nextPlayer),nextPlayerName);
 });
 
-// Emit ud så player 2 nu kan trykke på knappen;
-const sendNextTurn = (name) => {
-    socket.emit("sendTurn", name);
+
+const sendNextTurn = (id,nextPlayerName) => {
+    socket.emit("sendTurn", id,nextPlayerName);
 };
 
-socket.on("recieveTurn", (playerId) => {
+socket.on("recieveTurn", (playerId,nextPlayerName) => {
     if(player.id === playerId) {
         currentPlayersTurn();
     } else {
@@ -115,7 +118,12 @@ socket.on("recieveTurn", (playerId) => {
         disableDice();
         hideEndButton();
     }
+    showWhoHasTurn(nextPlayerName);
 });
+
+function showWhoHasTurn(currentPlayerTurn) {
+    document.querySelector(".turn p").textContent = currentPlayerTurn + " has the turn now";
+}
 
 function currentPlayersTurn() {
     console.log("I play this game");
