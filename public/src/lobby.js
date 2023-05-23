@@ -5,7 +5,8 @@ let playerList = [];
 
 
 // Open socket connection
-const socket = io("https://sea-lion-app-m3uhu.ondigitalocean.app");
+//const socket = io("https://sea-lion-app-m3uhu.ondigitalocean.app:8081");
+var socket = io();
 
 // Connect user socket server called "connection" - CUSTOM NAME
 socket.on("connection");
