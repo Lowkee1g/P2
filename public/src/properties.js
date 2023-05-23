@@ -10,7 +10,8 @@ const railroads = document.querySelectorAll('.railroad');
 let fieldId;
 
   async function showPopup(field, isProperty, clickOrLand) {
-     
+    // fieldId = parseInt(field.id.slice(6));
+    
     const data = await runAjax(field.querySelector('.container .name').textContent);
     const name = data.name;
     const price = data.price; 

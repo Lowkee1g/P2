@@ -112,6 +112,21 @@ module.exports = class player {
 		}
 	}
 
+   // Change currentPlayers hasturn to 0 and set next players hasturn to 1 and return next player
+   static async endTurn(req, res) {
+		try {
+			let currentPlayer = req.body.data;
+         let newPlayerTurn = await Player.endTurn(currentPlayer,req.body.nextPlayer);
+         console.log(req.body.nextPlayer);
+         console.log(newPlayerTurn);
+         res.json(newPlayerTurn);
+		}
+		catch (error) {
+			res.status(500).json({ error: error.message });
+		}
+	}
+
+
    static async getSpecificProperty(req, res) {
       try {
          let specificProperty = await Property.getProperty(req.query.fieldName);
