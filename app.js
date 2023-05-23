@@ -77,8 +77,8 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8081, () => {
-    console.log("Server is listning on port: 8081");
+server.listen(8080, () => {
+    console.log("Server is listning on port: 8080");
 });
 
 // socket.io END
