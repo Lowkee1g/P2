@@ -89,7 +89,11 @@ module.exports = class player {
             
             const playerToCharge = await Player.find(req.body.playerId, null);
             console.log(playerToCharge);
-            res.json(playerToCharge);
+            res.send(
+               {
+               user: playerToCharge,
+               message: "You have successfully paid " + propertyToCharge.rent + " in rent"
+            });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

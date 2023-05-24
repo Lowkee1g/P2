@@ -93,7 +93,7 @@ function runAjax(fieldName) {
   }
 
 function checkOwnership(data,clickOrLand) {
-    if(data.owned && data.userId === playerId) {
+    if(data.owned && data.userId === playerId && data.collection !== "Transport") {
         buyButton.style.display = "none";
         sellButton.style.display = "block";
         upgradeButton.style.display = "block";
@@ -101,7 +101,7 @@ function checkOwnership(data,clickOrLand) {
         sellButton.style.display = "none";
         upgradeButton.style.display = "none";
         buyButton.style.display = "none";
-    } else if(clickOrLand === "click" && data.userId === playerId) {
+    } else if(clickOrLand === "click" && data.userId === playerId && data.collection !== "Transport") {
         sellButton.style.display = "block";
         upgradeButton.style.display = "block"
         buyButton.style.display = "none";
@@ -109,7 +109,11 @@ function checkOwnership(data,clickOrLand) {
         sellButton.style.display = "none";
         upgradeButton.style.display = "none"
         buyButton.style.display = "none";
-    } 
+    } else if(data.collection === "Transport" && data.userId === playerId) {
+        sellButton.style.display = "block";
+        upgradeButton.style.display = "none"
+        buyButton.style.display = "none";
+    }
     else {
         sellButton.style.display = "none";
         upgradeButton.style.display = "none";
@@ -214,7 +218,11 @@ sellButton.addEventListener('click', () => {
 });
 
 function showAlert(message,property) {
-    document.querySelector(".alert .message .successMessage").textContent = message + " " + property.name;
+    if(property !== null) {
+        document.querySelector(".alert .message .successMessage").textContent = message + " " + property.name;
+    } else {
+        document.querySelector(".alert .message .successMessage").textContent = message;
+    }
     document.querySelector(".alert").classList.remove("hideAlert");
     setTimeout(() => {
         document.querySelector(".alert").classList.add("hideAlert");
@@ -232,8 +240,9 @@ function payRent(playerID, property) {
         data: JSON.stringify({property: property, playerId: playerID}),
         dataType: 'json',
         success: function (data) {
-            getPlayerInfo(data)
-            updateAllPlayers(data)
+            getPlayerInfo(data.user)
+            updateAllPlayers(data.user)
+            showAlert(data.message, null)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');

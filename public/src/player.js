@@ -8,9 +8,10 @@ function getPlayerProperties(player) {
         // Clone the template to create a new card for each property
         let cardClone = card.cloneNode(true);
         // Get the corresponding field on the game board based on the property's name
+    
         let field = [...document.querySelectorAll('.container .name')]
-          .find(nameElement => nameElement.textContent === property.name)
-          .parentElement.parentElement;
+            .find(nameElement => nameElement.textContent === property.name)
+            .parentElement.parentElement;
 
         // Get the color bar element of the field and compute its background color
         let colorBar = field.querySelector('.color-bar');
