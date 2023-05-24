@@ -88,7 +88,7 @@ module.exports = class player {
             await Player.payRent(req.body.playerId, propertyToCharge.userId, propertyToCharge.rent, null);
             
             const playerToCharge = await Player.find(req.body.playerId, null);
-
+            console.log(playerToCharge);
             res.json(playerToCharge);
         } catch (error) {
             res.status(500).json({ error: error.message });

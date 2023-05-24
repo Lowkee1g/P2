@@ -148,6 +148,7 @@ buyButton.addEventListener('click', () => {
             getPlayerProperties(data.user)
             getPlayerInfo(data.user)
             showAlert(data.message,data.property)
+            updateAllPlayers(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -170,6 +171,7 @@ upgradeButton.addEventListener('click', () => {
         success: function (data) {
             getPlayerInfo(data.user)
             showAlert(data.message,data.property)
+            updateAllPlayers(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -193,6 +195,7 @@ sellButton.addEventListener('click', () => {
             checkOwnership(data.property);
             getPlayerProperties(data.user)
             getPlayerInfo(data.user)
+            updateAllPlayers(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -222,7 +225,8 @@ function payRent(playerID, property) {
         data: JSON.stringify({property: property, playerId: playerID}),
         dataType: 'json',
         success: function (data) {
-            getPlayerInfo(data.user)
+            getPlayerInfo(data)
+            updateAllPlayers(data)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');

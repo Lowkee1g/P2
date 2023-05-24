@@ -23,6 +23,7 @@ function apiAllPlayers() {
 
 function getAllPlayers(data) {
     players = data;
+    console.log(data);
     // Get all players to end turn to next player
 
     generatePlayerPosistions(data);

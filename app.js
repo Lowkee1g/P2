@@ -76,6 +76,10 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("recieveTurn", playerId, nextPlayerName);
     socket.emit("recieveTurn", playerId, nextPlayerName);
   });
+
+  socket.on("playerToUpdate", (playerToUpdate) => {
+    socket.broadcast.emit("playerToUpdate", playerToUpdate);
+  });
 });
 
 server.listen(7070, () => {
