@@ -138,5 +138,5 @@ function startGame() {
 
 // If startGame recieve click redirect all users to board
 socket.on("startGame", () => {
-    window.location = "http://localhost:3000/";
+    window.location = "http://130.225.37.164:7070/";
 });
