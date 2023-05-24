@@ -5,7 +5,7 @@ let playerList = [];
 
 
 // Open socket connection
-const socket = io("https://stingray-app-8brvy.ondigitalocean.app:7070");
+const socket = io("http://130.225.37.164:7070");
 
 // Connect user socket server called "connection" - CUSTOM NAME
 socket.on("connection");
