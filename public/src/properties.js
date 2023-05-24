@@ -42,9 +42,6 @@ let fieldId;
 
       // Calculate and update the house prices based on the property price. If the property is a railroad, hide the description
       document.querySelector('.one-house').textContent = 'ONE: ' + parseInt(price) * 0.2 + ' DKK';
-      document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price) * 0.4 + ' DKK';
-      document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price) * 0.6 + ' DKK';
-      document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price) * 0.8 + ' DKK';
 
       document.querySelector('.rent').textContent = 'Rent: ' + data.rent + ' DKK';
       document.querySelector('.houses').textContent = 'Houses: ' + data.houses;
