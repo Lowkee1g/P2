@@ -55,7 +55,6 @@
     padding: 5px;
     padding-left: 15px;
     clear: both;
-    
 }
 
 .p_receive {
@@ -67,4 +66,12 @@
     padding-right: 15px;
     clear: both;
     color: black;
+    /**/-color: rgb(25, 161, 163);
+    font-size: 15px;
+}
+
+.p_sendby {
+    font-size: 8px;
+    text-align: top;
+    margin-left: 10px;
 }
