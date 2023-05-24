@@ -66,6 +66,9 @@ let fieldId;
         let owner = players[indexOfOwner];
         document.querySelector(".owner").textContent = "Owned by: " + owner.name;
     }
+    else {
+        document.querySelector(".owner").textContent = "Free";
+    }
 
   // Display the popup
   popup.style.display = 'block';
