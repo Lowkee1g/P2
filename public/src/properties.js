@@ -15,7 +15,7 @@ let fieldId;
     const name = data.name;
     const price = data.price; 
 
-    if(data.owned && data.userId !== playerId) {
+    if(data.owned && data.userId !== playerId && clickOrLand === "land") {
         payRent(playerId,data);
     }
 
@@ -59,6 +59,13 @@ let fieldId;
       popupRailroadDescription.querySelector('.price').textContent = 'Price: ' + price;
   }
 
+    // Loop over players og find der hvor data.userId === players.id
+    // Find index'et af ham der ejer det og sæt hans navn på
+    if(data.owned) {
+        let indexOfOwner = players.findIndex(player => player.id === data.userId);
+        let owner = players[indexOfOwner];
+        document.querySelector(".owner").textContent = "Owned by: " + owner.name;
+    }
 
   // Display the popup
   popup.style.display = 'block';

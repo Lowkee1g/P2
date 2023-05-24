@@ -7,7 +7,6 @@ function getPlayerProperties(player) {
     player.properties.forEach(property => {
         // Clone the template to create a new card for each property
         let cardClone = card.cloneNode(true);
-        console.log(property);
         // Get the corresponding field on the game board based on the property's name
         let field = [...document.querySelectorAll('.container .name')]
           .find(nameElement => nameElement.textContent === property.name)
@@ -45,10 +44,3 @@ function getPlayerInfo(player) {
     playerInfo.querySelector('.propertiesOwned').textContent = "Properties owned: " + player.properties.length
     playerInfo.querySelector('.userName').textContent = player.name
 }
-
-// function updatePlayerInfo(player) {
-//     let playerInfo = document.querySelector('.playerdata')
-//     playerInfo.querySelector('.propertiesOwned').textContent = "Properties owned: " + player.properties.length
-//     playerInfo.querySelector('.money').textContent = "Money: " + player.money + "kr"
-// }
-
