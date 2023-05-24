@@ -1,33 +1,39 @@
 
-const chat = (msg,playerId) => {
-    socket.emit("message", msg,playerId);
+const chat = (msg,player) => {
+    socket.emit("message", msg,player);
 };
 
-socket.on("message_send", (msg,playerId) => {
+socket.on("message_send", (msg,player) => {
     
-    receiveMessage(msg,playerId);
+    receiveMessage(msg,player);
 });
 
-socket.on("message_recieve", (msg,playerId) => {
+socket.on("message_recieve", (msg,player) => {
     
-    receiveMessage(msg,playerId);
+    receiveMessage(msg,player);
 });
 
 document.querySelector("#sendMessage").addEventListener("click", () => {
     var input = document.getElementById("inputtxtID").value;
-    chat(input,playerId);
+    chat(input,player);
 })
+
+
 
 function receiveMessage(message, player) {
     let newmessage = document.createElement("p");
+    let sendby = document.createElement("p");
     let newdiv = document.createElement("div");
 
     newmessage.classList.add("p_receive");
+    sendby.classList.add("p_sendby");
 
     newmessage.innerHTML = message;
+    sendby.innerHTML = "- " + player.name;
     document.getElementById("conversation").appendChild(newdiv);
 
     newdiv.appendChild(newmessage);
+    newdiv.appendChild(sendby);
 }
 
 
@@ -39,6 +45,6 @@ document.getElementById("inputtxtID").addEventListener("keypress", function(even
         event.preventDefault();
         // Trigger the button element with a click
         var input = document.getElementById("inputtxtID").value;
-        chat(input,playerId);
+        chat(input,player);
     }
 });

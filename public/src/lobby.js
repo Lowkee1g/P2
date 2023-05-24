@@ -44,6 +44,8 @@ function addPlayerToGame() {
             console.log('text, ', textStatus);
             console.log('Error', error);
         }
+
+        
     })
 }
 

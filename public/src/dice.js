@@ -28,6 +28,9 @@ function throwDice() {
   const roll1 = diceRoll();
   const roll2 = diceRoll();
   updateDiceimages(roll1,roll2)
+  if(currentdicesum + roll1 + roll2 > 39){
+    getMoneyOnStart();
+  };
   currentdicesum += roll1 + roll2;
 
   if (roll1 === roll2 && p1check < 3) {
@@ -70,3 +73,25 @@ rollButton.addEventListener('click', () => {
   }
 
 });
+
+function getMoneyOnStart(){
+  console.log(playerId);
+  $.ajax({
+    type: 'POST',
+    url: '/userPassStart',
+    contentType: 'application/json',
+    processData: false,
+    data: JSON.stringify({playerId: playerId, changeAmount: 500}),
+    dataType: 'json',
+    success: function (data) {
+        console.log('getMonayOnStart() = ', data);
+        getPlayerInfo(data);
+    },
+    error: function(xhr, textStatus, error) {
+        console.log('Error');
+        console.log('xhr ', xhr);
+        console.log('text, ', textStatus);
+        console.log('Error', error);
+    }
+});
+}

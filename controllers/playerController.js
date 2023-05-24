@@ -80,22 +80,16 @@ module.exports = class player {
 
     static async chargeRent(req, res, next) {
         try {
-			console.log("Charging rent from player: " + req.body.player);
             // Get the property
-            const propertyToCharge = await Property.getProperty(req.body.tile);
+            const propertyToCharge = await Property.getProperty(req.body.property.name);
 
             // Get the player
-            const playerToCharge = await Player.find(req.body.player);
+            
+            await Player.payRent(req.body.playerId, propertyToCharge.userId, propertyToCharge.rent, null);
+            
+            const playerToCharge = await Player.find(req.body.playerId, null);
 
-            // Check if the player owns the property
-            if (propertyToCharge.userId !== playerToCharge.id) {
-                // Check if the property is owned by someone else
-                if (propertyToCharge.userId !== null) {
-					// Charge the player
-					//console.log(await Player.find(propertyToCharge.userId));
-					Player.payRent(playerToCharge, await Player.find(propertyToCharge.userId), propertyToCharge.rent);
-                }
-            }
+            res.json(playerToCharge);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -112,25 +106,21 @@ module.exports = class player {
 		}
 	}
 
-   // Change currentPlayers hasturn to 0 and set next players hasturn to 1 and return next player
-   static async endTurn(req, res) {
-		try {
-			let currentPlayer = req.body.data;
-         let newPlayerTurn = await Player.endTurn(currentPlayer,req.body.nextPlayer);
-         console.log(req.body.nextPlayer);
-         console.log(newPlayerTurn);
-         res.json(newPlayerTurn);
-		}
-		catch (error) {
-			res.status(500).json({ error: error.message });
-		}
-	}
-
-
    static async getSpecificProperty(req, res) {
       try {
          let specificProperty = await Property.getProperty(req.query.fieldName);
          res.send(specificProperty);
+      }
+      catch (error) {
+         res.status(500).json({ error: error.message });
+      }
+   }
+
+   static async userPassStart(req, res) {
+      try {
+         console.log('player_controller = ', req.body.playerId);
+         let playerUpdate = await Player.updateMoney(req.body.playerId, req.body.changeAmount, null);
+         res.send(playerUpdate);
       }
       catch (error) {
          res.status(500).json({ error: error.message });

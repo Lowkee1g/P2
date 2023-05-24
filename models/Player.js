@@ -154,15 +154,15 @@ class Player {
     };
 
     static payRent = async (fromPlayer, toPlayer, amount, ctx) => {
-        console.log("Charging: " + amount + " from player: " + fromPlayer.name + " to player: " + toPlayer.name);
         // Charge the player
-        this.updateMoney(fromplayer, -amount, ctx);
-        this.updateMoney(toPlayer, amount, ctx)
+        await this.updateMoney(fromPlayer, -amount, ctx);
+        await  this.updateMoney(toPlayer, amount, ctx)
     };
 
-    static async updateMoney(playerId, changeAmount, ctx){
+    static async updateMoney(playerID, changeAmount, ctx){
+        console.log('fra updatemoney er playerId = ', playerID);
         let findWhere = {
-            where: {id: playerId}
+            where: {id: parseInt(playerID)}
         };
 
         let userInfo;
@@ -175,38 +175,17 @@ class Player {
 
         let newBalance = userInfo.money + changeAmount;
         let updateWhere = {
-            where: {id: parseInt(playerId)},
-            data: {money: newBalance},
+            where: {id: parseInt(playerID)},
+            data: {money: Math.round(newBalance)},
+            include: {properties: true},
         };
 
         if (ctx === null) {
-            return await prisma.user.update(updateWhere);            
+            return await prisma.user.update(updateWhere);
         } else {
             return await ctx.prisma.user.update(updateWhere);            
         }
     };
-
-    static endTurn = async (currentPlayer,nextPlayerId) => {
-        await prisma.user.update({
-            where: {
-                id: currentPlayer.id,
-            },
-            data: {
-                hasTurn: false,
-            }
-        });
-
-        let thisPlayerHasTurn = await prisma.user.update({
-            where: {
-                id: nextPlayerId,
-            },
-            data: {
-                hasTurn: true,
-            }
-        });
-
-        return thisPlayerHasTurn;
-    }
 
     static getAllPlayers = async (players) => {
         const users =  await prisma.user.findMany({

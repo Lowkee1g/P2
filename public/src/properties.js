@@ -10,11 +10,14 @@ const railroads = document.querySelectorAll('.railroad');
 let fieldId;
 
   async function showPopup(field, isProperty, clickOrLand) {
-    // fieldId = parseInt(field.id.slice(6));
-    
+     
     const data = await runAjax(field.querySelector('.container .name').textContent);
     const name = data.name;
     const price = data.price; 
+
+    if(data.owned && data.userId !== playerId) {
+        payRent(playerId,data);
+    }
 
     // set hidden property id to id on specific property
     fieldId = document.querySelector("#propertyIdHidden").value = data.id;
@@ -209,3 +212,23 @@ function showAlert(message,property) {
 }
 
 setupGame();
+
+function payRent(playerID, property) {
+    $.ajax({
+        type: 'POST',
+        url: '/userPayRent',
+        contentType: 'application/json',
+        processData: false,
+        data: JSON.stringify({property: property, playerId: playerID}),
+        dataType: 'json',
+        success: function (data) {
+            getPlayerInfo(data.user)
+        },
+        error: function(xhr, textStatus, error) {
+            console.log('Error');
+            console.log('xhr ', xhr);
+            console.log('text, ', textStatus);
+            console.log('Error', error);
+        }
+    })
+}
