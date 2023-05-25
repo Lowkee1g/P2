@@ -6,6 +6,7 @@ block content
     include includes/turn.pug
     include includes/playerInfo.pug
     include includes/chat.pug
+    include includes/playersInformation.pug
     .board
       img(src='https://img.freepik.com/free-photo/white-textured-concrete_125540-1826.jpg?w=2000' width='990' height='990' style='position: absolute;opacity: 0.3;z-index: 1;')
       .center
@@ -196,7 +197,7 @@ block content
             .price 1500 DKK
         #field-35.space.railroad
           .container
-            .name.long-name Hovedbane gaarden
+            .name.long-name Hovedbanegaarden
             i.drawing.fa.fa-subway
             .price 2500 DKK
         #field-36.space.chance
@@ -228,3 +229,4 @@ block content
   script(src="/../src/properties.js")
   script(src='../src/player.js')
   script(src="/../../src/chat.js")
+  script(src="/../src/playersInformation.js")

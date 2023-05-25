@@ -529,6 +529,7 @@ background-color: #a1bb22;
     top: 1%;
     gap: 15px;
     display: flex;
+    z-index: 100;
     align-items: center;
     padding-left: 5px;
     padding-right: 5px;

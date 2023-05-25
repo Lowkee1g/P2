@@ -191,6 +191,9 @@ class Player {
         const users =  await prisma.user.findMany({
             where: {
                 name: { in: players },
+            },
+            include: {
+                properties: true,
             }
         });
         return users;

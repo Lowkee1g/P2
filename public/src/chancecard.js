@@ -48,6 +48,7 @@ function getQuote() {
         success: function (data) {
             console.log("Chance: " + JSON.stringify(data));
             getPlayerInfo(data);
+            updateAllPlayers(data);
         },
         error: function(xhr, textStatus, error) {
             console.log(error);

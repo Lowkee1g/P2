@@ -15,7 +15,7 @@ let fieldId;
     const name = data.name;
     const price = data.price; 
 
-    if(data.owned && data.userId !== playerId) {
+    if(data.owned && data.userId !== playerId && clickOrLand === "land") {
         payRent(playerId,data);
     }
 
@@ -42,9 +42,6 @@ let fieldId;
 
       // Calculate and update the house prices based on the property price. If the property is a railroad, hide the description
       document.querySelector('.one-house').textContent = 'ONE: ' + parseInt(price) * 0.2 + ' DKK';
-      document.querySelector('.two-house').textContent = 'TWO: ' + parseInt(price) * 0.4 + ' DKK';
-      document.querySelector('.three-house').textContent = 'THREE: ' + parseInt(price) * 0.6 + ' DKK';
-      document.querySelector('.four-house').textContent = 'FOUR: ' + parseInt(price) * 0.8 + ' DKK';
 
       document.querySelector('.rent').textContent = 'Rent: ' + data.rent + ' DKK';
       document.querySelector('.houses').textContent = 'Houses: ' + data.houses;
@@ -59,6 +56,16 @@ let fieldId;
       popupRailroadDescription.querySelector('.price').textContent = 'Price: ' + price;
   }
 
+    // Loop over players og find der hvor data.userId === players.id
+    // Find index'et af ham der ejer det og sæt hans navn på
+    if(data.owned) {
+        let indexOfOwner = players.findIndex(player => player.id === data.userId);
+        let owner = players[indexOfOwner];
+        document.querySelector(".owner").textContent = "Owned by: " + owner.name;
+    }
+    else {
+        document.querySelector(".owner").textContent = "Free";
+    }
 
   // Display the popup
   popup.style.display = 'block';
@@ -86,7 +93,7 @@ function runAjax(fieldName) {
   }
 
 function checkOwnership(data,clickOrLand) {
-    if(data.owned && data.userId === playerId) {
+    if(data.owned && data.userId === playerId && data.collection !== "Transport") {
         buyButton.style.display = "none";
         sellButton.style.display = "block";
         upgradeButton.style.display = "block";
@@ -94,7 +101,7 @@ function checkOwnership(data,clickOrLand) {
         sellButton.style.display = "none";
         upgradeButton.style.display = "none";
         buyButton.style.display = "none";
-    } else if(clickOrLand === "click" && data.userId === playerId) {
+    } else if(clickOrLand === "click" && data.userId === playerId && data.collection !== "Transport") {
         sellButton.style.display = "block";
         upgradeButton.style.display = "block"
         buyButton.style.display = "none";
@@ -102,7 +109,11 @@ function checkOwnership(data,clickOrLand) {
         sellButton.style.display = "none";
         upgradeButton.style.display = "none"
         buyButton.style.display = "none";
-    } 
+    } else if(data.collection === "Transport" && data.userId === playerId) {
+        sellButton.style.display = "block";
+        upgradeButton.style.display = "none"
+        buyButton.style.display = "none";
+    }
     else {
         sellButton.style.display = "none";
         upgradeButton.style.display = "none";
@@ -148,6 +159,7 @@ buyButton.addEventListener('click', () => {
             getPlayerProperties(data.user)
             getPlayerInfo(data.user)
             showAlert(data.message,data.property)
+            updateAllPlayers(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -170,6 +182,7 @@ upgradeButton.addEventListener('click', () => {
         success: function (data) {
             getPlayerInfo(data.user)
             showAlert(data.message,data.property)
+            updateAllPlayers(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -193,6 +206,7 @@ sellButton.addEventListener('click', () => {
             checkOwnership(data.property);
             getPlayerProperties(data.user)
             getPlayerInfo(data.user)
+            updateAllPlayers(data.user)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
@@ -204,7 +218,11 @@ sellButton.addEventListener('click', () => {
 });
 
 function showAlert(message,property) {
-    document.querySelector(".alert .message .successMessage").textContent = message + " " + property.name;
+    if(property !== null) {
+        document.querySelector(".alert .message .successMessage").textContent = message + " " + property.name;
+    } else {
+        document.querySelector(".alert .message .successMessage").textContent = message;
+    }
     document.querySelector(".alert").classList.remove("hideAlert");
     setTimeout(() => {
         document.querySelector(".alert").classList.add("hideAlert");
@@ -223,6 +241,8 @@ function payRent(playerID, property) {
         dataType: 'json',
         success: function (data) {
             getPlayerInfo(data.user)
+            updateAllPlayers(data.user)
+            showAlert(data.message, null)
         },
         error: function(xhr, textStatus, error) {
             console.log('Error');
