@@ -4,4 +4,4 @@ node_modules/.bin/
 .env
 
 # remove local_ip.js
-local_ip.js
+.\local_ip.js
