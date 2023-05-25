@@ -5,7 +5,7 @@ let playerList = [];
 
 
 // Open socket connection
-const socket = io("http://localhost:7070");
+const socket = io(`http://${ip}:7070`);
 
 // Connect user socket server called "connection" - CUSTOM NAME
 socket.on("connection");
@@ -140,5 +140,5 @@ function startGame() {
 
 // If startGame recieve click redirect all users to board
 socket.on("startGame", () => {
-    window.location = "http://localhost:3000/";
+    window.location = `http://${ip}:3000/`;
 });
